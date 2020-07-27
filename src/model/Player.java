@@ -1,11 +1,11 @@
 package model;
 
-public class Player {
-	private String name;
-	private String role;
-	private String nationality;
-	
-	private int price;
+
+import com.github.pabloo99.xmlsoccer.api.dto.GetPlayersResultDto;
+
+public class Player{
+	private GetPlayersResultDto stats;
+	private String price;
 	private int points;
 	private int goals;
 	private int assists;
@@ -17,13 +17,10 @@ public class Player {
 	private boolean isInjured;
 	private boolean isCaptain;
 	
-	private Club club;
 	
-	public Player(String n, String r, String nat, int price) {
-		this.name = n;
-		this.role = r;
-		this.nationality = nat;
-		this.price = price;
+	public Player(GetPlayersResultDto stats) {
+		this.stats = stats;
+		this.price = stats.getSigning();
 		
 	}
 	
@@ -45,5 +42,57 @@ public class Player {
 	
 	public void demoteCaptain() {
 		
+	}
+
+	public GetPlayersResultDto getStats() {
+		return stats;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
+	public boolean isInjured() {
+		return isInjured;
+	}
+
+	public void setInjured(boolean isInjured) {
+		this.isInjured = isInjured;
+	}
+
+	public boolean isCaptain() {
+		return isCaptain;
+	}
+
+	public void setCaptain(boolean isCaptain) {
+		this.isCaptain = isCaptain;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public int getGoals() {
+		return goals;
+	}
+
+	public int getAssists() {
+		return assists;
+	}
+
+	public int getYellowCards() {
+		return yellowCards;
+	}
+
+	public int getRedCards() {
+		return redCards;
+	}
+
+	public int getOwnGoals() {
+		return ownGoals;
 	}
 }

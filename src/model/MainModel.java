@@ -1,31 +1,34 @@
 package model;
 
+import java.util.ArrayList;
+
 import com.github.pabloo99.xmlsoccer.api.dto.GetTeamResultDto;
 
 public class MainModel {
 	private Clubs clubs;
 	private Players players;
-	
+	private ArrayList<User> users;
+	private ArrayList<League> leagues;
+	//fixtures arraylist
 	
 	public MainModel() {
 		this.clubs = new Clubs();
-		this.players = new Players();
-	}
-		
-	public void buildPlayerRoster() {
-		
+		this.players = new Players(this.clubs);
+		this.users = new ArrayList<User>();
 	}
 	
-	public void selectPlayers() {
-		
+	public void addNewUser(String username, String pass) {
+		this.users.add(new User)
 	}
-	
+
+
 	public static void main(String[] args) {
 		MainModel model = new MainModel();
-		System.out.println(model.clubs.getClubs().size());
-		for(GetTeamResultDto club : model.clubs.getClubs()) {
+		System.out.println(model.clubs.clubs.size());
+		for (GetTeamResultDto club : model.clubs.clubs) {
 			System.out.println(club.getName());
 		}
-		
+		System.out.println(model.players.getRoster().get(1).getStats().getName());
 	}
+
 }
