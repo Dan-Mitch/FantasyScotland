@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 public class Team {
 	private String name;
+	private User owner;
 	private HashMap<Integer, Player> squad;
 	private Player captain;
 	private int gkCount = 0;
@@ -13,7 +14,8 @@ public class Team {
 	private int midCount = 0;
 	private int forCount = 0;
 	
-	public Team() {
+	public Team(User owner) {
+		this.owner = owner;
 		this.squad = new HashMap<Integer, Player>();
 	}
 
@@ -21,9 +23,9 @@ public class Team {
 
 	}
 
-	public void addPlayer(Player p) {
+	public void addPlayer(Player p) throws Exception {
 		if(squad.size() >= 15) {
-			;;
+			throw new Exception("Hit player limit");
 		}
 		else if(p.getStats().getPosition().equals("GoalKeeper")) {
 			if(gkCount == 0) {
@@ -33,7 +35,7 @@ public class Team {
 				squad.put(12, p);
 			}
 			else if (gkCount == 2) {
-				;;
+				throw new Exception("Hit goalkeeper limit");
 			}
 		}
 		else if(p.getStats().getPosition().equals("Defender")) {
@@ -58,7 +60,7 @@ public class Team {
 				defCount++;
 			}
 			else if(defCount == 5) {
-				;;
+				throw new Exception("Hit defender limit");
 			}
 		}
 		else if(p.getStats().getPosition().equals("Midfielder")) {
@@ -83,7 +85,7 @@ public class Team {
 				midCount++;
 			}
 			else if(midCount == 5) {
-				;;
+				throw new Exception("Hit midfielder limit");
 			}
 		}
 		else if(p.getStats().getPosition().equals("Forward")) {
@@ -100,7 +102,7 @@ public class Team {
 				forCount++;
 			}
 			else if(midCount == 3) {
-				;;
+				throw new Exception("Hit forward limit");
 			}
 		}
 		checkClubLimit();

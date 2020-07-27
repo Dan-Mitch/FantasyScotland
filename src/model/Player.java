@@ -16,6 +16,7 @@ public class Player{
 	
 	private boolean isInjured;
 	private boolean isCaptain;
+	private boolean isSelectable;
 	
 	
 	public Player(GetPlayersResultDto stats) {
@@ -70,6 +71,14 @@ public class Player{
 
 	public void setCaptain(boolean isCaptain) {
 		this.isCaptain = isCaptain;
+	}
+
+	public boolean isSelectable() {
+		return isSelectable;
+	}
+
+	public void setSelectable(boolean isSelectable) {
+		this.isSelectable = isSelectable;
 	}
 
 	public int getPoints() {

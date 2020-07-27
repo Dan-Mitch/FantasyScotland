@@ -8,10 +8,18 @@ public class User {
 	public User(String un, String pw) {
 		this.username = un;
 		this.password = pw;
-		chooseTeam();
+		createTeam();
 	}
 	
-	public void chooseTeam() {
-		this.team = new Team();
+	public void createTeam() {
+		this.team = new Team(this);
+	}
+	
+	public void addPlayerToTeam(Player p) {
+		try {
+			this.team.addPlayer(p);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
