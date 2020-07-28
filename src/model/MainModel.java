@@ -17,6 +17,10 @@ public class MainModel {
 		this.users = new ArrayList<User>();
 	}
 	
+	public void checkDatabaseUser() {
+		
+	}
+	
 	public void addNewUser(String username, String pass) {
 		this.users.add(new User(username, pass));
 	}

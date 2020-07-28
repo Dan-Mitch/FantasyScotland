@@ -6,16 +6,17 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import online.dwViews.GameScreenView;
-import online.dwViews.SelectionScreenView;
+import online.dwViews.LoginScreenView;
+import online.dwViews.RegisterScreenView;
 import online.dwViews.StatisticsView;
 
-@Path("/toptrumps") // Resources specified here should be hosted at http://localhost:7777/toptrumps
+@Path("/fantasyscotland") // Resources specified here should be hosted at http://localhost:7777/fantasyscotland
 @Produces(MediaType.TEXT_HTML) // This resource returns HTML content
 
 /**
  * This is a Dropwizard Resource that specifies what to provide when a user
  * requests a particular URL. In this case, the URLs are associated to the
- * different HTML/Javascript Web pages for the TopTrumps Application. 
+ * different HTML/Javascript Web pages for the FantasyScotland Application. 
  * @author richardm
  *
  */
@@ -25,18 +26,29 @@ public class GameWebPagesResource {
 	@Path("/")
 	/**
 	 * The selection screen for choosing whether to see past game statistics or
-	 * play a game. Hosted at 'http://localhost:7777/toptrumps/'
+	 * play a game. Hosted at 'http://localhost:7777/fantasyscotland/'
 	 * @return
 	 */
-    public SelectionScreenView getSelectionScreen() {
-        return new SelectionScreenView();
+    public LoginScreenView getLoginScreen() {
+        return new LoginScreenView();
+    }
+	
+	@GET
+	@Path("/register")
+	/**
+	 * The Web page within which the user can play a game of FantasyScotland.
+	 * Hosted at 'http://localhost:7777/fantasyscotland/register'
+	 * @return
+	 */
+    public RegisterScreenView getRegisterScreen() {
+        return new RegisterScreenView();
     }
 	
 	@GET
 	@Path("/game")
 	/**
-	 * The Web page within which the user can play a game of TopTrumps.
-	 * Hosted at 'http://localhost:7777/toptrumps/game'
+	 * The Web page within which the user can play a game of FantasyScotland.
+	 * Hosted at 'http://localhost:7777/fantasyscotland/game'
 	 * @return
 	 */
     public GameScreenView getGameScreen() {
@@ -47,7 +59,7 @@ public class GameWebPagesResource {
 	@Path("/stats")
 	/**
 	 * The Web page that shows past game statistics
-	 * Hosted at 'http://localhost:7777/toptrumps/stats'
+	 * Hosted at 'http://localhost:7777/fantasyscotland/stats'
 	 * @return
 	 */
     public StatisticsView getStatisticsView() {

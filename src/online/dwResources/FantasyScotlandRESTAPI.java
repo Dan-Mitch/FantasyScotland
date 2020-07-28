@@ -11,14 +11,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import online.configuration.TopTrumpsJSONConfiguration;
+import online.configuration.FantasyScotlandJSONConfiguration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 import model.MainModel;
 
-@Path("/toptrumps") // Resources specified here should be hosted at http://localhost:7777/toptrumps
+@Path("/fantasyscotland") // Resources specified here should be hosted at http://localhost:7777/fantasyscotland
 @Produces(MediaType.APPLICATION_JSON) // This resource returns JSON content
 @Consumes(MediaType.APPLICATION_JSON) // This resource can take JSON content as input
 /**
@@ -29,9 +29,9 @@ import model.MainModel;
  * 
  * Below are provided some sample methods that illustrate how to create
  * REST API methods in Dropwizard. You will need to replace these with
- * methods that allow a TopTrumps game to be controled from a Web page.
+ * methods that allow a FantasyScotland game to be controled from a Web page.
  */
-public class TopTrumpsRESTAPI {
+public class FantasyScotlandRESTAPI {
 
 	/** A Jackson Object writer. It allows us to turn Java objects
 	 * into JSON strings easily. */
@@ -39,13 +39,14 @@ public class TopTrumpsRESTAPI {
 	
 	/**
 	 * Contructor method for the REST API. This is called first. It provides
-	 * a TopTrumpsJSONConfiguration from which you can get the location of
+	 * a FantasyScotlandJSONConfiguration from which you can get the location of
 	 * the deck file and the number of AI players.
 	 * @param conf
 	 */
 	
 	private MainModel model;
-	public TopTrumpsRESTAPI(TopTrumpsJSONConfiguration conf) {
+	
+	public FantasyScotlandRESTAPI(FantasyScotlandJSONConfiguration conf) {
 		// ----------------------------------------------------
 		// Add relevant initalization here
 		// ----------------------------------------------------
