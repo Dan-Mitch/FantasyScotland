@@ -1,5 +1,6 @@
 package view;
 
+import model.Defender;
 import model.GoalKeeper;
 import model.MainModel;
 
@@ -45,13 +46,26 @@ public class MainView {
 	public void listGoalkeepers(){
 		int i = 1;
 		System.out.println("--------------------------------");
-		System.out.println("Welcome to Fantasy Scotland");
-		System.out.println("--------------------------------");
 		System.out.println("---------GoalKeeper List--------");
 		System.out.println("There are " + this.model.getPlayers().getGoalkeepers().size() + " goalkeepers.");
 		for(GoalKeeper gk : this.model.getPlayers().getGoalkeepers()) {
 			System.out.println(i++ +". : " + gk.getStats().getName());
 		}
 		System.out.println("--------------------------------");
+	}
+	
+	public void listDefenders(){
+		int i = 1;
+		System.out.println("--------------------------------");
+		System.out.println("---------Defender List--------");
+		System.out.println("There are " + this.model.getPlayers().getDefenders().size() + " defenders.");
+		for(Defender def : this.model.getPlayers().getDefenders()) {
+			System.out.println(i++ +". : " + def.getStats().getName());
+		}
+		System.out.println("--------------------------------");
+	}
+	
+	public void listRules() {
+		
 	}
 }

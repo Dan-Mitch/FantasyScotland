@@ -22,4 +22,8 @@ public class User {
 			e.printStackTrace();
 		}
 	}
+
+	public String getUsername() {
+		return username;
+	}
 }
