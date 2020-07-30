@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -16,6 +17,7 @@ import online.configuration.FantasyScotlandJSONConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
+import database.DatabaseLinker;
 import model.MainModel;
 
 @Path("/fantasyscotland") // Resources specified here should be hosted at http://localhost:7777/fantasyscotland
@@ -45,6 +47,7 @@ public class FantasyScotlandRESTAPI {
 	 */
 	
 	private MainModel model;
+	private DatabaseLinker database;
 	
 	public FantasyScotlandRESTAPI(FantasyScotlandJSONConfiguration conf) {
 		// ----------------------------------------------------
@@ -52,6 +55,7 @@ public class FantasyScotlandRESTAPI {
 		// ----------------------------------------------------
 		
 		this.model = new MainModel();
+		this.database = new DatabaseLinker();
 	}
 	
 	// ----------------------------------------------------
@@ -90,5 +94,25 @@ public class FantasyScotlandRESTAPI {
 	public String helloWord(@QueryParam("Word") String Word) throws IOException {
 		return "Hello "+Word;
 	}
+	
+	@POST
+	@Path("/login")
+	/**
+	 * Here is an example of how to read parameters provided in an HTML Get request.
+	 * @param Word - A word
+	 * @return - A String
+	 * @throws IOException
+	 */
+	public boolean authenticateUser(@QueryParam("Email") String email, @QueryParam("Pass") String pass) throws IOException {
+		System.err.println(email + " " + pass);
+		if(database.authenticateUser(email, pass)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	
 	
 }

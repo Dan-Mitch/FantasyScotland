@@ -56,7 +56,7 @@ public class GameWebPagesResource {
     }
 	
 	@GET
-	@Path("/stats")
+	@Path("/home")
 	/**
 	 * The Web page that shows past game statistics
 	 * Hosted at 'http://localhost:7777/fantasyscotland/stats'

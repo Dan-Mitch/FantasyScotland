@@ -65,81 +65,155 @@ body {
 }
 </style>
 </head>
-<body>
 
-<div class="wrapper">
+<body onload="initalize()">
 
-<form class="form-signin">
-  <h2 class="form-signin-heading text-center">Welcome to Fantasy Scotland!</h2>
-  <a class="logo" id="logo"><img src="https://i.ibb.co/yVc3vPy/Fantasy-Scotland.png" alt="Fantasy-Scotland" width="250" ></a>
-  <input type="text" id="username" class="form-control" name="username" placeholder="Enter Email Address" required="" autofocus="" />
-  <input type="password" id="password" class="form-control" name="password" placeholder="Enter Password" required="" />
-  <label class="checkbox">
-    <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe">
-    Remember me
-  </label>
-  <div class="register">
-    <button type="button" class="btn btn-lg btn-primary btn-block" id="loginButton">Login</button>
-    <p id="registerLine">Don't have an account? <a href='fantasyscotland/register'>Register Here.</a></p>
-  </div>
-</form>
+	<div class="wrapper">
 
-</div>
+		<form class="form-signin">
+		  <h2 class="form-signin-heading text-center">Welcome to Fantasy Scotland!</h2>
+		  <a class="logo" id="logo"><img src="https://i.ibb.co/yVc3vPy/Fantasy-Scotland.png" alt="Fantasy-Scotland" width="250" ></a>
+		  <input type="text" id="email" class="form-control" name="email" placeholder="Enter Email Address" required="" autofocus="" />
+		  <input type="password" id="password" class="form-control" name="password" placeholder="Enter Password" required="" />
+		  <label class="checkbox">
+		    <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe">
+		    Remember me
+		  </label>
+		  <div class="register">
+		    <button type="button" class="btn btn-lg btn-primary btn-block" id="loginButton" onclick="authenticateUser()" >Login</button>
+		    <p id="registerLine">Don't have an account? <a href='fantasyscotland/register'>Register Here.</a></p>
+		  </div>
+		</form>
 
-<footer class="footer mt-auto py-2 fixed-bottom">
-  <div class="container">
-    <span class="text-muted">Made by Daniel Mitchell<span>
-  </div>
-</footer>
+	</div>
+	
+	<footer class="footer mt-auto py-2 fixed-bottom">
+  		<div class="container">
+    		<span class="text-muted">Made by Daniel Mitchell<span>
+  		</div>
+	</footer>
 
-<script type="text/javascript">
-    
-      // Method that is called on page load
-      function initalize() {
-      
-        // --------------------------------------------------------------------------
-        // You can call other methods you want to run when the page first loads here
-        // --------------------------------------------------------------------------
-        startGame();
-      }
-      
-      // -----------------------------------------
-      // Add your other Javascript methods Here
-      // -----------------------------------------
-    
-      // This is a reusable method for creating a CORS request. Do not edit this.
-      function createCORSRequest(method, url) {
-          var xhr = new XMLHttpRequest();
-          if ("withCredentials" in xhr) {
 
-            // Check if the XMLHttpRequest object has a "withCredentials" property.
-            // "withCredentials" only exists on XMLHTTPRequest2 objects.
-            xhr.open(method, url, true);
+	<script type="text/javascript">
+		
+			// Method that is called on page load
+			function initalize() {
+			
+				// --------------------------------------------------------------------------
+				// You can call other methods you want to run when the page first loads here
+				// --------------------------------------------------------------------------
+				
+				// For example, lets call our sample methods
+				
+				
+			}
+			
+			// -----------------------------------------
+			// Add your other Javascript methods Here
+			// -----------------------------------------
+		
+			// This is a reusable method for creating a CORS request. Do not edit this.
+			function createCORSRequest(method, url) {
+  				var xhr = new XMLHttpRequest();
+  				if ("withCredentials" in xhr) {
 
-          } else if (typeof XDomainRequest != "undefined") {
+    				// Check if the XMLHttpRequest object has a "withCredentials" property.
+    				// "withCredentials" only exists on XMLHTTPRequest2 objects.
+    				xhr.open(method, url, true);
 
-            // Otherwise, check if XDomainRequest.
-            // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-            xhr = new XDomainRequest();
-            xhr.open(method, url);
+  				} else if (typeof XDomainRequest != "undefined") {
 
-         } else {
+    				// Otherwise, check if XDomainRequest.
+    				// XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+    				xhr = new XDomainRequest();
+    				xhr.open(method, url);
 
-            // Otherwise, CORS is not supported by the browser.
-            xhr = null;
+ 				 } else {
 
-           }
-           return xhr;
-      }
-    
-    </script>
+    				// Otherwise, CORS is not supported by the browser.
+    				xhr = null;
 
-    <!-- Here are examples of how to call REST API Methods -->
-    <script type="text/javascript">
-      
+  				 }
+  				 return xhr;
+			}
+		
+		</script>
+		
+		<!-- Here are examples of how to call REST API Methods -->
+		<script type="text/javascript">
+		
+			// This calls the helloJSONList REST method from TopTrumpsRESTAPI
+			function helloJSONList() {
+			
+				// First create a CORS request, this is the message we are going to send (a get request in this case)
+				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/helloJSONList"); // Request type and URL
+				
+				// Message is not sent yet, but we can check that the browser supports CORS
+				if (!xhr) {
+  					alert("CORS not supported");
+				}
 
-      
+				// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+				// to do when the response arrives 
+				xhr.onload = function(e) {
+ 					var responseText = xhr.response; // the text of the response
+					alert(responseText); // lets produce an alert
+				};
+				
+				// We have done everything we need to prepare the CORS request, so send it
+				xhr.send();		
+			}
+			
+			function authenticateUser() {
+			
+				// First create a CORS request, this is the message we are going to send (a get request in this case)
+				var email = document.getElementById("email").value;
+				var pass = document.getElementById("password").value;
+				var xhr = createCORSRequest('POST', "http://localhost:7777/fantasyscotland/login?Email="+email+"&Pass="+pass); // Request type and URL+parameters
+				
+				// Message is not sent yet, but we can check that the browser supports CORS
+				if (!xhr) {
+  					alert("CORS not supported");
+				}
 
+				// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+				// to do when the response arrives 
+				xhr.onload = function(e) {
+ 					if(xhr.response == "false"){
+ 						alert("Wrong Email Address or Password used.");
+ 					}else{
+ 						window.location.href = 'fantasyscotland/home';
+ 						userSignIn();
+ 					}	
+				};
+				
+				// We have done everything we need to prepare the CORS request, so send it
+				xhr.send();		
+			}
+			
+			// This calls the helloJSONList REST method from TopTrumpsRESTAPI
+			function helloWord(word) {
+			
+				// First create a CORS request, this is the message we are going to send (a get request in this case)
+				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/helloWord?Word="+word); // Request type and URL+parameters
+				
+				// Message is not sent yet, but we can check that the browser supports CORS
+				if (!xhr) {
+  					alert("CORS not supported");
+				}
+
+				// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+				// to do when the response arrives 
+				xhr.onload = function(e) {
+ 					var responseText = xhr.response; // the text of the response
+					alert(responseText); // lets produce an alert
+				};
+				
+				// We have done everything we need to prepare the CORS request, so send it
+				xhr.send();		
+			}
+
+		</script>			
 </body>
 </html>
 
