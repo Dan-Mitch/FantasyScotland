@@ -1,12 +1,13 @@
 package model;
 
 public class User {
-	private String username;
+	private String email;
+	private String id;
 	private Team team;
 	
-	public User(String un, String pw) {
-		this.username = un;
-		createTeam();
+	public User(String e, String id) {
+		this.email = e;
+		this.id = id;
 	}
 	
 	public void createTeam() {
@@ -23,9 +24,5 @@ public class User {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	public String getUsername() {
-		return username;
 	}
 }

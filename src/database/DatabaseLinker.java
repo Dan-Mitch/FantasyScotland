@@ -44,19 +44,19 @@ public class DatabaseLinker {
 		}
 	}
 
-	public boolean authenticateUser(String email, String pass) {
+	public String authenticateUser(String email, String pass) {
 		String query = "SELECT id FROM users WHERE email='" + email + "' AND password = crypt('" + pass
 				+ "', password)";
+		String id = null;
 		openConnection();
 		try {
 			Statement statement = connection.createStatement();
 			ResultSet result = statement.executeQuery(query);
 			if (result.next()) {
 				System.out.println("User exists on database...");
-				return true;
+				id = result.getString("id");
 			} else {
 				System.out.println("User does not exist on database...");
-				return false;
 			}
 		} catch (SQLException ex) {
 
@@ -65,7 +65,7 @@ public class DatabaseLinker {
 		} finally {
 			closeConnection();
 		}
-		return false;
+		return id;
 	}
 
 	private void openConnection() {

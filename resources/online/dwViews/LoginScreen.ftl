@@ -27,7 +27,7 @@ body {
   border: 1px solid #e5e5e5;
   border-radius: 10px;
 }
-.form-signin .form-signin-heading, .form-signin .checkbox {
+.form-signin .form-signin-heading, .form-signin .warning {
   margin-bottom: 30px;
 }
 .form-signin input[type="text"], .form-signin input[type="password"] {
@@ -62,6 +62,9 @@ body {
 
 .register{
   margin-top:10px;
+  }
+.warning{
+  display: none;
 }
 </style>
 </head>
@@ -75,10 +78,9 @@ body {
 		  <a class="logo" id="logo"><img src="https://i.ibb.co/yVc3vPy/Fantasy-Scotland.png" alt="Fantasy-Scotland" width="250" ></a>
 		  <input type="text" id="email" class="form-control" name="email" placeholder="Enter Email Address" required="" autofocus="" />
 		  <input type="password" id="password" class="form-control" name="password" placeholder="Enter Password" required="" />
-		  <label class="checkbox">
-		    <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe">
-		    Remember me
-		  </label>
+		  <div class="warning" id="warning">
+		    <p class="text-danger">Email or password did not match.</p>
+		  </div>
 		  <div class="register">
 		    <button type="button" class="btn btn-lg btn-primary btn-block" id="loginButton" onclick="authenticateUser()" >Login</button>
 		    <p id="registerLine">Don't have an account? <a href='fantasyscotland/register'>Register Here.</a></p>
@@ -98,7 +100,7 @@ body {
 		
 			// Method that is called on page load
 			function initalize() {
-			
+				checkPlayerDatabase();
 				// --------------------------------------------------------------------------
 				// You can call other methods you want to run when the page first loads here
 				// --------------------------------------------------------------------------
@@ -165,11 +167,11 @@ body {
 			}
 			
 			function authenticateUser() {
-			
-				// First create a CORS request, this is the message we are going to send (a get request in this case)
 				var email = document.getElementById("email").value;
 				var pass = document.getElementById("password").value;
-				var xhr = createCORSRequest('POST', "http://localhost:7777/fantasyscotland/login?Email="+email+"&Pass="+pass); // Request type and URL+parameters
+				
+				// First create a CORS request, this is the message we are going to send (a get request in this case)
+				var xhr = createCORSRequest('POST', "http://localhost:7777/fantasyscotland/auth?Email="+email+"&Pass="+pass); // Request type and URL+parameters
 				
 				// Message is not sent yet, but we can check that the browser supports CORS
 				if (!xhr) {
@@ -179,11 +181,11 @@ body {
 				// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
 				// to do when the response arrives 
 				xhr.onload = function(e) {
+					alert(xhr.response);
  					if(xhr.response == "false"){
- 						alert("Wrong Email Address or Password used.");
+ 						document.getElementById("warning").style.display = "block";
  					}else{
  						window.location.href = 'fantasyscotland/home';
- 						userSignIn();
  					}	
 				};
 				

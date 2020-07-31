@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 import database.DatabaseLinker;
-import model.MainModel;
+import model.*;
 
 @Path("/fantasyscotland") // Resources specified here should be hosted at http://localhost:7777/fantasyscotland
 @Produces(MediaType.APPLICATION_JSON) // This resource returns JSON content
@@ -96,7 +96,7 @@ public class FantasyScotlandRESTAPI {
 	}
 	
 	@POST
-	@Path("/login")
+	@Path("/auth")
 	/**
 	 * Here is an example of how to read parameters provided in an HTML Get request.
 	 * @param Word - A word
@@ -105,14 +105,25 @@ public class FantasyScotlandRESTAPI {
 	 */
 	public boolean authenticateUser(@QueryParam("Email") String email, @QueryParam("Pass") String pass) throws IOException {
 		System.err.println(email + " " + pass);
-		if(database.authenticateUser(email, pass)) {
+		String id = database.authenticateUser(email, pass);
+		if(id != null && !id.isEmpty()) {
+			System.err.println("This is creating");
+			this.model.setCurrentUser(new User(email, id));
 			return true;
 		}
-		else {
-			return false;
-		}
+		return false;
 	}
 	
-	
-	
+	@POST
+	@Path("/register")
+	/**
+	 * Here is an example of how to read parameters provided in an HTML Get request.
+	 * @param Word - A word
+	 * @return - A String
+	 * @throws IOException
+	 */
+	public void registerUser(@QueryParam("Email") String email, @QueryParam("Pass") String pass) throws IOException {
+		System.err.println(email + " " + pass);
+		database.writeUser(email, pass);
+	}
 }

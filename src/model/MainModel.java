@@ -7,25 +7,21 @@ import com.github.pabloo99.xmlsoccer.api.dto.GetTeamResultDto;
 public class MainModel {
 	private Clubs clubs;
 	private Players players;
-	private ArrayList<User> users;
-	private ArrayList<League> leagues;
-	//fixtures arraylist
+	private Fixtures fixtures;
+	private Leagues leagues;
+	private User currentUser;
 	
 	public MainModel() {
 		this.clubs = new Clubs();
+		this.fixtures = new Fixtures();
+		this.leagues = new Leagues();
 		this.players = new Players(this.clubs);
-		this.users = new ArrayList<User>();
 	}
 	
 	public void checkDatabaseUser() {
 		
 	}
 	
-	public void addNewUser(String username, String pass) {
-		this.users.add(new User(username, pass));
-	}
-
-
 	public Clubs getClubs() {
 		return clubs;
 	}
@@ -34,12 +30,13 @@ public class MainModel {
 		return players;
 	}
 
-	public ArrayList<User> getUsers() {
-		return users;
+
+	public User getCurrentUser() {
+		return currentUser;
 	}
 
-	public ArrayList<League> getLeagues() {
-		return leagues;
+	public void setCurrentUser(User currentUser) {
+		this.currentUser = currentUser;
 	}
 
 //	public static void main(String[] args) {
