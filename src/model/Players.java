@@ -73,6 +73,15 @@ public class Players {
 	public ArrayList<Player> getRoster() {
 		return roster;
 	}
+	
+	public Player getPlayer(int id) {
+		for(Player p : this.roster) {
+			if(id == p.getStats().getId()) {
+				return p;
+			}
+		}
+		return null;
+	}
 
 	public int getNumOfPlayers() {
 		return numOfPlayers;

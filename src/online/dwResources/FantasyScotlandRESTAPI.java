@@ -17,7 +17,6 @@ import online.configuration.FantasyScotlandJSONConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
-import database.DatabaseLinker;
 import model.*;
 
 @Path("/fantasyscotland") // Resources specified here should be hosted at http://localhost:7777/fantasyscotland
@@ -47,7 +46,6 @@ public class FantasyScotlandRESTAPI {
 	 */
 	
 	private MainModel model;
-	private DatabaseLinker database;
 	
 	public FantasyScotlandRESTAPI(FantasyScotlandJSONConfiguration conf) {
 		// ----------------------------------------------------
@@ -55,7 +53,6 @@ public class FantasyScotlandRESTAPI {
 		// ----------------------------------------------------
 		
 		this.model = new MainModel();
-		this.database = new DatabaseLinker();
 	}
 	
 	// ----------------------------------------------------
@@ -104,14 +101,7 @@ public class FantasyScotlandRESTAPI {
 	 * @throws IOException
 	 */
 	public boolean authenticateUser(@QueryParam("Email") String email, @QueryParam("Pass") String pass) throws IOException {
-		System.err.println(email + " " + pass);
-		String id = database.authenticateUser(email, pass);
-		if(id != null && !id.isEmpty()) {
-			System.err.println("This is creating");
-			this.model.setCurrentUser(new User(email, id));
-			return true;
-		}
-		return false;
+		return this.model.authenticateUser(email,pass);
 	}
 	
 	@POST
@@ -123,7 +113,18 @@ public class FantasyScotlandRESTAPI {
 	 * @throws IOException
 	 */
 	public void registerUser(@QueryParam("Email") String email, @QueryParam("Pass") String pass) throws IOException {
-		System.err.println(email + " " + pass);
-		database.writeUser(email, pass);
+		this.model.registerUser(email,pass);
+	}
+	
+	@POST
+	@Path("/addplayer")
+	/**
+	 * Here is an example of how to read parameters provided in an HTML Get request.
+	 * @param Word - A word
+	 * @return - A String
+	 * @throws IOException
+	 */
+	public String addPlayer(@QueryParam("Id") int id) throws IOException {
+		return this.model.addPlayerToNewTeam(id);
 	}
 }

@@ -28,22 +28,6 @@ public class Player{
 	public void calcualteScore() {
 		
 	}
-	
-	public void sellPlayer() {
-		
-	}
-	
-	public void buyPlayer() {
-		
-	}
-	
-	public void makeCaptain(){
-		
-	}
-	
-	public void demoteCaptain() {
-		
-	}
 
 	public GetPlayersResultDto getStats() {
 		return stats;

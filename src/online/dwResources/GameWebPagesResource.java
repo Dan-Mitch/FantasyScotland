@@ -7,8 +7,8 @@ import javax.ws.rs.core.MediaType;
 
 import online.dwViews.GameScreenView;
 import online.dwViews.LoginScreenView;
+import online.dwViews.NewTeamScreenView;
 import online.dwViews.RegisterScreenView;
-import online.dwViews.StatisticsView;
 
 @Path("/fantasyscotland") // Resources specified here should be hosted at http://localhost:7777/fantasyscotland
 @Produces(MediaType.TEXT_HTML) // This resource returns HTML content
@@ -45,25 +45,13 @@ public class GameWebPagesResource {
     }
 	
 	@GET
-	@Path("/game")
+	@Path("/newteam")
 	/**
 	 * The Web page within which the user can play a game of FantasyScotland.
-	 * Hosted at 'http://localhost:7777/fantasyscotland/game'
+	 * Hosted at 'http://localhost:7777/fantasyscotland/newteam'
 	 * @return
 	 */
-    public GameScreenView getGameScreen() {
-        return new GameScreenView();
+    public NewTeamScreenView getNewTeamScreen() {
+        return new NewTeamScreenView();
     }
-	
-	@GET
-	@Path("/home")
-	/**
-	 * The Web page that shows past game statistics
-	 * Hosted at 'http://localhost:7777/fantasyscotland/stats'
-	 * @return
-	 */
-    public StatisticsView getStatisticsView() {
-        return new StatisticsView();
-    }
-	
 }

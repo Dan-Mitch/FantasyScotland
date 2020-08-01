@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class Team {
 	private String name;
-	private User owner;
+	private String owner_id;
 	private HashMap<Integer, Player> squad;
 	private Player captain;
 	private int gkCount = 0;
@@ -14,13 +14,13 @@ public class Team {
 	private int midCount = 0;
 	private int forCount = 0;
 	
-	public Team(User owner) {
-		this.owner = owner;
+	public Team(String id) {
+		this.owner_id = id;
 		this.squad = new HashMap<Integer, Player>();
 	}
 
-	public void removePlayer() {
-
+	public void removePlayer(Player p) {
+		this.squad.remove(p);
 	}
 
 	public void addPlayer(Player p) throws Exception {

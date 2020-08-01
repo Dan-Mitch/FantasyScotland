@@ -164,7 +164,7 @@ body {
 	       			 xhr.onload = function(e) {
 	         		 	var responseText = xhr.response; // the text of the response
 	         		 	alert(responseText); // lets produce an alert
-	         		 	window.history.go(-1);
+	         		 	window.location.href = 'fantasyscotland/newTeam';
 	       			 }
 	       		 } 
 	        	// We have done everything we need to prepare the CORS request, so send it
