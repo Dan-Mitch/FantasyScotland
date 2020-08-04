@@ -187,6 +187,8 @@ body {
 
 .modal{
 	position:absolute;
+	 top: 24%;
+  	left: 31%;
 	background-color: white;
 	width: 500px;
 	height:auto;
@@ -202,6 +204,7 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
+
 </style>
 </head>
 
@@ -209,107 +212,101 @@ body {
 	<a class="logo" id="logo"><img src="https://i.ibb.co/yVc3vPy/Fantasy-Scotland.png" alt="Fantasy-Scotland" width="200" ></a>
 	<div class="wrapper">
 		<div class="main">
+
 			<div class = "header">
 				<h2 class="form-signin-heading text-center">Welcome to Fantasy Scotland!</h2>
 				<h3 class="form-signin-heading text-center">Please Create a Team!</h3>
 		  	</div>
+
 			<div class="football">
   				<p class="image"><img src="https://i.ibb.co/s9ddGFt/Background-illustration-of-a-soccer-field.jpg" alt="Fantasy-Scotland" class="image" ></p>
   				<div class="one">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal">1</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button1" onclick="document.getElementById('list-group').appendChild(loadList(players[0]));">1</a>
   				</div>
   				<div class="two">
-  					<button class="btn">2</button>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button2" onclick="document.getElementById('list-group').appendChild(loadList(players[1]));">2</a>
   				</div>
   				<div class="three">
-  					<button class="btn">3</button>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button3" onclick="document.getElementById('list-group').appendChild(loadList(players[1]));">3</a>
   				</div>
   				<div class="four">
-  					<button class="btn">4</button>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button4" onclick="document.getElementById('list-group').appendChild(loadList(players[1]));">4</a>
   				</div>
   				<div class="five">
-  					<button class="btn">5</button>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button5" onclick="document.getElementById('list-group').appendChild(loadList(players[1]));">5</a>
   				</div>
   				<div class="six">
-  					<button class="btn">6</button>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button6" onclick="document.getElementById('list-group').appendChild(loadList(players[2]));">6</a>
   				</div>
   				<div class="seven">
-  					<button class="btn">7</button>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button7" onclick="document.getElementById('list-group').appendChild(loadList(players[3]));">7</a>
   				</div>
   				<div class="eight">
-  					<button class="btn">8</button>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button8" onclick="document.getElementById('list-group').appendChild(loadList(players[2]));">8</a>
   				</div>
   				<div class="nine">
-  					<button class="btn">9</button>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button9" onclick="document.getElementById('list-group').appendChild(loadList(players[3]));">9</a>
   				</div>
   				<div class="ten">
-  					<button class="btn">10</button>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button10" onclick="document.getElementById('list-group').appendChild(loadList(players[2]));">10</a>
   				</div>
   				<div class="eleven">
-  					<button class="btn">11</button>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button11" onclick="document.getElementById('list-group').appendChild(loadList(players[2]));">11</a>
   				</div>
   				<div class="twelve">
-  					<button class="btn">12</button>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button12" onclick="document.getElementById('list-group').appendChild(loadList(players[0]));">12</a>
   				</div>
   				<div class="thirteen">
-  					<button class="btn">13</button>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button13" onclick="document.getElementById('list-group').appendChild(loadList(players[1]));">13</a>
   				</div>
   				<div class="fourteen">
-  					<button class="btn">14</button>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button14" onclick="document.getElementById('list-group').appendChild(loadList(players[2]));">14</a>
   				</div>
   				<div class="fifteen">
-  					<button class="btn">15</button>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button15" onclick="document.getElementById('list-group').appendChild(loadList(players[3]));">15</a>
   				</div>
-  				
-  				<div class="modal fade hide" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  					<div class="modal-header">
-    					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    					<h3 id="myModalLabel">Select Player</h3>
-  					</div>
-  					<div class="modal-body">
-      					<div class="list-group">
-						  <div class="row">
-					  <div class="col-4">
-					    <div class="list-group" id="list-tab" role="tablist">
-					      <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>
-					      <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
-					      <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>
-					      <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
-					    </div>
-					  </div>
-					  <div class="col-8">
-					    <div class="tab-content" id="nav-tabContent">
-					      <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">...</div>
-					      <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">...</div>
-					      <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
-					      <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
-					    </div>
-					  </div>
-				</div>
-  				</div>
-				  <div class="modal-footer">
-				    <button  data-dismiss="modal" aria-hidden="true">Close</button>
-				    <button class="btn-primary">Save changes</button>
-				  </div>
-				</div>
 			</div>
-		 	
-		  
-		</div>
 
+			<footer class="footer mt-auto py-2 fixed-bottom">
+  				<div class="container">
+    				<span class="text-muted">Made by Daniel Mitchell</span>
+  				</div>
+			</footer>
+		</div>
 	</div>
-	
-	<footer class="footer mt-auto py-2 fixed-bottom">
-  		<div class="container">
-    		<span class="text-muted">Made by Daniel Mitchell<span>
+
+	<div class="modal hide" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+  		<div class="modal-header">
+    		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          		<span aria-hidden="true">&times;</span>
+        	</button>
+    		<h3 id="myModalLabel">Select Player</h3>
   		</div>
-	</footer>
+
+  		<div class="modal-body">
+  			<div class="list-group" id="list-group">
+	      		<a href="#" class="list-group-item list-group-item-action ">
+	    		1</a>
+	  			<a href="#" class="list-group-item list-group-item-action">2</a>
+	  			<a href="#" class="list-group-item list-group-item-action">3</a>
+	  			<a href="#" class="list-group-item list-group-item-action">4</a>
+	  			<a href="#" class="list-group-item list-group-item-action">5</a>
+	  			<a href="#" class="list-group-item list-group-item-action">6</a>
+  			</div>
+  		</div>
+			<div class="modal-footer">
+				<button type="button" class="btn-secondary" data-dismiss="modal">Close</button>
+				<button class="btn-primary">Add Player</button>
+			</div>
+		</div>
+	</div>
 
 
 	<script type="text/javascript">
-		
 			// Method that is called on page load
 			function initalize() {
+				buildPlayers();
 				// --------------------------------------------------------------------------
 				// You can call other methods you want to run when the page first loads here
 				// --------------------------------------------------------------------------
@@ -352,7 +349,13 @@ body {
 		
 		<!-- Here are examples of how to call REST API Methods -->
 		<script type="text/javascript">
-		
+			var players = [
+    		goalkeepers = [],
+    		defenders = [],
+			midfielders = [],
+			forwards = [],
+			];
+			
 			// This calls the helloJSONList REST method from TopTrumpsRESTAPI
 			function helloJSONList() {
 			
@@ -397,19 +400,57 @@ body {
 				xhr.send();		
 			}
 
-			function addGoalkeeper()
+			function loadList(array) {
+				// Create the list element:
+			    var list = document.getElementById('list-group');
+					list.innerHTML = "";
+			    for(var i = 0; i < array.length; i++) {
+			        // Create the list item:
+			        var item = document.createElement('a');
+			        item.setAttribute('href', "#");
+			        item.setAttribute('class', "list-group-item list-group-item-action");
+
+			        // Set its contents:
+			        item.appendChild(document.createTextNode(array[i]));
+
+			        // Add it to the list:
+			        list.appendChild(item);
+			    }
+
+			    // Finally, return the constructed list:
+			    return list;
+			}
+
+			function buildPlayers() {
+			
+				// First create a CORS request, this is the message we are going to send (a get request in this case)
+				var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildPlayers"); // Request type and URL
+				
+				// Message is not sent yet, but we can check that the browser supports CORS
+				if (!xhr) {
+  					alert("CORS not supported");
+				}
+
+				// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+				// to do when the response arrives 
+				xhr.onload = function(e) {
+ 					var responseText = xhr.response; // the text of the response
+					alert(responseText); // lets produce an alert
+					for(var i of responseText) {    
+
+					    var item = responseText.;   
+						alert(item);
+					    players.goalkeepers.push({ 
+					        "name" : item.injured
+					    });
+}
+				};
+				
+				// We have done everything we need to prepare the CORS request, so send it
+				xhr.send();		
+			}
+
 
 		</script>			
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-

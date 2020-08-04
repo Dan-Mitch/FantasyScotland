@@ -104,6 +104,18 @@ public class FantasyScotlandRESTAPI {
 		return this.model.authenticateUser(email,pass);
 	}
 	
+	@GET
+	@Path("/exists")
+	/**
+	 * Here is an example of how to read parameters provided in an HTML Get request.
+	 * @param Word - A word
+	 * @return - A String
+	 * @throws IOException
+	 */
+	public boolean doesUserExist(@QueryParam("Email") String email) throws IOException {
+		return this.model.doesUserExist(email);
+	}
+	
 	@POST
 	@Path("/register")
 	/**
@@ -126,5 +138,23 @@ public class FantasyScotlandRESTAPI {
 	 */
 	public String addPlayer(@QueryParam("Id") int id) throws IOException {
 		return this.model.addPlayerToNewTeam(id);
+	}
+	
+	@GET
+	@Path("/buildPlayers")
+	/**
+	 * Here is an example of a simple REST get request that returns a String.
+	 * We also illustrate here how we can convert Java objects to JSON strings.
+	 * @return - List of words as JSON
+	 * @throws IOException
+	 */
+	public String buildPlayers() throws IOException {
+		
+		List<Player> listOfPlayers = this.model.getPlayers().getRoster();
+		
+		// We can turn arbatory Java objects directly into JSON strings using
+		// Jackson seralization, assuming that the Java objects are not too complex.
+		String listAsJSONString = oWriter.writeValueAsString(listOfPlayers);
+		return listAsJSONString;
 	}
 }

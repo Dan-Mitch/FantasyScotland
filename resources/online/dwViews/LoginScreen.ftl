@@ -181,7 +181,6 @@ body {
 				// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
 				// to do when the response arrives 
 				xhr.onload = function(e) {
-					alert(xhr.response);
  					if(xhr.response == "false"){
  						document.getElementById("warning").style.display = "block";
  					}else{

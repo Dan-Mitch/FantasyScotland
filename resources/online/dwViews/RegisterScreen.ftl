@@ -80,10 +80,10 @@ body {
 		  <input type="password" id="password" class="form-control" name="password" placeholder="Enter Password" required="" />
 		  <input type="password" id="passwordRepeat" class="form-control" name="passwordRepeat" placeholder="Repeat Password" required="" />
 		  <div class="warning" id="warning">
-		    <p class="text-danger">Passwords did not match.</p>
+		    <p id="warning_text" class="text-danger"></p>
 		  </div>
 		  <div class="login">
-		    <button type="button" class="btn btn-lg btn-primary btn-block" id="registerButton" onclick="newUser()">Register</button>
+		    <button type="button" class="btn btn-lg btn-primary btn-block" id="registerButton" onclick="doesUserExist()">Register</button>
 		    <p id="loginLine">Already got an account? <a href='/fantasyscotland'>Sign In.</p>
 		  </div>
 		</form>
@@ -147,8 +147,9 @@ body {
 		        var email = document.getElementById("email").value;
 	       		var pass = document.getElementById("password").value;
 		        var passRep = document.getElementById("passwordRepeat").value;
-	     
-	        	if(pass !== passRep){
+	     		
+	     		if(pass !== passRep){
+	        		document.getElementById('warning_text').innerText = "Passwords did not match.";
 	          		document.getElementById("warning").style.display = "block";
 	        	}else{
 		        	// First create a CORS request, this is the message we are going to send (a get request in this case)
@@ -163,13 +164,41 @@ body {
 		        	// to do when the response arrives 
 	       			 xhr.onload = function(e) {
 	         		 	var responseText = xhr.response; // the text of the response
-	         		 	alert(responseText); // lets produce an alert
-	         		 	window.location.href = 'fantasyscotland/newTeam';
+	         		 	window.location.href = '/fantasyscotland/newteam';
 	       			 }
 	       		 } 
 	        	// We have done everything we need to prepare the CORS request, so send it
 	       		 xhr.send();  
 	  		}
+	  		
+	  		function doesUserExist() {
+				var email = document.getElementById("email").value;
+				
+				// First create a CORS request, this is the message we are going to send (a get request in this case)
+				var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/exists?Email="+email); // Request type and URL+parameters
+				
+				// Message is not sent yet, but we can check that the browser supports CORS
+				if (!xhr) {
+  					alert("CORS not supported");
+				}
+
+				// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+				// to do when the response arrives 
+				xhr.onload = function(e) {
+					var responseText = xhr.response; // the text of the response
+					alert(responseText); // lets produce an alert
+ 					if(xhr.response == "true"){
+	     				document.getElementById("warning_text").innerText = "Email already registered.";
+	          			document.getElementById("warning").style.display = "block";
+	     			}
+	     			else{
+	     				newUser().call();
+	     			}
+				};
+				
+				// We have done everything we need to prepare the CORS request, so send it
+				xhr.send();		
+			}
 	  		
 		</script>
 </body>

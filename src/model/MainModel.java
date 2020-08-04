@@ -35,6 +35,14 @@ public class MainModel {
 		return false;
 	}
 	
+	public boolean doesUserExist(String email) {
+		String id = this.database.doesUserExist(email);
+		if(id != null && !id.isEmpty()) {
+			return true;
+		}
+		return false;
+	}
+	
 	public void registerUser(String email, String pass) {;
 		this.database.writeUser(email, pass);
 	}

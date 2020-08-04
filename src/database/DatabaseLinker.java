@@ -45,7 +45,7 @@ public class DatabaseLinker {
 	}
 
 	public String authenticateUser(String email, String pass) {
-		String query = "SELECT id FROM users WHERE email='" + email + "' AND password = crypt('" + pass
+		String query = "SELECT user_id FROM users WHERE email='" + email + "' AND password = crypt('" + pass
 				+ "', password)";
 		String id = null;
 		openConnection();
@@ -54,12 +54,34 @@ public class DatabaseLinker {
 			ResultSet result = statement.executeQuery(query);
 			if (result.next()) {
 				System.out.println("User exists on database...");
-				id = result.getString("id");
+				id = result.getString("user_id");
 			} else {
 				System.out.println("User does not exist on database...");
 			}
 		} catch (SQLException ex) {
 
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+		return id;
+	}
+	
+	public String doesUserExist(String email) {
+		String query = "SELECT user_id FROM users WHERE email='" + email + "';";
+		String id = null;
+		openConnection();
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(query);
+			if (result.next()) {
+				System.out.println("User exists on database...");
+				id = result.getString("user_id");
+			} else {
+				System.out.println("User does not exist on database...");
+			}
+		} catch (SQLException ex) {
 			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
 			lgr.log(Level.SEVERE, ex.getMessage(), ex);
 		} finally {
