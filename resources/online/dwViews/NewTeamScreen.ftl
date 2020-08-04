@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sticky-footer/">
   <link href="../assets/dist/css/bootstrap.css" rel="stylesheet">
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -63,7 +62,7 @@ body {
 	position:relative;
   width: auto;
   max-width: 700px;
-  margin-top:100px;
+  margin-top:50px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -204,7 +203,6 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
-
 </style>
 </head>
 
@@ -216,54 +214,56 @@ body {
 			<div class = "header">
 				<h2 class="form-signin-heading text-center">Welcome to Fantasy Scotland!</h2>
 				<h3 class="form-signin-heading text-center">Please Create a Team!</h3>
+				<h3 class="form-signin-heading text-center">Transfer Budget £<span class="badge badge-secondary" id="budgetBadge">60.0</span>million.</h3>
+				<h4 class="text-danger text-center">ERRORS HERE</h4>
 		  	</div>
 
 			<div class="football">
   				<p class="image"><img src="https://i.ibb.co/s9ddGFt/Background-illustration-of-a-soccer-field.jpg" alt="Fantasy-Scotland" class="image" ></p>
   				<div class="one">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button1" onclick="document.getElementById('list-group').appendChild(loadList(players[0]));">1</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button1" onclick="document.getElementById('table').appendChild(loadTable(players[0]));">1</a>
   				</div>
   				<div class="two">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button2" onclick="document.getElementById('list-group').appendChild(loadList(players[1]));">2</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button2" onclick="document.getElementById('table').appendChild(loadTable(players[1]));">2</a>
   				</div>
   				<div class="three">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button3" onclick="document.getElementById('list-group').appendChild(loadList(players[1]));">3</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button3" onclick="document.getElementById('table').appendChild(loadTable(players[1]));">3</a>
   				</div>
   				<div class="four">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button4" onclick="document.getElementById('list-group').appendChild(loadList(players[1]));">4</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button4" onclick="document.getElementById('table').appendChild(loadTable(players[1]));">4</a>
   				</div>
   				<div class="five">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button5" onclick="document.getElementById('list-group').appendChild(loadList(players[1]));">5</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button5" onclick="document.getElementById('table').appendChild(loadTable(players[1]));">5</a>
   				</div>
   				<div class="six">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button6" onclick="document.getElementById('list-group').appendChild(loadList(players[2]));">6</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button6" onclick="document.getElementById('table').appendChild(loadTable(players[2]));">6</a>
   				</div>
   				<div class="seven">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button7" onclick="document.getElementById('list-group').appendChild(loadList(players[3]));">7</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button7" onclick="document.getElementById('table').appendChild(loadTable(players[3]));">7</a>
   				</div>
   				<div class="eight">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button8" onclick="document.getElementById('list-group').appendChild(loadList(players[2]));">8</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button8" onclick="document.getElementById('table').appendChild(loadTable(players[2]));">8</a>
   				</div>
   				<div class="nine">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button9" onclick="document.getElementById('list-group').appendChild(loadList(players[3]));">9</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button9" onclick="document.getElementById('table').appendChild(loadTable(players[3]));">9</a>
   				</div>
   				<div class="ten">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button10" onclick="document.getElementById('list-group').appendChild(loadList(players[2]));">10</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button10" onclick="document.getElementById('table').appendChild(loadTable(players[2]));">10</a>
   				</div>
   				<div class="eleven">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button11" onclick="document.getElementById('list-group').appendChild(loadList(players[2]));">11</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button11" onclick="document.getElementById('table').appendChild(loadTable(players[2]));">11</a>
   				</div>
   				<div class="twelve">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button12" onclick="document.getElementById('list-group').appendChild(loadList(players[0]));">12</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button12" onclick="document.getElementById('table').appendChild(loadTable(players[0]));">12</a>
   				</div>
   				<div class="thirteen">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button13" onclick="document.getElementById('list-group').appendChild(loadList(players[1]));">13</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button13" onclick="document.getElementById('table').appendChild(loadTable(players[1]));">13</a>
   				</div>
   				<div class="fourteen">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button14" onclick="document.getElementById('list-group').appendChild(loadList(players[2]));">14</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button14" onclick="document.getElementById('table').appendChild(loadTable(players[2]));">14</a>
   				</div>
   				<div class="fifteen">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button15" onclick="document.getElementById('list-group').appendChild(loadList(players[3]));">15</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button15" onclick="document.getElementById('table').appendChild(loadTable(players[3]));">15</a>
   				</div>
 			</div>
 
@@ -278,22 +278,42 @@ body {
 	<div class="modal hide" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
   		<div class="modal-header">
+    		<h3 id="myModalLabel">Select Player</h3>
     		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           		<span aria-hidden="true">&times;</span>
         	</button>
-    		<h3 id="myModalLabel">Select Player</h3>
   		</div>
 
-  		<div class="modal-body">
+  		<!-- <div class="modal-body">
   			<div class="list-group" id="list-group">
 	      		<a href="#" class="list-group-item list-group-item-action ">
 	    		1</a>
 	  			<a href="#" class="list-group-item list-group-item-action">2</a>
 	  			<a href="#" class="list-group-item list-group-item-action">3</a>
-	  			<a href="#" class="list-group-item list-group-item-action">4</a>
-	  			<a href="#" class="list-group-item list-group-item-action">5</a>
-	  			<a href="#" class="list-group-item list-group-item-action">6</a>
   			</div>
+  		</div> -->
+  		<div class="modal-body">
+  			<table id="table" class="table table-bordered table-hover table-sm " cellspacing="0" width="100%">
+  				<thead>
+    				<tr>
+      					<th class="th-sm" style="cursor:s-resize" onclick="sortTable(0)">Name
+      					</th>
+      					<th class="th-sm" style="cursor:s-resize" onclick="sortTable(1)">Club
+      					</th>
+      					<th class="th-sm" style="cursor:s-resize" onclick="sortTable(2)">Cost(£mill)
+      					</th>
+      
+    				</tr>
+  				</thead>
+  				<tbody id="table-body">
+    				<tr class='clickable-row' style="cursor:pointer" value="111111111">
+        				<td class="name">Tom Wallop</td> <td class="club">Aberdeen</td> <td class="price">1.3</td>
+    				</tr>
+    				<tr class='clickable-row' style="cursor:pointer" value="2222222">
+        				<td class="name">Adam Strong</td> <td class="club">Celtic</td> <td class="price">2.3</td>
+    				</tr>
+  				</tbody>
+			</table>
   		</div>
 			<div class="modal-footer">
 				<button type="button" class="btn-secondary" data-dismiss="modal">Close</button>
@@ -400,21 +420,81 @@ body {
 				xhr.send();		
 			}
 
-			function loadList(array) {
+			function addPlayer(word) {
+				alert(word);
+				// First create a CORS request, this is the message we are going to send (a get request in this case)
+				var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/helloWord?Word="+word); // Request type and URL+parameters
+				
+				// Message is not sent yet, but we can check that the browser supports CORS
+				if (!xhr) {
+  					alert("CORS not supported");
+				}
+
+				// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+				// to do when the response arrives 
+				xhr.onload = function(e) {
+ 					var responseText = xhr.response; // the text of the response
+					alert(responseText); // lets produce an alert
+				};
+				
+				// We have done everything we need to prepare the CORS request, so send it
+				xhr.send();		
+			}
+
+			function updateTransfer(word) {
+				alert(word);
+				// First create a CORS request, this is the message we are going to send (a get request in this case)
+				var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/helloWord?Word="+word); // Request type and URL+parameters
+				
+				// Message is not sent yet, but we can check that the browser supports CORS
+				if (!xhr) {
+  					alert("CORS not supported");
+				}
+
+				// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+				// to do when the response arrives 
+				xhr.onload = function(e) {
+ 					var responseText = xhr.response; // the text of the response
+					alert(responseText); // lets produce an alert
+				};
+				
+				// We have done everything we need to prepare the CORS request, so send it
+				xhr.send();		
+			}
+
+			function loadTable(array) {
 				// Create the list element:
-			    var list = document.getElementById('list-group');
-					list.innerHTML = "";
+			    var table = document.getElementById('table-body');
+					table.innerHTML = "";
 			    for(var i = 0; i < array.length; i++) {
 			        // Create the list item:
-			        var item = document.createElement('a');
-			        item.setAttribute('href', "#");
-			        item.setAttribute('class', "list-group-item list-group-item-action");
+			        var tr = document.createElement('tr');
+			        tr.setAttribute('value', array[i].player_id);
+			        tr.setAttribute('class', "clickable-row");
+			        tr.setAttribute('style', "cursor:pointer");
 
-			        // Set its contents:
-			        item.appendChild(document.createTextNode(array[i]));
+			        var name = document.createElement('td');
+			        name.setAttribute('class', "name");
+			        var nText = document.createTextNode(array[i].name);
+			        name.appendChild(nText);
+
+			        var club = document.createElement('td');
+			        club.setAttribute('class', "club");
+			        var cText = document.createTextNode(array[i].club_id);
+			        club.appendChild(cText);
+
+			        var	price =	document.createElement('td');
+					price.setAttribute('class', "price");
+					var pText = document.createTextNode(array[i].price);
+			        price.appendChild(pText);
+
+
+					tr.appendChild(name);
+					tr.appendChild(club);
+					tr.appendChild(price);
 
 			        // Add it to the list:
-			        list.appendChild(item);
+			        table.appendChild(tr);
 			    }
 
 			    // Finally, return the constructed list:
@@ -434,22 +514,92 @@ body {
 				// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
 				// to do when the response arrives 
 				xhr.onload = function(e) {
- 					var responseText = xhr.response; // the text of the response
-					alert(responseText); // lets produce an alert
-					for(var i of responseText) {    
-
-					    var item = responseText.;   
-						alert(item);
-					    players.goalkeepers.push({ 
-					        "name" : item.injured
-					    });
-}
-				};
+ 					var response = JSON.parse(xhr.response); // the text of the response
+					for(var i = 0; i < response.length; i++){
+						if(response[i].position === "Goalkeeper"){
+							players[0].push(response[i]);
+						}
+						else if(response[i].position === "Defender"){
+							players[1].push(response[i]);
+						}
+						else if(response[i].position === "Midfielder"){
+							players[2].push(response[i]);
+						}
+						else if(response[i].position === "Forward"){
+							players[3].push(response[i]);
+						}
+					}
+				}
 				
 				// We have done everything we need to prepare the CORS request, so send it
 				xhr.send();		
 			}
 
+			function sortTable(n) {
+			  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+			  table = document.getElementById("table");
+			  switching = true;
+			  // Set the sorting direction to ascending:
+			  dir = "asc";
+			  /* Make a loop that will continue until
+			  no switching has been done: */
+			  while (switching) {
+			    // Start by saying: no switching is done:
+			    switching = false;
+			    rows = table.rows;
+			    /* Loop through all table rows (except the
+			    first, which contains table headers): */
+			    for (i = 1; i < (rows.length - 1); i++) {
+			      // Start by saying there should be no switching:
+			      shouldSwitch = false;
+			      /* Get the two elements you want to compare,
+			      one from current row and one from the next: */
+			      x = rows[i].getElementsByTagName("TD")[n];
+			      y = rows[i + 1].getElementsByTagName("TD")[n];
+			      /* Check if the two rows should switch place,
+			      based on the direction, asc or desc: */
+			      if (dir == "asc") {
+			        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+			          // If so, mark as a switch and break the loop:
+			          shouldSwitch = true;
+			          break;
+			        }
+			      } else if (dir == "desc") {
+			        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+			          // If so, mark as a switch and break the loop:
+			          shouldSwitch = true;
+			          break;
+			        }
+			      }
+			    }
+			    if (shouldSwitch) {
+			      /* If a switch has been marked, make the switch
+			      and mark that a switch has been done: */
+			      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+			      switching = true;
+			      // Each time a switch is done, increase this count by 1:
+			      switchcount ++;
+			    } else {
+			      /* If no switching has been done AND the direction is "asc",
+			      set the direction to "desc" and run the while loop again. */
+			      if (switchcount == 0 && dir == "asc") {
+			        dir = "desc";
+			        switching = true;
+			      }
+			    }
+			  }
+			}
+
+			jQuery(document).ready(function($) {
+    			$('#table').on('click', '.clickable-row', function() {
+        			addPlayer($(this).attr('value'));
+        			var $item = $(this).closest("tr") 
+                       .find(".price")     // Gets a descendent with class="price"
+                       .text();         // Retrieves the text within <td>
+        			updateTransfer($item);
+        			$("#myModal").modal('hide');
+    			});
+			});
 
 		</script>			
 </body>

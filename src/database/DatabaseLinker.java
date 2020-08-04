@@ -6,9 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import model.Club;
+import model.Player;
 
 public class DatabaseLinker {
 	private final String url = "jdbc:postgresql://217.39.223.45:5433/fantasyscotland";
@@ -88,6 +92,60 @@ public class DatabaseLinker {
 			closeConnection();
 		}
 		return id;
+	}
+	
+	public ArrayList<Player> loadPlayers() {
+		String query = "SELECT * FROM players";
+		ArrayList<Player> players = new ArrayList<Player>();
+		openConnection();
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(query);
+			while(result.next()) {
+				Player player = new Player();
+				player.setPlayer_id(UUID.fromString(result.getString("player_id")));
+				player.setName(result.getString("name"));
+				player.setPosition(result.getString("position"));
+				player.setPrice(result.getDouble("price"));
+				player.setClub_id(UUID.fromString(result.getString("club_id")));
+				player.setPoints(result.getInt("points"));
+				player.setGoals(result.getInt("goals"));	
+				player.setAssists(result.getInt("assists"));
+				player.setRedCards(result.getInt("red_cards"));
+				player.setYellowCards(result.getInt("yellow_cards"));
+				player.setApps(result.getInt("apps"));
+				player.setClean_sheets(result.getInt("clean_sheets"));
+				players.add(player);
+			}
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+		return players;
+	}
+	
+	public ArrayList<Club> loadClubs() {
+		String query = "SELECT * FROM clubs";
+		ArrayList<Club> clubs = new ArrayList<Club>();
+		openConnection();
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(query);
+			while(result.next()) {
+				Club club = new Club();
+				club.setClub_id(UUID.fromString(result.getString("club_id")));
+				club.setName(result.getString("name"));
+				clubs.add(club);
+			}
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+		return clubs;
 	}
 
 	private void openConnection() {

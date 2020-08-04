@@ -3,6 +3,7 @@ package online.dwResources;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -136,7 +137,7 @@ public class FantasyScotlandRESTAPI {
 	 * @return - A String
 	 * @throws IOException
 	 */
-	public String addPlayer(@QueryParam("Id") int id) throws IOException {
+	public String addPlayer(@QueryParam("Id") UUID id) throws IOException {
 		return this.model.addPlayerToNewTeam(id);
 	}
 	
@@ -150,7 +151,7 @@ public class FantasyScotlandRESTAPI {
 	 */
 	public String buildPlayers() throws IOException {
 		
-		List<Player> listOfPlayers = this.model.getPlayers().getRoster();
+		ArrayList<Player> listOfPlayers = this.model.getPlayers().getPlayers();
 		
 		// We can turn arbatory Java objects directly into JSON strings using
 		// Jackson seralization, assuming that the Java objects are not too complex.

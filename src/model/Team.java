@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class Team {
 	private String name;
@@ -27,7 +28,7 @@ public class Team {
 		if(squad.size() >= 15) {
 			throw new Exception("Hit player limit");
 		}
-		else if(p.getStats().getPosition().equals("GoalKeeper")) {
+		else if(p.getPosition().equals("GoalKeeper")) {
 			if(gkCount == 0) {
 				squad.put(1, p);
 			}
@@ -38,7 +39,7 @@ public class Team {
 				throw new Exception("Hit goalkeeper limit");
 			}
 		}
-		else if(p.getStats().getPosition().equals("Defender")) {
+		else if(p.getPosition().equals("Defender")) {
 			if(defCount == 0) {
 				squad.put(3, p);
 				defCount++;
@@ -63,7 +64,7 @@ public class Team {
 				throw new Exception("Hit defender limit");
 			}
 		}
-		else if(p.getStats().getPosition().equals("Midfielder")) {
+		else if(p.getPosition().equals("Midfielder")) {
 			if(midCount == 0) {
 				squad.put(11, p);
 				midCount++;
@@ -88,7 +89,7 @@ public class Team {
 				throw new Exception("Hit midfielder limit");
 			}
 		}
-		else if(p.getStats().getPosition().equals("Forward")) {
+		else if(p.getPosition().equals("Forward")) {
 			if(forCount == 0) {
 				squad.put(10, p);
 				forCount++;
@@ -109,12 +110,14 @@ public class Team {
 	}
 	
 	public void checkClubLimit() {
-		ArrayList<Integer> club_ids = new ArrayList<Integer>();
+		ArrayList<UUID> club_ids = new ArrayList<UUID>();
+		
 		for(Player p : squad.values()) {
-			club_ids.add(p.getStats().getTeamId());
+			club_ids.add(p.getClub_id());
 		}
-		for( Integer id : Clubs.club_ids) {
-			if(Collections.frequency(club_ids, id) > 3) {
+		
+		for( Club club : Clubs.clubs) {
+			if(Collections.frequency(club_ids, club.getClub_id()) > 3) {
 				System.out.println("Error more than 3 players from same club!");
 			}
 		}
