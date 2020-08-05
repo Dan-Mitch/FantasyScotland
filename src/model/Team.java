@@ -6,135 +6,139 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class Team {
+	private UUID team_id;
 	private String name;
-	private String owner_id;
+	private UUID owner_id;
 	private HashMap<Integer, Player> squad;
 	private Player captain;
+	private double transferBudget;
 	private int gkCount = 0;
 	private int defCount = 0;
 	private int midCount = 0;
 	private int forCount = 0;
 	
-	public Team(String id) {
-		this.owner_id = id;
+	public Team() {
+		this.transferBudget = 60.0;
+		this.owner_id = null;
+		this.team_id = null;
 		this.squad = new HashMap<Integer, Player>();
+		Player p = new Player();
+		p.setClub("Aberdeen");
+		this.squad.put(7,  p);
+		this.squad.put(2,  p);
 	}
 
 	public void removePlayer(Player p) {
 		this.squad.remove(p);
 	}
 
-	public void addPlayer(Player p) throws Exception {
-		if(squad.size() >= 15) {
-			throw new Exception("Hit player limit");
+	public String addPlayer(Player p, int position) {
+		this.squad.put(position, p);
+		this.transferBudget = this.transferBudget - p.getPrice();
+		if(transferBudget < 0) {
+			return "You have exceeded the budget limit";
 		}
-		else if(p.getPosition().equals("GoalKeeper")) {
-			if(gkCount == 0) {
-				squad.put(1, p);
-			}
-			else if(gkCount == 1) {
-				squad.put(12, p);
-			}
-			else if (gkCount == 2) {
-				throw new Exception("Hit goalkeeper limit");
-			}
+		else if(clubLimitReached() != null) {
+			return "Too many players from" + clubLimitReached() + " (Max 3).";
 		}
-		else if(p.getPosition().equals("Defender")) {
-			if(defCount == 0) {
-				squad.put(3, p);
-				defCount++;
-			}
-			else if(defCount == 1) {
-				squad.put(5, p);
-				defCount++;
-			}
-			else if(defCount == 2) {
-				squad.put(4, p);
-				defCount++;
-			}
-			else if(defCount == 3) {
-				squad.put(2, p);
-				defCount++;
-			}
-			else if(defCount == 4) {
-				squad.put(13, p);
-				defCount++;
-			}
-			else if(defCount == 5) {
-				throw new Exception("Hit defender limit");
-			}
+		else {
+			return "";
 		}
-		else if(p.getPosition().equals("Midfielder")) {
-			if(midCount == 0) {
-				squad.put(11, p);
-				midCount++;
-			}
-			else if(midCount == 1) {
-				squad.put(8, p);
-				midCount++;
-			}
-			else if(midCount == 2) {
-				squad.put(6, p);
-				midCount++;
-			}
-			else if(midCount == 3) {
-				squad.put(7, p);
-				midCount++;
-			}
-			else if(midCount == 4) {
-				squad.put(14, p);
-				midCount++;
-			}
-			else if(midCount == 5) {
-				throw new Exception("Hit midfielder limit");
-			}
-		}
-		else if(p.getPosition().equals("Forward")) {
-			if(forCount == 0) {
-				squad.put(10, p);
-				forCount++;
-			}
-			else if(forCount == 1) {
-				squad.put(9, p);
-				forCount++;
-			}
-			else if(forCount == 2) {
-				squad.put(15, p);
-				forCount++;
-			}
-			else if(midCount == 3) {
-				throw new Exception("Hit forward limit");
-			}
-		}
-		checkClubLimit();
 	}
 	
-	public void checkClubLimit() {
-		ArrayList<UUID> club_ids = new ArrayList<UUID>();
+	public String clubLimitReached() {
+		ArrayList<String> players_clubs = new ArrayList<String>();
 		
 		for(Player p : squad.values()) {
-			club_ids.add(p.getClub_id());
+			players_clubs.add(p.getClub());
 		}
 		
 		for( Club club : Clubs.clubs) {
-			if(Collections.frequency(club_ids, club.getClub_id()) > 3) {
-				System.out.println("Error more than 3 players from same club!");
+			if(Collections.frequency(players_clubs, club.getName()) > 3) {
+				return club.getName();
 			}
 		}
-		
-		
+		return null;
 	}
 
-//	public void activatePowerup{
-//
-//	}
-//
-//	public void activatePowerup{
-//
-//	}
-//
-//	public void activatePowerup{
-//		
-//	}
+	public UUID getTeam_id() {
+		return team_id;
+	}
+
+	public void setTeam_id(UUID team_id) {
+		this.team_id = team_id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public UUID getOwner_id() {
+		return owner_id;
+	}
+
+	public void setOwner_id(UUID owner_id) {
+		this.owner_id = owner_id;
+	}
+
+	public HashMap<Integer, Player> getSquad() {
+		return squad;
+	}
+
+	public void setSquad(HashMap<Integer, Player> squad) {
+		this.squad = squad;
+	}
+
+	public Player getCaptain() {
+		return captain;
+	}
+
+	public void setCaptain(Player captain) {
+		this.captain = captain;
+	}
+
+	public double getTransferBudget() {
+		return transferBudget;
+	}
+
+	public void setTransferBudget(double transferBudget) {
+		this.transferBudget = transferBudget;
+	}
+
+	public int getGkCount() {
+		return gkCount;
+	}
+
+	public void setGkCount(int gkCount) {
+		this.gkCount = gkCount;
+	}
+
+	public int getDefCount() {
+		return defCount;
+	}
+
+	public void setDefCount(int defCount) {
+		this.defCount = defCount;
+	}
+
+	public int getMidCount() {
+		return midCount;
+	}
+
+	public void setMidCount(int midCount) {
+		this.midCount = midCount;
+	}
+
+	public int getForCount() {
+		return forCount;
+	}
+
+	public void setForCount(int forCount) {
+		this.forCount = forCount;
+	}
 
 }

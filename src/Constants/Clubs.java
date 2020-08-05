@@ -1,8 +1,8 @@
 package constants;
 
-public enum Scores {
+public enum Clubs {
 	
-	GOAL_FOR(2),
+	ABERDEEN("#CF142B"),
 	GOAL_MID(3),
 	GOAL_DEF(4),
 	GOAL_GK(8),
@@ -18,13 +18,13 @@ public enum Scores {
 	YELLOW_CARD(-1),
 	OWN_GOAL(-2);
 	
-	private int value;
+	private String value;
 	
-	private Scores(int value) {
+	private Clubs(String value) {
 		this.value = value;
 	}
 	
-	public int getValue() {
+	public String getValue() {
 		return this.value;
 	}
 	

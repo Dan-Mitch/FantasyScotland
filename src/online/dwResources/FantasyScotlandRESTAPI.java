@@ -106,7 +106,7 @@ public class FantasyScotlandRESTAPI {
 	}
 	
 	@GET
-	@Path("/exists")
+	@Path("/userExists")
 	/**
 	 * Here is an example of how to read parameters provided in an HTML Get request.
 	 * @param Word - A word
@@ -115,6 +115,18 @@ public class FantasyScotlandRESTAPI {
 	 */
 	public boolean doesUserExist(@QueryParam("Email") String email) throws IOException {
 		return this.model.doesUserExist(email);
+	}
+	
+	@GET
+	@Path("/teamExists")
+	/**
+	 * Here is an example of how to read parameters provided in an HTML Get request.
+	 * @param Word - A word
+	 * @return - A String
+	 * @throws IOException
+	 */
+	public boolean doesTeamExist(@QueryParam("Email") String email) throws IOException {
+		return this.model.doesTeamExist(email);
 	}
 	
 	@POST
@@ -137,8 +149,8 @@ public class FantasyScotlandRESTAPI {
 	 * @return - A String
 	 * @throws IOException
 	 */
-	public String addPlayer(@QueryParam("Id") UUID id) throws IOException {
-		return this.model.addPlayerToNewTeam(id);
+	public String addPlayer(@QueryParam("Id") UUID id, @QueryParam("Pos") int position) throws IOException {
+		return this.model.addPlayerToNewTeam(id,position);
 	}
 	
 	@GET
@@ -152,10 +164,48 @@ public class FantasyScotlandRESTAPI {
 	public String buildPlayers() throws IOException {
 		
 		ArrayList<Player> listOfPlayers = this.model.getPlayers().getPlayers();
-		
+		System.err.println("player name = " + listOfPlayers.get(0).getName());
 		// We can turn arbatory Java objects directly into JSON strings using
 		// Jackson seralization, assuming that the Java objects are not too complex.
 		String listAsJSONString = oWriter.writeValueAsString(listOfPlayers);
 		return listAsJSONString;
+	}
+	
+	@GET
+	@Path("/buildTeam")
+	/**
+	 * Here is an example of a simple REST get request that returns a String.
+	 * We also illustrate here how we can convert Java objects to JSON strings.
+	 * @return - List of words as JSON
+	 * @throws IOException
+	 */
+	public String buildTeam() throws IOException {
+		
+		Team team = this.model.getCurrentUser().getTeam();
+		
+		// We can turn arbatory Java objects directly into JSON strings using
+		// Jackson seralization, assuming that the Java objects are not too complex.
+		String teamAsJSONString = oWriter.writeValueAsString(team);
+		
+		return teamAsJSONString;
+	}
+	
+	@GET
+	@Path("/buildUser")
+	/**
+	 * Here is an example of a simple REST get request that returns a String.
+	 * We also illustrate here how we can convert Java objects to JSON strings.
+	 * @return - List of words as JSON
+	 * @throws IOException
+	 */
+	public String buildUser() throws IOException {
+		
+		User user = this.model.getCurrentUser();
+		
+		// We can turn arbatory Java objects directly into JSON strings using
+		// Jackson seralization, assuming that the Java objects are not too complex.
+		String userAsJSONString = oWriter.writeValueAsString(user);
+		
+		return userAsJSONString;
 	}
 }

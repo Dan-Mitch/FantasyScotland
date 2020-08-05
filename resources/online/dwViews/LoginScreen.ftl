@@ -184,7 +184,30 @@ body {
  					if(xhr.response == "false"){
  						document.getElementById("warning").style.display = "block";
  					}else{
- 						window.location.href = 'fantasyscotland/home';
+ 						doesTeamExist(email);
+ 					}	
+				};
+				
+				// We have done everything we need to prepare the CORS request, so send it
+				xhr.send();		
+			}
+			
+			function doesTeamExist(email) {
+				// First create a CORS request, this is the message we are going to send (a get request in this case)
+				var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/teamExists?Email="+email); // Request type and URL+parameters
+				
+				// Message is not sent yet, but we can check that the browser supports CORS
+				if (!xhr) {
+  					alert("CORS not supported");
+				}
+
+				// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+				// to do when the response arrives 
+				xhr.onload = function(e) {
+ 					if(xhr.response == "false"){
+ 						window.location.href = '/fantasyscotland/newteam';
+ 					}else{
+ 						window.location.href = '/fantasyscotland/home';
  					}	
 				};
 				

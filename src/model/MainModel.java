@@ -18,7 +18,6 @@ public class MainModel {
 	private Fixtures fixtures;
 	private Leagues leagues;
 	private User currentUser;
-	
 	public MainModel() {
 		this.xmlSoccerService = new XmlSoccerServiceImpl();
 		this.xmlSoccerService.setApiKey("ZBOBAXRYOHGALWSSPOVSNUYWPJDNLZWLAXBURALTOSGSDJETYA");
@@ -35,7 +34,7 @@ public class MainModel {
 	public boolean authenticateUser(String email, String pass) {
 		String id = this.database.authenticateUser(email, pass);
 		if(id != null && !id.isEmpty()) {
-			this.setCurrentUser(new User(email, id));
+			this.setCurrentUser(new User(email, UUID.fromString(id)));
 			return true;
 		}
 		return false;
@@ -49,21 +48,26 @@ public class MainModel {
 		return false;
 	}
 	
+	public boolean doesTeamExist(String email) {
+		UUID team_id = this.database.doesTeamExist(email);
+		System.err.println(team_id);
+		if(team_id != null) {
+			return true;
+		}
+		return false;
+	}
+	
 	public void registerUser(String email, String pass) {;
 		this.database.writeUser(email, pass);
+		authenticateUser(email, pass);
 	}
 	
-	public void createNewTeam() {
-		this.currentUser.createTeam();
+	public void registerTeam(UUID team_id, String name) {
+		this.database.writeTeam(team_id, name, currentUser.getId());
 	}
 	
-	public String addPlayerToNewTeam(UUID id) {
-		try {
-			this.currentUser.addPlayerToTeam(this.players.getPlayer(id));
-		} catch (Exception e) {
-			return "Too many players";
-		}
-		return "";
+	public String addPlayerToNewTeam(UUID id, int position) {
+			return this.currentUser.addPlayerToTeam(this.players.getPlayer(id), position);
 	}
 	
 	public Clubs getClubs() {
@@ -83,13 +87,7 @@ public class MainModel {
 		this.currentUser = currentUser;
 	}
 	
-//	public static void main(String[] args) {
-//		MainModel m = new MainModel();
-//		for(Player p : m.players.getPlayers()) {
-//			System.out.println(p.getName() + " £" + p.getPrice() + "(m)");
-//		}
-//		for(Club c : m.clubs.getClubs()) {
-//			System.out.println(c.getClub_id());
-//		}
-//	}
+	
+	
+
 }

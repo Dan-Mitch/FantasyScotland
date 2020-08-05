@@ -47,6 +47,27 @@ public class DatabaseLinker {
 			closeConnection();
 		}
 	}
+	
+	public void writeTeam(UUID team_id, String name, UUID owner_id) {
+		String query1 = "INSERT INTO team_details (team_id, name) VALUES ('" + team_id + "', '" + name + "')";
+		String query2 = "INSERT INTO teams (team_id, owner_id) VALUES ('" + team_id + "', '" + owner_id + "')";
+
+		openConnection();
+		PreparedStatement statement;
+		try {
+			statement = connection.prepareStatement(query1);
+			statement.executeUpdate();
+			statement = connection.prepareStatement(query2);
+			statement.executeUpdate();
+			System.out.println("Write to database successful...");
+		} catch (SQLException ex) {
+
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+	}
 
 	public String authenticateUser(String email, String pass) {
 		String query = "SELECT user_id FROM users WHERE email='" + email + "' AND password = crypt('" + pass
@@ -83,7 +104,7 @@ public class DatabaseLinker {
 				System.out.println("User exists on database...");
 				id = result.getString("user_id");
 			} else {
-				System.out.println("User does not exist on database...");
+				System.err.println("User does not exist on database...");
 			}
 		} catch (SQLException ex) {
 			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
@@ -92,6 +113,28 @@ public class DatabaseLinker {
 			closeConnection();
 		}
 		return id;
+	}
+	
+	public UUID doesTeamExist(String email) {
+		String query = "SELECT t.team_id FROM users as u, teams as t WHERE t.owner_id=u.user_id AND u.email='" + email + "'";
+		UUID team_id = null;
+		openConnection();
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(query);
+			if (result.next()) {
+				System.out.println("Team exists on database...");
+				team_id = UUID.fromString(result.getString("team_id"));
+			} else {
+				System.err.println("Team does not exist on database...");
+			}
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+		return team_id;
 	}
 	
 	public ArrayList<Player> loadPlayers() {
@@ -107,7 +150,7 @@ public class DatabaseLinker {
 				player.setName(result.getString("name"));
 				player.setPosition(result.getString("position"));
 				player.setPrice(result.getDouble("price"));
-				player.setClub_id(UUID.fromString(result.getString("club_id")));
+				player.setClub(result.getString("club_id"));
 				player.setPoints(result.getInt("points"));
 				player.setGoals(result.getInt("goals"));	
 				player.setAssists(result.getInt("assists"));

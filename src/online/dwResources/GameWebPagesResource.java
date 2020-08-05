@@ -5,7 +5,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import online.dwViews.GameScreenView;
 import online.dwViews.LoginScreenView;
 import online.dwViews.NewTeamScreenView;
 import online.dwViews.RegisterScreenView;

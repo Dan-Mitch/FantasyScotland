@@ -7,7 +7,7 @@ public class Player{
 	private String name;
 	private String position;
 	private double price;
-	private UUID club_id;
+	private String club;
 	private int points;
 	private int goals;
 	private int assists;
@@ -60,12 +60,12 @@ public class Player{
 		this.price = price;
 	}
 
-	public UUID getClub_id() {
-		return club_id;
+	public String getClub() {
+		return club;
 	}
 
-	public void setClub_id(UUID club_id) {
-		this.club_id = club_id;
+	public void setClub(String club) {
+		this.club = club;
 	}
 
 	public int getPoints() {

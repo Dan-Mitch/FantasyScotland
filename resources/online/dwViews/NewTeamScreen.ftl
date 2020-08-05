@@ -41,10 +41,6 @@ body {
   background-color: #1e5422;
 }
 
-.header{
-	  
-}
-
 .footer{
   margin: 600 auto;
   text-align: center;
@@ -74,14 +70,15 @@ body {
 
 /* Style the button and place it in the middle of the container/image */
 .football .btn {
-  background-color: #555;
-  color: white;
+  background-color: white;
+  color: black;
   font-size: 16px;
+  font-weight: bold;
   border: solid;
   cursor: pointer;
   border-radius: 50%;
   border-color: black;
-  margin: 4px 4px;
+  margin: 0px 0px;
   text-align: center;
 }
 
@@ -96,13 +93,13 @@ body {
 
 .one{
 	position: absolute;
-	top: 43%;
+	top: 37.5%;
 	left:10%;
 }
 
 .two{
 	position: absolute;
-	bottom: 15%;
+	top: 60%;
 	left:25%;
 }
 
@@ -114,43 +111,43 @@ body {
 
 .four{
 	position: absolute;
-	bottom: 35%;
+	top: 45%;
 	left:25%;
 }
 
 .five{
 	position: absolute;
-	top: 35%;
+	top: 30%;
 	left:25%;
 }
 
 .six{
 	position: absolute;
-	bottom: 35%;
+	top: 45%;
 	left:46%;
 }
 
 .seven{
 	position: absolute;
-	bottom: 35%;
+	top: 45%;
 	right:25%;
 }
 
 .eight{
 	position: absolute;
-	bottom: 15%;
+	top: 60%;
 	left:46%;
 }
 
 .nine{
 	position: absolute;
-	top: 35%;
+	top: 30%;
 	right:25%;
 }
 
 .ten{
 	position: absolute;
-	top: 35%;
+	top: 30%;
 	left:46%;
 }
 
@@ -162,26 +159,26 @@ body {
 
 .twelve{
 	position: absolute;
-	bottom: -2%;
-	left:5%;
+	top: 52.5%;
+	left:10%;
 }
 
 .thirteen{
 	position: absolute;
-	bottom: -2%;
-	left:12%;
+	top: 75%;
+	left:25%;
 }
 
 .fourteen{
 	position: absolute;
-	bottom: -2%;
-	left:19%;
+	top: 75%;
+	left:46%;
 }
 
 .fifteen{
 	position: absolute;
-	bottom: -2%;
-	left:26%;
+	top: 60%;
+	right:25%;
 }
 
 .modal{
@@ -203,6 +200,11 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
+br {
+   display: block;
+   margin: 1111px 111px;
+}
+
 </style>
 </head>
 
@@ -212,58 +214,88 @@ body {
 		<div class="main">
 
 			<div class = "header">
-				<h2 class="form-signin-heading text-center">Welcome to Fantasy Scotland!</h2>
+				<h2 class="form-signin-heading text-center" id="welcomeHeader">Welcome to Fantasy Scotland!</h2>
 				<h3 class="form-signin-heading text-center">Please Create a Team!</h3>
-				<h3 class="form-signin-heading text-center">Transfer Budget £<span class="badge badge-secondary" id="budgetBadge">60.0</span>million.</h3>
-				<h4 class="text-danger text-center">ERRORS HERE</h4>
+				<h3 class="form-signin-heading text-center">Transfer Budget <span class="badge badge-secondary" id="budgetBadge"></span>million.</h3>
+				<h4 class="text-danger text-center" id="errorText"></h4>
 		  	</div>
 
 			<div class="football">
   				<p class="image"><img src="https://i.ibb.co/s9ddGFt/Background-illustration-of-a-soccer-field.jpg" alt="Fantasy-Scotland" class="image" ></p>
   				<div class="one">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button1" onclick="document.getElementById('table').appendChild(loadTable(players[0]));">1</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button1" onclick="setPosition(1); document.getElementById('table').appendChild(loadTable(players[0]));">1</a>
+  					</br>
+  					<h7 id="button1Text">LName<span class="badge badge-dark" id="button1Badge">0</span></h7>
   				</div>
   				<div class="two">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button2" onclick="document.getElementById('table').appendChild(loadTable(players[1]));">2</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button2" onclick="setPosition(2); document.getElementById('table').appendChild(loadTable(players[1]));">2</a>
+  					</br>
+  					<h7 id="button2Text">LName<span class="badge badge-dark" id="button2Badge">0</span></h7>
   				</div>
   				<div class="three">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button3" onclick="document.getElementById('table').appendChild(loadTable(players[1]));">3</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button3" onclick="setPosition(3); document.getElementById('table').appendChild(loadTable(players[1]));">3</a>
+  					</br>
+  					<h7 id="button3Text">LName<span class="badge badge-dark" id="button3Badge">0</span></h7>
   				</div>
   				<div class="four">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button4" onclick="document.getElementById('table').appendChild(loadTable(players[1]));">4</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button4" onclick="setPosition(4); document.getElementById('table').appendChild(loadTable(players[1]));">4</a>
+  					</br>
+  					<h7 id="button4Text">LName<span class="badge badge-dark" id="button4Badge">0</span></h7>
   				</div>
   				<div class="five">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button5" onclick="document.getElementById('table').appendChild(loadTable(players[1]));">5</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button5" onclick="setPosition(5); document.getElementById('table').appendChild(loadTable(players[1]));">5</a>
+  					</br>
+  					<h7 id="button5Text">LName<span class="badge badge-dark" id="button5Badge">0</span></h7>
   				</div>
   				<div class="six">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button6" onclick="document.getElementById('table').appendChild(loadTable(players[2]));">6</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button6" onclick="setPosition(6); document.getElementById('table').appendChild(loadTable(players[2]));">6</a>
+  					</br>
+  					<h7 id="button6Text">LName<span class="badge badge-dark" id="button6Badge">0</span></h7>
   				</div>
   				<div class="seven">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button7" onclick="document.getElementById('table').appendChild(loadTable(players[3]));">7</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button7" onclick="setPosition(7); document.getElementById('table').appendChild(loadTable(players[3]));">7</a>
+  					</br>
+  					<h7 id="button7Text">LName<span class="badge badge-dark" id="button7Badge">0</span></h7>
   				</div>
   				<div class="eight">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button8" onclick="document.getElementById('table').appendChild(loadTable(players[2]));">8</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button8" onclick="setPosition(8); document.getElementById('table').appendChild(loadTable(players[2]));">8</a>
+  					</br>
+  					<h7 id="button8Text">LName<span class="badge badge-dark" id="button8Badge">0</span></h7>
   				</div>
   				<div class="nine">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button9" onclick="document.getElementById('table').appendChild(loadTable(players[3]));">9</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button9" onclick="setPosition(9); document.getElementById('table').appendChild(loadTable(players[3]));">9</a>
+  					</br>
+  					<h7 id="button9Text">LName<span class="badge badge-dark" id="button9Badge">0</span></h7>
   				</div>
   				<div class="ten">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button10" onclick="document.getElementById('table').appendChild(loadTable(players[2]));">10</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button10" onclick="setPosition(10); document.getElementById('table').appendChild(loadTable(players[2]));">10</a>
+  					</br>
+  					<h7 id="button10Text">LName<span class="badge badge-dark" id="button10Badge">0</span></h7>
   				</div>
   				<div class="eleven">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button11" onclick="document.getElementById('table').appendChild(loadTable(players[2]));">11</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button11" onclick="setPosition(11); document.getElementById('table').appendChild(loadTable(players[2]));">11</a>
+  					</br>
+  					<h7 id="button11Text">LName<span class="badge badge-dark" id="button11Badge">0</span></h7>
   				</div>
   				<div class="twelve">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button12" onclick="document.getElementById('table').appendChild(loadTable(players[0]));">12</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button12" onclick="setPosition(12); document.getElementById('table').appendChild(loadTable(players[0]));">12</a>
+  					</br>
+  					<h7 id="button12Text">LName<span class="badge badge-dark" id="button12Badge">0</span></h7>
   				</div>
   				<div class="thirteen">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button13" onclick="document.getElementById('table').appendChild(loadTable(players[1]));">13</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button13" onclick="setPosition(13); document.getElementById('table').appendChild(loadTable(players[1]));">13</a>
+  					</br>
+  					<h7 id="button13Text">LName<span class="badge badge-dark" id="button13Badge">0</span></h7>
   				</div>
   				<div class="fourteen">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button14" onclick="document.getElementById('table').appendChild(loadTable(players[2]));">14</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button14" onclick="setPosition(14); document.getElementById('table').appendChild(loadTable(players[2]));">14</a>
+  					</br>
+  					<h7 id="button14Text">LName<span class="badge badge-dark" id="button14Badge">0</span></h7>
   				</div>
   				<div class="fifteen">
-  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button15" onclick="document.getElementById('table').appendChild(loadTable(players[3]));">15</a>
+  					<a data-target="#myModal" role="button" class="btn" data-toggle="modal" id="button15" onclick="setPosition(15); document.getElementById('table').appendChild(loadTable(players[3]));">15</a>
+  					</br>
+  					<h7 id="button15Text">LName<span class="badge badge-dark" id="button15Badge">0</span></h7>
   				</div>
 			</div>
 
@@ -300,24 +332,20 @@ body {
       					</th>
       					<th class="th-sm" style="cursor:s-resize" onclick="sortTable(1)">Club
       					</th>
-      					<th class="th-sm" style="cursor:s-resize" onclick="sortTable(2)">Cost(£mill)
+      					<th class="th-sm" style="cursor:s-resize" onclick="sortTable(2)">Cost(millions)
       					</th>
       
     				</tr>
   				</thead>
   				<tbody id="table-body">
     				<tr class='clickable-row' style="cursor:pointer" value="111111111">
-        				<td class="name">Tom Wallop</td> <td class="club">Aberdeen</td> <td class="price">1.3</td>
-    				</tr>
-    				<tr class='clickable-row' style="cursor:pointer" value="2222222">
-        				<td class="name">Adam Strong</td> <td class="club">Celtic</td> <td class="price">2.3</td>
+        				<td class="name">Default Default</td> <td class="club">Default</td> <td class="price">0.0</td>
     				</tr>
   				</tbody>
 			</table>
   		</div>
 			<div class="modal-footer">
-				<button type="button" class="btn-secondary" data-dismiss="modal">Close</button>
-				<button class="btn-primary">Add Player</button>
+				<button type="button" class="btn-primary" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>
@@ -375,6 +403,8 @@ body {
 			midfielders = [],
 			forwards = [],
 			];
+			var user;
+			var position;
 			
 			// This calls the helloJSONList REST method from TopTrumpsRESTAPI
 			function helloJSONList() {
@@ -420,8 +450,9 @@ body {
 				xhr.send();		
 			}
 
-			function addPlayer(word) {
-				alert(word);
+			function addPlayer(player_id, position) {
+				alert(player_id);
+				alert(position);
 				// First create a CORS request, this is the message we are going to send (a get request in this case)
 				var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/helloWord?Word="+word); // Request type and URL+parameters
 				
@@ -434,28 +465,7 @@ body {
 				// to do when the response arrives 
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
-					alert(responseText); // lets produce an alert
-				};
-				
-				// We have done everything we need to prepare the CORS request, so send it
-				xhr.send();		
-			}
-
-			function updateTransfer(word) {
-				alert(word);
-				// First create a CORS request, this is the message we are going to send (a get request in this case)
-				var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/helloWord?Word="+word); // Request type and URL+parameters
-				
-				// Message is not sent yet, but we can check that the browser supports CORS
-				if (!xhr) {
-  					alert("CORS not supported");
-				}
-
-				// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-				// to do when the response arrives 
-				xhr.onload = function(e) {
- 					var responseText = xhr.response; // the text of the response
-					alert(responseText); // lets produce an alert
+					document.getElementById("demo").innerHTML = responseText; // lets produce an alert
 				};
 				
 				// We have done everything we need to prepare the CORS request, so send it
@@ -480,7 +490,7 @@ body {
 
 			        var club = document.createElement('td');
 			        club.setAttribute('class', "club");
-			        var cText = document.createTextNode(array[i].club_id);
+			        var cText = document.createTextNode(array[i].club);
 			        club.appendChild(cText);
 
 			        var	price =	document.createElement('td');
@@ -502,7 +512,6 @@ body {
 			}
 
 			function buildPlayers() {
-			
 				// First create a CORS request, this is the message we are going to send (a get request in this case)
 				var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildPlayers"); // Request type and URL
 				
@@ -529,11 +538,92 @@ body {
 							players[3].push(response[i]);
 						}
 					}
+					buildUser().call;
 				}
 				
 				// We have done everything we need to prepare the CORS request, so send it
 				xhr.send();		
 			}
+
+			function buildUser() {
+				// First create a CORS request, this is the message we are going to send (a get request in this case)
+				var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildUser"); // Request type and URL
+				
+				// Message is not sent yet, but we can check that the browser supports CORS
+				if (!xhr) {
+  					alert("CORS not supported");
+				}
+
+				// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+				// to do when the response arrives 
+				xhr.onload = function(e) {
+ 					user = JSON.parse(xhr.response);
+ 					alert(xhr.response);
+ 					var fields = user.email.split('@');
+					document.getElementById("welcomeHeader").innerHTML = "Welcome " + fields[0] + "!";
+ 					
+ 					repaint();
+				}
+				
+				// We have done everything we need to prepare the CORS request, so send it
+				xhr.send();		
+			}
+			
+			function repaint(){
+				document.getElementById("budgetBadge").innerHTML = user.team.transferBudget;
+				var length = Object.keys(user.team.squad).length;
+				for(var i in user.team.squad){
+					var button = document.getElementById("button"+i);
+					button.style.background = buttonPainter(user.team.squad[i].club);
+					
+				}
+			}
+			
+			function buttonPainter(club){
+				alert(club);
+				if(club === "Aberdeen"){
+					return "rgb(226,0,26)";
+				}
+				else if(club === "Celtic"){
+					return "linear-gradient(to bottom, rgb(1,135,73) 50%, white 50%)";
+				}
+				else if(club === "Hamilton Academical"){
+					return "linear-gradient(to bottom, rgb(204,56,63) 50%, white 50%)";
+				}
+				else if(club === "Heart of Midlothian"){
+					return "rgb(159,25,49)";
+				}
+				else if(club === "Hibernian "){
+					return "rgb(0,117,59)";
+				}
+				else if(club === "Kilmarnock "){
+					return "linear-gradient(to right, rgb(47,54,143) 50%, white 50%)";
+				}
+				else if(club === "Livingston "){
+					return "rgb(255,204,0)";
+				}
+				else if(club === "Motherwell "){
+					return "linear-gradient(to bottom, rgb(251,186,45) 50%, rgb(122,20,63)  50%)";
+				}
+				else if(club === "Rangers"){
+					return "rgb(27,69,143)";
+				}
+				else if(club === "Ross County"){
+					return "linear-gradient(to bottom, rgb(4,9,87) 50%, rgb(244,19,43)  50%)";
+				}
+				else if(club === "St. Johnstone"){
+					return "linear-gradient(to bottom, rgb(36,63,144) 50%, white  50%)";
+				}
+				else if(club === "St. Mirren"){
+					return "linear-gradient(to right, black 50%, white 50%)";
+				}
+			}
+			
+			function setPosition(pos){
+				position = pos; 
+			}
+			
+
 
 			function sortTable(n) {
 			  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
@@ -592,11 +682,10 @@ body {
 
 			jQuery(document).ready(function($) {
     			$('#table').on('click', '.clickable-row', function() {
-        			addPlayer($(this).attr('value'));
+        			addPlayer($(this).attr('value'), position);
         			var $item = $(this).closest("tr") 
                        .find(".price")     // Gets a descendent with class="price"
                        .text();         // Retrieves the text within <td>
-        			updateTransfer($item);
         			$("#myModal").modal('hide');
     			});
 			});
