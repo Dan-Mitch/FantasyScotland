@@ -159,7 +159,6 @@ body {
 				// to do when the response arrives 
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
-					alert(responseText); // lets produce an alert
 				};
 				
 				// We have done everything we need to prepare the CORS request, so send it

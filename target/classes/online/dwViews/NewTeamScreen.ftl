@@ -183,7 +183,7 @@ body {
 
 .modal{
 	position:absolute;
-	 top: 24%;
+	top: 24%;
   	left: 31%;
 	background-color: white;
 	width: 500px;
@@ -193,16 +193,42 @@ body {
   	margin-left:100px;
 }
 
-.list-group{
-    max-height: 300px;
-    margin-bottom: 10px;
-    overflow:scroll;
-    -webkit-overflow-scrolling: touch;
+table {
+    width: 100%;
 }
 
-br {
-   display: block;
-   margin: 1111px 111px;
+thead, tbody, tr, td, th { 
+	display: block; 
+}
+
+tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+thead th {
+    height: 50px;
+
+    /*text-align: left;*/
+}
+
+tbody {
+    height: 300px;
+    overflow-y: auto;
+}
+
+thead {
+	width: 432px;
+    /* fallback */
+}
+
+
+tbody td, thead th {
+    width: 33.2%;
+    height: 60px;
+    float: left;
 }
 
 </style>
@@ -316,14 +342,6 @@ br {
         	</button>
   		</div>
 
-  		<!-- <div class="modal-body">
-  			<div class="list-group" id="list-group">
-	      		<a href="#" class="list-group-item list-group-item-action ">
-	    		1</a>
-	  			<a href="#" class="list-group-item list-group-item-action">2</a>
-	  			<a href="#" class="list-group-item list-group-item-action">3</a>
-  			</div>
-  		</div> -->
   		<div class="modal-body">
   			<table id="table" class="table table-bordered table-hover table-sm " cellspacing="0" width="100%">
   				<thead>
@@ -354,7 +372,7 @@ br {
 	<script type="text/javascript">
 			// Method that is called on page load
 			function initalize() {
-				buildPlayers();
+				buildClubs();
 				// --------------------------------------------------------------------------
 				// You can call other methods you want to run when the page first loads here
 				// --------------------------------------------------------------------------
@@ -404,6 +422,7 @@ br {
 			forwards = [],
 			];
 			var user;
+			var clubs = [];
 			var position;
 			
 			// This calls the helloJSONList REST method from TopTrumpsRESTAPI
@@ -488,7 +507,7 @@ br {
 
 			        var club = document.createElement('td');
 			        club.setAttribute('class', "club");
-			        var cText = document.createTextNode(array[i].club);
+			        var cText = document.createTextNode(convertClub(array[i].club_id));
 			        club.appendChild(cText);
 
 			        var	price =	document.createElement('td');
@@ -575,12 +594,35 @@ br {
 				xhr.send();		
 			}
 			
+			function buildClubs() {
+				// First create a CORS request, this is the message we are going to send (a get request in this case)
+				var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildClubs"); // Request type and URL
+				
+				// Message is not sent yet, but we can check that the browser supports CORS
+				if (!xhr) {
+  					alert("CORS not supported");
+				}
+
+				// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+				// to do when the response arrives 
+				xhr.onload = function(e) {
+ 					var response = JSON.parse(xhr.response); // the text of the response
+					for(var i = 0; i < response.length; i++){
+						clubs.push(response[i]);
+					}
+					buildPlayers().call;
+				}
+				
+				// We have done everything we need to prepare the CORS request, so send it
+				xhr.send();		
+			}
+			
 			function repaint(){
-				document.getElementById("budgetBadge").innerHTML = user.team.transferBudget;
+				document.getElementById("budgetBadge").innerHTML = Number.parseFloat(user.team.transferBudget).toPrecision(3);
 				var length = Object.keys(user.team.squad).length;
 				for(var i in user.team.squad){
 					var button = document.getElementById("button"+i);
-					button.style.background = buttonPainter(user.team.squad[i].club);
+					button.style.background = buttonPainter(user.team.squad[i].club_id);
 					var names = (user.team.squad[i].name).split(' ');
 					document.getElementById("button"+i+"Text").firstChild.nodeValue = names[1];
 					document.getElementById("button"+i+"Badge").innerHTML = user.team.squad[i].price;
@@ -588,46 +630,54 @@ br {
 			}
 			
 			function buttonPainter(club){
-				if(club === "Aberdeen"){
+				if(club === 45){
 					return "rgb(226,0,26)";
 				}
-				else if(club === "Celtic"){
+				else if(club === 54){
 					return "linear-gradient(to bottom, rgb(1,135,73) 50%, white 50%)";
 				}
-				else if(club === "Hamilton Academical"){
+				else if(club === 228){
 					return "linear-gradient(to bottom, rgb(204,56,63) 50%, white 50%)";
 				}
-				else if(club === "Heart of Midlothian"){
+				else if(club === 50){
 					return "rgb(159,25,49)";
 				}
-				else if(club === "Hibernian "){
+				else if(club === 53){
 					return "rgb(0,117,59)";
 				}
-				else if(club === "Kilmarnock "){
+				else if(club === 52){
 					return "linear-gradient(to right, rgb(47,54,143) 50%, white 50%)";
 				}
-				else if(club === "Livingston "){
+				else if(club === 560){
 					return "rgb(255,204,0)";
 				}
-				else if(club === "Motherwell "){
+				else if(club === 47){
 					return "linear-gradient(to bottom, rgb(251,186,45) 50%, rgb(122,20,63)  50%)";
 				}
-				else if(club === "Rangers"){
+				else if(club === 49){
 					return "rgb(27,69,143)";
 				}
-				else if(club === "Ross County"){
+				else if(club === 360){
 					return "linear-gradient(to bottom, rgb(4,9,87) 50%, rgb(244,19,43)  50%)";
 				}
-				else if(club === "St. Johnstone"){
+				else if(club === 46){
 					return "linear-gradient(to bottom, rgb(36,63,144) 50%, white  50%)";
 				}
-				else if(club === "St. Mirren"){
+				else if(club === 56){
 					return "linear-gradient(to right, black 50%, white 50%)";
 				}
 			}
 			
 			function setPosition(pos){
 				position = pos; 
+			}
+			
+			function convertClub(id){
+				for(var i = 0; i < clubs.length; i++){
+					if(clubs[i].club_id === id){
+						return clubs[i].name;
+					}
+				}
 			}
 			
 

@@ -7,7 +7,7 @@ public class Player{
 	private String name;
 	private String position;
 	private double price;
-	private String club;
+	private int club_id;
 	private int points;
 	private int goals;
 	private int assists;
@@ -22,6 +22,15 @@ public class Player{
 	
 	
 	public Player() {
+		this.points = 0;
+		this.goals = 0;
+		this.assists = 0;
+		this.yellowCards = 0;
+		this.redCards = 0;
+		this.ownGoals = 0;
+		this.apps = 0;
+		this.clean_sheets = 0;
+		this.isCaptain = false;
 		this.isSelectable = true;
 	}
 	
@@ -57,12 +66,12 @@ public class Player{
 		this.price = price;
 	}
 
-	public String getClub() {
-		return club;
+	public int getClub_id() {
+		return club_id;
 	}
 
-	public void setClub(String club) {
-		this.club = club;
+	public void setClub_id(int club_id) {
+		this.club_id = club_id;
 	}
 
 	public int getPoints() {

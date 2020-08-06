@@ -13,7 +13,7 @@ import database.DatabaseLinker;
 public class MainModel {
 	private XmlSoccerService xmlSoccerService;
 	private DatabaseLinker database;
-	private Clubs clubs;
+	public static ArrayList<Club> clubs;
 	private Players players;
 	private Fixtures fixtures;
 	private Leagues leagues;
@@ -25,7 +25,7 @@ public class MainModel {
 		
 		this.database = new DatabaseLinker();
 		
-		this.clubs = new Clubs(database.loadClubs());
+		this.clubs = database.loadClubs();
 		this.fixtures = new Fixtures();
 		this.leagues = new Leagues();
 		this.players = new Players(database.loadPlayers());
@@ -76,10 +76,6 @@ public class MainModel {
 		Player player = this.players.getPlayer(id);
 		player.setSelectable(true);
 		this.currentUser.removePlayerFromTeam(player);
-	}
-	
-	public Clubs getClubs() {
-		return clubs;
 	}
 
 	public Players getPlayers() {

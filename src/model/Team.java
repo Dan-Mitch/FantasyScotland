@@ -51,13 +51,13 @@ public class Team {
 	}
 	
 	public String clubLimitReached() {
-		ArrayList<String> players_clubs = new ArrayList<String>();
+		ArrayList<Integer> players_clubs = new ArrayList<Integer>();
 		
 		for(Player p : squad.values()) {
-			players_clubs.add(p.getClub());
+			players_clubs.add(p.getClub_id());
 		}
 		
-		for( Club club : Clubs.clubs) {
+		for( Club club : MainModel.clubs) {
 			if(Collections.frequency(players_clubs, club.getName()) > 3) {
 				return club.getName();
 			}

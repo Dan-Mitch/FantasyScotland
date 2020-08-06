@@ -174,6 +174,23 @@ public class FantasyScotlandRESTAPI {
 	}
 	
 	@GET
+	@Path("/buildClubs")
+	/**
+	 * Here is an example of a simple REST get request that returns a String.
+	 * We also illustrate here how we can convert Java objects to JSON strings.
+	 * @return - List of words as JSON
+	 * @throws IOException
+	 */
+	public String buildClubs() throws IOException {
+		
+		ArrayList<Club> listOfClubs = MainModel.clubs;
+		// We can turn arbatory Java objects directly into JSON strings using
+		// Jackson seralization, assuming that the Java objects are not too complex.
+		String listAsJSONString = oWriter.writeValueAsString(listOfClubs);
+		return listAsJSONString;
+	}
+	
+	@GET
 	@Path("/buildTeam")
 	/**
 	 * Here is an example of a simple REST get request that returns a String.

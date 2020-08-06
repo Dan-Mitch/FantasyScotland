@@ -186,7 +186,6 @@ body {
 				// to do when the response arrives 
 				xhr.onload = function(e) {
 					var responseText = xhr.response; // the text of the response
-					alert(responseText); // lets produce an alert
  					if(xhr.response == "true"){
 	     				document.getElementById("warning_text").innerText = "Email already registered.";
 	          			document.getElementById("warning").style.display = "block";

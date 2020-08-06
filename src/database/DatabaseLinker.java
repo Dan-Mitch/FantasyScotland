@@ -150,14 +150,7 @@ public class DatabaseLinker {
 				player.setName(result.getString("name"));
 				player.setPosition(result.getString("position"));
 				player.setPrice(result.getDouble("price"));
-				player.setClub(result.getString("club_id"));
-				player.setPoints(result.getInt("points"));
-				player.setGoals(result.getInt("goals"));	
-				player.setAssists(result.getInt("assists"));
-				player.setRedCards(result.getInt("red_cards"));
-				player.setYellowCards(result.getInt("yellow_cards"));
-				player.setApps(result.getInt("apps"));
-				player.setClean_sheets(result.getInt("clean_sheets"));
+				player.setClub_id(Integer.parseInt(result.getString("club_id")));
 				players.add(player);
 			}
 		} catch (SQLException ex) {
@@ -178,9 +171,28 @@ public class DatabaseLinker {
 			ResultSet result = statement.executeQuery(query);
 			while(result.next()) {
 				Club club = new Club();
-				club.setClub_id(UUID.fromString(result.getString("club_id")));
+				club.setClub_id(Integer.parseInt(result.getString("club_id")));
 				club.setName(result.getString("name"));
 				clubs.add(club);
+			}
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+		return clubs;
+	}
+	
+	public ArrayList<Club> loadScores() {
+		String query = "SELECT * FROM scores";
+		ArrayList<Club> clubs = new ArrayList<Club>();
+		openConnection();
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(query);
+			while(result.next()) {
+				
 			}
 		} catch (SQLException ex) {
 			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
@@ -199,6 +211,8 @@ public class DatabaseLinker {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	
 
 	private void closeConnection() {
 		try {
