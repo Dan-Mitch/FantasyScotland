@@ -141,8 +141,8 @@ public class FantasyScotlandRESTAPI {
 		this.model.registerUser(email,pass);
 	}
 	
-	@POST
-	@Path("/addplayer")
+	@GET
+	@Path("/addPlayer")
 	/**
 	 * Here is an example of how to read parameters provided in an HTML Get request.
 	 * @param Word - A word
@@ -150,7 +150,10 @@ public class FantasyScotlandRESTAPI {
 	 * @throws IOException
 	 */
 	public String addPlayer(@QueryParam("Id") UUID id, @QueryParam("Pos") int position) throws IOException {
-		return this.model.addPlayerToNewTeam(id,position);
+		System.out.println("addplayer" + id);
+		String response = this.model.addPlayerToTeam(id,position);
+		String responsetAsJSONString = oWriter.writeValueAsString(response);
+		return responsetAsJSONString;
 	}
 	
 	@GET
@@ -164,7 +167,6 @@ public class FantasyScotlandRESTAPI {
 	public String buildPlayers() throws IOException {
 		
 		ArrayList<Player> listOfPlayers = this.model.getPlayers().getPlayers();
-		System.err.println("player name = " + listOfPlayers.get(0).getName());
 		// We can turn arbatory Java objects directly into JSON strings using
 		// Jackson seralization, assuming that the Java objects are not too complex.
 		String listAsJSONString = oWriter.writeValueAsString(listOfPlayers);

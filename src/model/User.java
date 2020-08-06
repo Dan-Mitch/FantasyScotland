@@ -22,6 +22,11 @@ public class User {
 		this.team.removePlayer(p);
 	}
 	
+	public void loadTeam(Team team) {
+		this.team = team;
+		this.team.makeTeamNonSelectable();
+	}
+	
 	public UUID getId() {
 		return id;
 	}

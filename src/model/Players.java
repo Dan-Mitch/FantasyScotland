@@ -46,11 +46,12 @@ public class Players {
 	public Player getPlayer(UUID id) {
 		Player result = null;
 		for(Player p : this.players) {
-			if(p.getPlayer_id() == id) {
+			if(p.getPlayer_id().equals(id)) {
 				result = p;
 				break;
 			}
 		}
+		System.err.println(result.getName());
 		return result;
 	}
 

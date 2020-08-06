@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class Team {
@@ -22,10 +23,6 @@ public class Team {
 		this.owner_id = null;
 		this.team_id = null;
 		this.squad = new HashMap<Integer, Player>();
-		Player p = new Player();
-		p.setClub("Aberdeen");
-		this.squad.put(7,  p);
-		this.squad.put(2,  p);
 	}
 
 	public void removePlayer(Player p) {
@@ -39,10 +36,17 @@ public class Team {
 			return "You have exceeded the budget limit";
 		}
 		else if(clubLimitReached() != null) {
-			return "Too many players from" + clubLimitReached() + " (Max 3).";
+			return "Too many players from " + clubLimitReached() + " (Max 3).";
 		}
 		else {
-			return "";
+			return "Successfully added player.";
+		}
+	}
+	
+	public void makeTeamNonSelectable() {
+		for(Map.Entry<Integer, Player> entry : this.squad.entrySet()) {
+			Player player = entry.getValue();
+			player.setSelectable(false);
 		}
 	}
 	

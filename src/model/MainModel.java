@@ -66,8 +66,16 @@ public class MainModel {
 		this.database.writeTeam(team_id, name, currentUser.getId());
 	}
 	
-	public String addPlayerToNewTeam(UUID id, int position) {
-			return this.currentUser.addPlayerToTeam(this.players.getPlayer(id), position);
+	public String addPlayerToTeam(UUID id, int position) {
+		Player player = this.players.getPlayer(id);
+		player.setSelectable(false);
+		return this.currentUser.addPlayerToTeam(player, position);
+	}
+	
+	public void removePlayerFromTeam(UUID id, int position) {
+		Player player = this.players.getPlayer(id);
+		player.setSelectable(true);
+		this.currentUser.removePlayerFromTeam(player);
 	}
 	
 	public Clubs getClubs() {

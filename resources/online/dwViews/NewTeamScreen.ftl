@@ -216,7 +216,7 @@ br {
 			<div class = "header">
 				<h2 class="form-signin-heading text-center" id="welcomeHeader">Welcome to Fantasy Scotland!</h2>
 				<h3 class="form-signin-heading text-center">Please Create a Team!</h3>
-				<h3 class="form-signin-heading text-center">Transfer Budget <span class="badge badge-secondary" id="budgetBadge"></span>million.</h3>
+				<h3 class="form-signin-heading text-center">Remaining Budget <span class="badge badge-secondary" id="budgetBadge"></span> million.</h3>
 				<h4 class="text-danger text-center" id="errorText"></h4>
 		  	</div>
 
@@ -451,10 +451,8 @@ br {
 			}
 
 			function addPlayer(player_id, position) {
-				alert(player_id);
-				alert(position);
 				// First create a CORS request, this is the message we are going to send (a get request in this case)
-				var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/helloWord?Word="+word); // Request type and URL+parameters
+				var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/addPlayer?Id="+player_id+"&Pos="+position); // Request type and URL+parameters
 				
 				// Message is not sent yet, but we can check that the browser supports CORS
 				if (!xhr) {
@@ -465,7 +463,8 @@ br {
 				// to do when the response arrives 
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
-					document.getElementById("demo").innerHTML = responseText; // lets produce an alert
+					document.getElementById("errorText").innerHTML = responseText.replace(/['"]+/g, ''); // lets produce an alert
+					buildPlayers().call;
 				};
 				
 				// We have done everything we need to prepare the CORS request, so send it
@@ -473,9 +472,8 @@ br {
 			}
 
 			function loadTable(array) {
-				// Create the list element:
 			    var table = document.getElementById('table-body');
-					table.innerHTML = "";
+				table.innerHTML = "";
 			    for(var i = 0; i < array.length; i++) {
 			        // Create the list item:
 			        var tr = document.createElement('tr');
@@ -524,8 +522,17 @@ br {
 				// to do when the response arrives 
 				xhr.onload = function(e) {
  					var response = JSON.parse(xhr.response); // the text of the response
+					players = [
+    					goalkeepers = [],
+    					defenders = [],
+						midfielders = [],
+						forwards = [],
+						];
 					for(var i = 0; i < response.length; i++){
-						if(response[i].position === "Goalkeeper"){
+						if(response[i].selectable === false){
+							continue;
+						}
+						else if(response[i].position === "Goalkeeper"){
 							players[0].push(response[i]);
 						}
 						else if(response[i].position === "Defender"){
@@ -558,7 +565,6 @@ br {
 				// to do when the response arrives 
 				xhr.onload = function(e) {
  					user = JSON.parse(xhr.response);
- 					alert(xhr.response);
  					var fields = user.email.split('@');
 					document.getElementById("welcomeHeader").innerHTML = "Welcome " + fields[0] + "!";
  					
@@ -575,12 +581,13 @@ br {
 				for(var i in user.team.squad){
 					var button = document.getElementById("button"+i);
 					button.style.background = buttonPainter(user.team.squad[i].club);
-					
+					var names = (user.team.squad[i].name).split(' ');
+					document.getElementById("button"+i+"Text").firstChild.nodeValue = names[1];
+					document.getElementById("button"+i+"Badge").innerHTML = user.team.squad[i].price;
 				}
 			}
 			
 			function buttonPainter(club){
-				alert(club);
 				if(club === "Aberdeen"){
 					return "rgb(226,0,26)";
 				}

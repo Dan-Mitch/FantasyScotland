@@ -17,15 +17,12 @@ public class Player{
 	private int apps;
 	private int clean_sheets;
 	
-	
-	
-	private boolean isInjured;
 	private boolean isCaptain;
 	private boolean isSelectable;
 	
 	
 	public Player() {
-
+		this.isSelectable = true;
 	}
 	
 	public UUID getPlayer_id() {
@@ -132,14 +129,6 @@ public class Player{
 		this.clean_sheets = clean_sheets;
 	}
 
-	public boolean isInjured() {
-		return isInjured;
-	}
-
-	public void setInjured(boolean isInjured) {
-		this.isInjured = isInjured;
-	}
-
 	public boolean isCaptain() {
 		return isCaptain;
 	}
@@ -151,5 +140,13 @@ public class Player{
 	private static double round (double value, int precision) {
 	    int scale = (int) Math.pow(10, precision);
 	    return (double) Math.round(value * scale) / scale;
+	}
+
+	public boolean isSelectable() {
+		return isSelectable;
+	}
+
+	public void setSelectable(boolean isSelectable) {
+		this.isSelectable = isSelectable;
 	}
 }
