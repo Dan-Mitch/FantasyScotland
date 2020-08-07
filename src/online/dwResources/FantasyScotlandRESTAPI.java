@@ -2,7 +2,9 @@ package online.dwResources;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.ws.rs.Consumes;
@@ -150,9 +152,39 @@ public class FantasyScotlandRESTAPI {
 	 * @throws IOException
 	 */
 	public String addPlayer(@QueryParam("Id") UUID id, @QueryParam("Pos") int position) throws IOException {
-		System.out.println("addplayer" + id);
 		String response = this.model.addPlayerToTeam(id,position);
 		String responsetAsJSONString = oWriter.writeValueAsString(response);
+		return responsetAsJSONString;
+	}
+	
+	@GET
+	@Path("/removePlayer")
+	/**
+	 * Here is an example of how to read parameters provided in an HTML Get request.
+	 * @param Word - A word
+	 * @return - A String
+	 * @throws IOException
+	 */
+	public String removePlayer(@QueryParam("Pos") int position) throws IOException {
+		String response = this.model.removePlayerFromTeam(position);
+		String responsetAsJSONString = oWriter.writeValueAsString(response);
+		return responsetAsJSONString;
+	}
+	
+	@GET
+	@Path("/removeAllPlayers")
+	/**
+	 * Here is an example of a simple REST get request that returns a String.
+	 * We also illustrate here how we can convert Java objects to JSON strings.
+	 * @return - List of words as JSON
+	 * @throws IOException
+	 */
+	public String removeAllPlayers() throws IOException {
+		Set<Integer> keys = new HashSet<Integer>(this.model.getCurrentUser().getTeam().getSquad().keySet());
+		for(int i : keys) {
+			this.model.removePlayerFromTeam(i);
+		}
+		String responsetAsJSONString = "Successfully removed all players.";
 		return responsetAsJSONString;
 	}
 	

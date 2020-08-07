@@ -51,7 +51,6 @@ public class Players {
 				break;
 			}
 		}
-		System.err.println(result.getName());
 		return result;
 	}
 

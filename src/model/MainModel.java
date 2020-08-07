@@ -50,7 +50,6 @@ public class MainModel {
 	
 	public boolean doesTeamExist(String email) {
 		UUID team_id = this.database.doesTeamExist(email);
-		System.err.println(team_id);
 		if(team_id != null) {
 			return true;
 		}
@@ -72,10 +71,14 @@ public class MainModel {
 		return this.currentUser.addPlayerToTeam(player, position);
 	}
 	
-	public void removePlayerFromTeam(UUID id, int position) {
-		Player player = this.players.getPlayer(id);
-		player.setSelectable(true);
-		this.currentUser.removePlayerFromTeam(player);
+	public String removePlayerFromTeam(int position) {
+		UUID id = this.currentUser.removePlayerFromTeam(position);
+		if( id != null) {
+			Player player = this.players.getPlayer(id);
+			player.setSelectable(true);
+			return "Successfully removed player.";
+		}
+		return null;
 	}
 
 	public Players getPlayers() {

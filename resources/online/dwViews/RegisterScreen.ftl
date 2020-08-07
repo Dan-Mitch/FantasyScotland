@@ -73,17 +73,17 @@ body {
 
 	<div class="wrapper">
 	
-		<form class="form-signin">
+		<form onsubmit="newUser();return false" class="form-signin">
 		  <h2 class="form-signin-heading text-center">Welcome to Fantasy Scotland!</h2>
 		  <a class="logo" id="logo"><img src="https://i.ibb.co/yVc3vPy/Fantasy-Scotland.png" alt="Fantasy-Scotland" width="250" ></a>
-		  <input type="text" id="email" class="form-control" name="email" placeholder="Enter Email Address" required="" autofocus="" />
+		  <input type="email" id="email" class="form-control" name="email" placeholder="Enter Email Address" required="" autofocus="" />
 		  <input type="password" id="password" class="form-control" name="password" placeholder="Enter Password" required="" />
 		  <input type="password" id="passwordRepeat" class="form-control" name="passwordRepeat" placeholder="Repeat Password" required="" />
 		  <div class="warning" id="warning">
 		    <p id="warning_text" class="text-danger"></p>
 		  </div>
 		  <div class="login">
-		    <button type="button" class="btn btn-lg btn-primary btn-block" id="registerButton" onclick="doesUserExist()">Register</button>
+		    <button type="submit" class="btn btn-lg btn-primary btn-block" id="registerButton" value="Submit"">Register</button>
 		    <p id="loginLine">Already got an account? <a href='/fantasyscotland'>Sign In.</p>
 		  </div>
 		</form>

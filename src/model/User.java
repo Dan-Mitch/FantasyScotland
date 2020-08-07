@@ -18,8 +18,8 @@ public class User {
 			return this.team.addPlayer(p, position);
 	}
 	
-	public void removePlayerFromTeam(Player p) {
-		this.team.removePlayer(p);
+	public UUID removePlayerFromTeam(int position) {
+		return this.team.removePlayer(position);
 	}
 	
 	public void loadTeam(Team team) {

@@ -25,9 +25,6 @@ public class Team {
 		this.squad = new HashMap<Integer, Player>();
 	}
 
-	public void removePlayer(Player p) {
-		this.squad.remove(p);
-	}
 
 	public String addPlayer(Player p, int position) {
 		this.squad.put(position, p);
@@ -41,6 +38,13 @@ public class Team {
 		else {
 			return "Successfully added player.";
 		}
+	}
+	
+	public UUID removePlayer(int position) {
+		Player p = this.squad.get(position);
+		this.transferBudget = this.transferBudget + p.getPrice();
+		this.squad.remove(position);
+		return p.getPlayer_id();
 	}
 	
 	public void makeTeamNonSelectable() {
@@ -58,7 +62,7 @@ public class Team {
 		}
 		
 		for( Club club : MainModel.clubs) {
-			if(Collections.frequency(players_clubs, club.getName()) > 3) {
+			if(Collections.frequency(players_clubs, club.getClub_id()) > 3) {
 				return club.getName();
 			}
 		}
@@ -106,7 +110,8 @@ public class Team {
 	}
 
 	public double getTransferBudget() {
-		return transferBudget;
+		int scale = (int) Math.pow(10, 2);
+		return (double) Math.round(transferBudget * scale) / scale;
 	}
 
 	public void setTransferBudget(double transferBudget) {
