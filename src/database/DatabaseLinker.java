@@ -48,16 +48,49 @@ public class DatabaseLinker {
 		}
 	}
 	
-	public void writeTeam(UUID team_id, String name, UUID owner_id) {
-		String query1 = "INSERT INTO team_details (team_id, name) VALUES ('" + team_id + "', '" + name + "')";
-		String query2 = "INSERT INTO teams (team_id, owner_id) VALUES ('" + team_id + "', '" + owner_id + "')";
+	public void writeTeam(UUID team_id, UUID owner_id) {
+		String query = "INSERT INTO team_details (team_id, owner_id) VALUES ('" + team_id + "', '" + owner_id + "')";
 
 		openConnection();
 		PreparedStatement statement;
 		try {
-			statement = connection.prepareStatement(query1);
+			statement = connection.prepareStatement(query);
 			statement.executeUpdate();
-			statement = connection.prepareStatement(query2);
+			System.out.println("Write to database successful...");
+		} catch (SQLException ex) {
+
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+	}
+	
+	public void writeTeamDetails(UUID team_id, String name, double budget, UUID captain_id) {
+		String query = "INSERT INTO team_details (team_id, name, budget, captain_id) VALUES ('" + team_id + "', '" + name + "', '" + budget + "', '" + captain_id + "')";
+
+		openConnection();
+		PreparedStatement statement;
+		try {
+			statement = connection.prepareStatement(query);
+			statement.executeUpdate();
+			System.out.println("Write to database successful...");
+		} catch (SQLException ex) {
+
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+	}
+	
+	public void writeTeamMembership(UUID team_id, UUID player_id) {
+		String query = "INSERT INTO team_membership (team_id, player_id) VALUES ('" + team_id + "', '" + player_id + "')";
+
+		openConnection();
+		PreparedStatement statement;
+		try {
+			statement = connection.prepareStatement(query);
 			statement.executeUpdate();
 			System.out.println("Write to database successful...");
 		} catch (SQLException ex) {

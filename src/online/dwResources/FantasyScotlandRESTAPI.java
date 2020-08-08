@@ -144,6 +144,18 @@ public class FantasyScotlandRESTAPI {
 	}
 	
 	@GET
+	@Path("/registerTeam")
+	/**
+	 * Here is an example of how to read parameters provided in an HTML Get request.
+	 * @param Word - A word
+	 * @return - A String
+	 * @throws IOException
+	 */
+	public void registerTeam(@QueryParam("Name") String name) throws IOException {
+		this.model.registerTeam(name);
+	}
+	
+	@GET
 	@Path("/addPlayer")
 	/**
 	 * Here is an example of how to read parameters provided in an HTML Get request.

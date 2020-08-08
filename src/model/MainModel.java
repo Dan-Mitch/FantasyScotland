@@ -61,8 +61,15 @@ public class MainModel {
 		authenticateUser(email, pass);
 	}
 	
-	public void registerTeam(UUID team_id, String name) {
-		this.database.writeTeam(team_id, name, currentUser.getId());
+	public void registerTeam(String name) {
+		User user = this.getCurrentUser();
+		Team team = user.getTeam();
+		team.setName(name);
+		this.database.writeTeam(team.getTeam_id(), team.getOwner_id());
+		this.database.writeTeamDetails(team.getTeam_id(), team.getName(), team.getTransferBudget(), team.getCaptain().getPlayer_id());
+		for(Player p:team.getSquad().values()){
+			this.database.writeTeamMembership(team.getTeam_id(), p.getPlayer_id());
+		}
 	}
 	
 	public String addPlayerToTeam(UUID id, int position) {
@@ -85,7 +92,6 @@ public class MainModel {
 		return players;
 	}
 
-
 	public User getCurrentUser() {
 		return currentUser;
 	}
@@ -93,8 +99,4 @@ public class MainModel {
 	public void setCurrentUser(User currentUser) {
 		this.currentUser = currentUser;
 	}
-	
-	
-	
-
 }
