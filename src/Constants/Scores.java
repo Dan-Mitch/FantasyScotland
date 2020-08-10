@@ -1,4 +1,4 @@
-package constants;
+package Constants;
 
 public enum Scores {
 	

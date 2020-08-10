@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>New Team</title>
+  <title>Fantasy Scotland</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sticky-footer/">
   <link href="../assets/dist/css/bootstrap.css" rel="stylesheet">
@@ -253,7 +253,7 @@ tbody td, thead th {
       <div class="col-md-12 text-center">
         <div class = "btn-group" >
         <button type="button" class="btn btn-danger" id="removeAll" onclick="removeAllPlayers()" style="display:none">Remove All</button>
-        <button type="button" style="float: right;display:none" class="btn btn-success" id="continue">Continue</button>
+        <button type="button" style="float: right;display:none" data-target="#nameModal" data-toggle="modal" class="btn btn-success" id="continue">Continue</button>
         </div>
       </div>
       
@@ -398,6 +398,26 @@ tbody td, thead th {
     </div>
   </div>
 
+  <div class="modal hide" id="nameModal" tabindex="-1" role="dialog" aria-labelledby="nameModalLabel" aria-hidden="true">
+
+      <div class="modal-header">
+        <h3 id="nameModalLabel">Enter a team name.</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+
+      <form onsubmit="registerTeam();return false" class="form-inline">
+        <div class="form-group mb-2">
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="inputTeamName" class="sr-only">Enter Team Name</label>
+            <input type="text" class="form-control" id="inputTeamName" placeholder="Enter Team Name" required>
+          </div>
+          <button type="submit" class="btn btn-primary mb-2">Create Team</button>
+      </form>
+    </div>
+  </div>
+
 
   <script type="text/javascript">
       // Method that is called on page load
@@ -454,6 +474,8 @@ tbody td, thead th {
       var user;
       var clubs = [];
       var position;
+      var clubLimit;
+      var dupPlayer;
       
       // This calls the helloJSONList REST method from TopTrumpsRESTAPI
       function helloJSONList() {
@@ -526,7 +548,7 @@ tbody td, thead th {
           var button = document.getElementById("button"+position);
           button.dataset.target = "#removeModal";
 
-          buildPlayers().call;
+          clubLimitReached().call;
         };
         
         // We have done everything we need to prepare the CORS request, so send it
@@ -551,14 +573,16 @@ tbody td, thead th {
             document.getElementById("successText").style.display = "block";
             document.getElementById("errorText").style.display = "none";
           } else {
-            document.getElementById("errorText").style.display = "none";
+            document.getElementById("errorText").innerHTML = responseText;
+            document.getElementById("errorText").style.display = "block";
             document.getElementById("successText").style.display = "none";
           }
 
           document.getElementById("removeAll").style.display = "block";
           var button = document.getElementById("button"+position);
           button.dataset.target = "#selectModal";
-          buildPlayers().call;
+         
+          clubLimitReached().call;
         };
         
         // We have done everything we need to prepare the CORS request, so send it
@@ -585,7 +609,27 @@ tbody td, thead th {
             var button = document.getElementById("button"+x);
             button.dataset.target = "#selectModal";
           }
-          buildPlayers().call;
+          buildUser().call;
+        };
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();   
+      }
+
+       function registerTeam() {
+        var teamName = document.getElementById('inputTeamName').value;
+        // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/registerTeam?Name="+teamName); // Request type and URL+parameters
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+          window.location.href = '/fantasyscotland/home';
+         // return false;
         };
         
         // We have done everything we need to prepare the CORS request, so send it
@@ -716,6 +760,54 @@ tbody td, thead th {
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
+
+      function doesDuplicateExist() {
+        // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/duplicateExists"); // Request type and URL+parameters
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+          if(xhr.response == "false"){
+            dupPlayer = false;
+          }else{
+            dupPlayer = true;
+          } 
+          buildUser().call;
+        };
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();   
+      }
+
+       function clubLimitReached() {
+        // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/clubLimitReached"); // Request type and URL+parameters
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+          if(xhr.response == "false"){
+          clubLimit = false;
+          }else{
+            clubLimit = true;
+          } 
+          doesDuplicateExist().call;
+        };
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();   
+      }
       
       function repaint(){
         document.getElementById("budgetBadge").innerHTML = user.team.transferBudget;
@@ -724,12 +816,13 @@ tbody td, thead th {
         if(length == "0"){
           document.getElementById("removeAll").style.display = "none";
         }
-        if(length == "15" && user.team.transferBudget >= "0"){
+        if(length == "15" && user.team.transferBudget >= "0" && dupPlayer === false && clubLimit === false){
           document.getElementById("continue").style.display = "block";
         }
         else{
           document.getElementById("continue").style.display = "none";
         }
+
         for(var x = 1;x<=15;x++){
           var button = document.getElementById("button"+x);
           button.style.background = "rgb(255,255,255)";
@@ -740,7 +833,7 @@ tbody td, thead th {
           var button = document.getElementById("button"+i);
           button.style.background = buttonPainter(user.team.squad[i].club_id);
           var names = (user.team.squad[i].name).split(' ');
-          document.getElementById("button"+i+"Text").firstChild.nodeValue = names[1];
+          document.getElementById("button"+i+"Text").firstChild.nodeValue = names[names.length-1];
           document.getElementById("button"+i+"Badge").innerHTML = user.team.squad[i].price;
         }
       }
@@ -796,8 +889,6 @@ tbody td, thead th {
         }
       }
       
-
-
       function sortTable(n) {
         var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
         table = document.getElementById("table");

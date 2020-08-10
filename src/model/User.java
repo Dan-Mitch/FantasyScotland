@@ -10,7 +10,7 @@ public class User {
 	public User(String e, UUID id) {
 		this.email = e;
 		this.id = id;
-		this.team = new Team();
+		createTeam(this.id);
 	}
 	
 
@@ -18,13 +18,12 @@ public class User {
 			return this.team.addPlayer(p, position);
 	}
 	
-	public UUID removePlayerFromTeam(int position) {
+	public String removePlayerFromTeam(int position) {
 		return this.team.removePlayer(position);
 	}
 	
-	public void loadTeam(Team team) {
-		this.team = team;
-		this.team.makeTeamNonSelectable();
+	public void createTeam(UUID id) {
+		this.team = new Team(id);
 	}
 	
 	public UUID getId() {

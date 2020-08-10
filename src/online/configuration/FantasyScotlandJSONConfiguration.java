@@ -3,11 +3,6 @@ package online.configuration;
 
 import io.dropwizard.Configuration;
 
-/** This class represents the FantasyScotland.json file that Dropwizard loads
- * when running the online application. This class is complete, you do
- * not need to edit it.
- * @author richardm
- */
 public class FantasyScotlandJSONConfiguration extends Configuration{
 
 	/** This is the location of the deck file to load */

@@ -5,6 +5,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import online.dwViews.HomeScreenView;
 import online.dwViews.LoginScreenView;
 import online.dwViews.NewTeamScreenView;
 import online.dwViews.RegisterScreenView;
@@ -52,5 +53,16 @@ public class GameWebPagesResource {
 	 */
     public NewTeamScreenView getNewTeamScreen() {
         return new NewTeamScreenView();
+    }
+	
+	@GET
+	@Path("/home")
+	/**
+	 * The Web page within which the user can play a game of FantasyScotland.
+	 * Hosted at 'http://localhost:7777/fantasyscotland/newteam'
+	 * @return
+	 */
+    public HomeScreenView getHomeScreen() {
+        return new HomeScreenView();
     }
 }

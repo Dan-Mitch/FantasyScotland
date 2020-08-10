@@ -9,6 +9,7 @@ import online.configuration.FantasyScotlandJSONConfiguration;
 import online.dwResources.FantasyScotlandRESTAPI;
 import online.dwResources.GameWebPagesResource;
 
+import org.eclipse.jetty.server.session.SessionHandler;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 
 import io.dropwizard.Application;
@@ -51,7 +52,7 @@ public class FantasyScotlandOnlineApplication extends Application<FantasyScotlan
 		cors.setInitParameter("allowedOrigins", "*");
 		cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin");
 		cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
-
+		cors.setInitParameter("allowCredentials", "true");
 		// Add URL mapping
 		cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
@@ -68,6 +69,8 @@ public class FantasyScotlandOnlineApplication extends Application<FantasyScotlan
 		// Registration tells Dropwizard to host a resource
 		environment.jersey().register(restAPI);
 		environment.jersey().register(gameScreen);
+		environment.servlets().setSessionHandler(new SessionHandler());
+		environment.jersey().register(HttpSessionProvider.class);
 	}
 
 	/**

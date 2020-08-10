@@ -73,7 +73,7 @@ body {
 
 	<div class="wrapper">
 	
-		<form onsubmit="newUser();return false" class="form-signin">
+		<form onsubmit="doesUserExist();return false" class="form-signin">
 		  <h2 class="form-signin-heading text-center">Welcome to Fantasy Scotland!</h2>
 		  <a class="logo" id="logo"><img src="https://i.ibb.co/yVc3vPy/Fantasy-Scotland.png" alt="Fantasy-Scotland" width="250" ></a>
 		  <input type="email" id="email" class="form-control" name="email" placeholder="Enter Email Address" required="" autofocus="" />
@@ -189,6 +189,7 @@ body {
  					if(xhr.response == "true"){
 	     				document.getElementById("warning_text").innerText = "Email already registered.";
 	          			document.getElementById("warning").style.display = "block";
+	          			return false;
 	     			}
 	     			else{
 	     				newUser().call();
