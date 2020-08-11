@@ -1,8 +1,24 @@
 package model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.UUID;
+
+import com.github.pabloo99.xmlsoccer.api.dto.GetHistoricMatchesResultDto;
+import com.github.pabloo99.xmlsoccer.api.dto.GetMatchEventsDto;
+import com.github.pabloo99.xmlsoccer.api.dto.GetMatchLineupsDto;
+import com.github.pabloo99.xmlsoccer.api.service.XmlSoccerService;
+import com.github.pabloo99.xmlsoccer.client.XmlSoccerServiceImpl;
+import com.github.pabloo99.xmlsoccer.model.enums.Leagues;
 
 import model.User;
 
@@ -14,18 +30,79 @@ public class MainModel {
 	public static ArrayList<Club> clubs;
 	private Players players;
 	private Fixtures fixtures;
-	private Leagues leagues;
+	//private Leagues leagues;
 	private ArrayList<User> users;
-	private String currentSeason;
+	private LocalDateTime localDate;
+	private XmlSoccerService xmlSoccerService;
 	
-	public MainModel(String season) {
-		this.currentSeason = season;
+	public MainModel() {
 		this.database = new DatabaseLinker();
+		this.xmlSoccerService = new XmlSoccerServiceImpl();
+		this.xmlSoccerService.setApiKey("ZBOBAXRYOHGALWSSPOVSNUYWPJDNLZWLAXBURALTOSGSDJETYA");
+		this.xmlSoccerService.setServiceUrl("http://www.xmlsoccer.com/FootballDataDemo.asmx");
+		
 		this.clubs = database.loadClubs();
-		this.fixtures = new Fixtures();
-		this.leagues = new Leagues();
+		this.fixtures = new Fixtures(this.xmlSoccerService);
+		//this.leagues = new Leagues();
 		this.players = new Players(database.loadPlayers());
 		this.users = new ArrayList<User>();
+		
+		refreshDate();
+	}
+	
+	public void checkPreviousFixtures() {
+		for(GetHistoricMatchesResultDto fixture : fixtures.getAllFixtures()) {
+			Date date = fixture.getDate();
+			LocalDateTime fixtureDate = date.toInstant()
+				      .atZone(ZoneId.systemDefault())
+				      .toLocalDateTime();
+			refreshDate();
+			if(fixtureDate.isBefore(localDate)) {
+				if(!this.database.doesFixtureExist(fixture.getFixtureMatchId())) {
+					this.database.writeFixture(fixture.getFixtureMatchId(), fixture.getRound(), fixture.getHomeTeamId(), fixture.getAwayTeamId());
+					if(!this.database.doesScoreExist(fixture.getFixtureMatchId())){
+						for(Score score : this.buildScoresForFixture(fixture.getFixtureMatchId(), fixture.getRound())) {
+							this.database.writeScore(score.getRound(), score.getPlayer_id(), score.getGoals(), score.getAssists(), score.getRed_cards(), score.getYellow_cards(), score.getApps(), score.getClean_sheets(), score.getFixture_id());
+						}
+					}
+					else {
+						continue;
+					}
+				}
+				else {
+					continue;
+				}
+			}
+			else {
+				continue;
+			}
+		}
+	}
+	
+	public ArrayList<Score> buildScoresForFixture(int fixture_id, int round) {
+		ArrayList<Score> scores = new ArrayList<Score>();
+		List<GetMatchEventsDto> match_events  = xmlSoccerService.getMatchEventsByFixtureMatchId(fixture_id)
+                .stream().
+                collect(Collectors.toList());
+		List<GetMatchLineupsDto> lineups = xmlSoccerService.getMatchLineupsByFixtureMatchId(fixture_id)
+                .stream().
+                collect(Collectors.toList());
+		ArrayList<String> substitutes = new ArrayList<String>();
+		ArrayList<String> starters = new ArrayList<String>();
+		
+		for(GetMatchLineupsDto participant : lineups) {
+			if(participant.getLineupType().equals("Coach")) {
+				continue;
+			}
+			else if(participant.getParticipantName().equals("Substitute player")) {
+				substitutes.add(participant.getParticipantName());
+			}
+			else {
+				starters.add(participant.getParticipantName());
+			}
+		}
+		//left off here
+		return scores;
 	}
 	
 	public UUID authenticateUser(String email, String pass) {
@@ -119,5 +196,9 @@ public class MainModel {
 		ArrayList<User> u = this.getUsers();
 		User user = this.getUser(id);
 		return u.indexOf(user);
+	}
+	
+	public void refreshDate() {
+		this.localDate = LocalDateTime.now().minusYears(1).withNano(0).withSecond(0);
 	}
 }

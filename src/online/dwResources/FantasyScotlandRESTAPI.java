@@ -57,7 +57,7 @@ public class FantasyScotlandRESTAPI {
 		// Add relevant initalization here
 		// ----------------------------------------------------
 		
-		this.model = new MainModel("1920");
+		this.model = new MainModel();
 	}
 	
 	// ----------------------------------------------------

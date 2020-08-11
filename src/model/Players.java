@@ -27,6 +27,17 @@ public class Players {
 		}
 		return result;
 	}
+	
+	public UUID getID(String name) {
+		UUID result = null;
+		for(Player p : this.players) {
+			if(p.getName().equals(name)) {
+				result = p.getPlayer_id();
+				break;
+			}
+		}
+		return result;
+	}
 
 	public ArrayList<Player> getPlayers() {
 		return players;

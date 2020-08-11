@@ -57,15 +57,22 @@ body {
 }
 
 .logo{
-  padding: 15px;
+	
+  padding-left: 10px;
 }
 
 .register{
   margin-top:10px;
   }
-.warning{
+  
+.text-danger{
   display: none;
 }
+
+.text-warning{
+  display: none;
+}
+
 </style>
 </head>
 
@@ -78,8 +85,9 @@ body {
 		  <a class="logo" id="logo"><img src="https://i.ibb.co/yVc3vPy/Fantasy-Scotland.png" alt="Fantasy-Scotland" width="250" ></a>
 		  <input type="email" id="email" class="form-control" name="email" placeholder="Enter Email Address" required="" autofocus="" />
 		  <input type="password" id="password" class="form-control" name="password" placeholder="Enter Password" required="" />
-		  <div class="warning" id="warning">
-		    <p class="text-danger">Email or password did not match.</p>
+		  <div class="warning" id="warning-texts">
+		    <p class="text-danger" id="text-danger">Email or password did not match.</p>
+		    <p class="text-warning" id="text-warning">Caps lock is ON.</p>
 		  </div>
 		  <div class="register">
 		    <button type="submit" class="btn btn-lg btn-primary btn-block" id="loginButton" value="Submit" >Login</button>
@@ -100,7 +108,6 @@ body {
 		
 			// Method that is called on page load
 			function initalize() {
-				checkPlayerDatabase();
 				// --------------------------------------------------------------------------
 				// You can call other methods you want to run when the page first loads here
 				// --------------------------------------------------------------------------
@@ -181,7 +188,8 @@ body {
 				// to do when the response arrives 
 				xhr.onload = function(e) {
  					if(xhr.response == "false"){
- 						document.getElementById("warning").style.display = "block";
+ 						document.getElementById("text-danger").style.display = "block";
+ 						document.getElementById("text-warning").style.display = "none";
  					}else{
  						doesTeamExist(email);
  					}	
@@ -235,6 +243,16 @@ body {
 				// We have done everything we need to prepare the CORS request, so send it
 				xhr.send();		
 			}
+			
+			var input = document.getElementById("password");
+			var text = document.getElementById("text-warning");
+			input.addEventListener("keyup", function(event) {
+				if (event.getModifierState("CapsLock")) {
+			    	text.style.display = "block";
+			  	} else {
+			    	text.style.display = "none"
+			  	}
+			});
 
 		</script>			
 </body>

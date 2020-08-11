@@ -103,6 +103,40 @@ public class DatabaseLinker {
 			closeConnection();
 		}
 	}
+	
+	public void writeFixture(int fixture_id, int round, int home_club, int away_club) {
+		String query = "INSERT INTO fixtures (fixture_id, round, home_club, away_club) VALUES ('" + fixture_id + "', '" + round  + "', '" + home_club  + "', '" + away_club + "')";
+		openConnection();
+		PreparedStatement statement;
+		try {
+			statement = connection.prepareStatement(query);
+			statement.executeUpdate();
+			System.out.println("Write to database successful...");
+		} catch (SQLException ex) {
+
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+	}
+	
+	public void writeScore(int round, UUID player_id, int goals, int assists, int red_cards, int yellow_cards, int appearances, int clean_sheets, int fixture_id) {
+		String query = "INSERT INTO scores (round, player_id, goals, assists, red_cards, yellow_cards, appearances, clean_sheets, fixture_id) VALUES ('" + round + "', '" + player_id  + "', '" + goals  + "', '" + assists + "', '" + red_cards + "', '" + yellow_cards + "', '" + appearances + "', '" + clean_sheets + "', '" + fixture_id + "')";
+		openConnection();
+		PreparedStatement statement;
+		try {
+			statement = connection.prepareStatement(query);
+			statement.executeUpdate();
+			System.out.println("Write to database successful...");
+		} catch (SQLException ex) {
+
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+	}
 
 	public String authenticateUser(String email, String pass) {
 		String query = "SELECT user_id FROM users WHERE email='" + email + "' AND password = crypt('" + pass
@@ -170,6 +204,50 @@ public class DatabaseLinker {
 			closeConnection();
 		}
 		return team_id;
+	}
+	
+	public boolean doesFixtureExist(int fixture_id) {
+		String query = "SELECT * FROM fixtures as f WHERE f.fixture_id='" + fixture_id + "')";
+		boolean b = false;
+		openConnection();
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(query);
+			if (result.next()) {
+				b = true;
+			} else {
+				System.err.println("Fixture does not exist on database...");
+				b = false;
+			}
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+		return b;
+	}
+	
+	public boolean doesScoreExist(int fixture_id) {
+		String query = "SELECT * FROM scores as s WHERE s.fixture_id='" + fixture_id + "')";
+		boolean b = false;
+		openConnection();
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(query);
+			if (result.next()) {
+				b = true;
+			} else {
+				System.err.println("Fixture does not exist on database...");
+				b = false;
+			}
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+		return b;
 	}
 	
 	public ArrayList<Player> loadPlayers() {
