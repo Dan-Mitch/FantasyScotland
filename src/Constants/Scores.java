@@ -1,13 +1,12 @@
-package Constants;
+package constants;
 
 public enum Scores {
-	
+	APPEARANCE(1),
 	GOAL_FOR(2),
 	GOAL_MID(3),
 	GOAL_DEF(4),
 	GOAL_GK(8),
 	ASSIST(1),
-	PENALTY(1),
 	CLEAN_GK(5),
 	CLEAN_DEF(3),
 	CLEAN_MID(1),

@@ -32,28 +32,23 @@ body {
 .form-signin-heading, .form-signin .warning {
   margin-bottom: 16px;
 }
-
 .form-signin .form-control .logo {
   padding: 10px;
 }
-
 .form-signin .form-signin-button {
   background-color: #1e5422;
 }
-
 .footer{
   margin: 600 auto;
   text-align: center;
   background-color: #fff;  
 }
-
 .logo{
   padding: 15px;
   position: absolute;
   top: -6px;
   left: 0px;
 }
-
 .football {
   position:relative;
   width: auto;
@@ -61,14 +56,11 @@ body {
   margin-top: 0px;
   margin-left: auto;
   margin-right: auto;
-
 }
-
 .football .p {
   width: 100%;
   height: auto;
 }
-
 /* Style the button and place it in the middle of the container/image */
 .football .btn {
   background-color: white;
@@ -82,106 +74,88 @@ body {
   margin: 0px 0px;
   text-align: center;
 }
-
 .btn:hover {
   background-color: black;
 }
-
 .image{
   width: 100%;
   text-align: center;
 }
-
 .one{
   position: absolute;
   top: 32.5%;
   left:10%;
 }
-
 .two{
   position: absolute;
   top: 65%;
   left:30%;
 }
-
 .three{
   position: absolute;
   top: 5%;
   left:30%;
 }
-
 .four{
   position: absolute;
   top: 45%;
   left:30%;
 }
-
 .five{
   position: absolute;
   top: 25%;
   left:30%;
 }
-
 .six{
   position: absolute;
   top: 45%;
   left:50%;
 }
-
 .seven{
   position: absolute;
   top: 45%;
   right:20%;
 }
-
 .eight{
   position: absolute;
   top: 65%;
   left:50%;
 }
-
 .nine{
   position: absolute;
   top: 25%;
   right:20%;
 }
-
 .ten{
   position: absolute;
   top: 25%;
   left:50%;
 }
-
 .eleven{
   position: absolute;
   top: 5%;
   left:50%;
 }
-
 .twelve{
   position: absolute;
   top: 57.5%;
   left:10%;
 }
-
 .thirteen{
   position: absolute;
   top: 85%;
   left:30%;
 }
-
 .fourteen{
   position: absolute;
   top: 85%;
   left:50%;
 }
-
 .fifteen{
   position: absolute;
   top: 65%;
   right:20%;
 }
-
 .modal{
   position:absolute;
   top: 24%;
@@ -193,45 +167,35 @@ body {
     margin-top:100px;
     margin-left:100px;
 }
-
 table {
     width: 100%;
 }
-
 thead, tbody, tr, td, th { 
   display: block; 
 }
-
 tr:after {
     content: ' ';
     display: block;
     visibility: hidden;
     clear: both;
 }
-
 thead th {
     height: 50px;
-
     /*text-align: left;*/
 }
-
 tbody {
     height: 300px;
     overflow-y: auto;
 }
-
 thead {
   width: 450px;
     /* fallback */
 }
-
-
 tbody td, thead th {
     width: 33.2%;
     height: 60px;
     float: left;
 }
-
 </style>
 </head>
 
@@ -440,23 +404,17 @@ tbody td, thead th {
       function createCORSRequest(method, url) {
           var xhr = new XMLHttpRequest();
           if ("withCredentials" in xhr) {
-
             // Check if the XMLHttpRequest object has a "withCredentials" property.
             // "withCredentials" only exists on XMLHTTPRequest2 objects.
             xhr.open(method, url, true);
-
           } else if (typeof XDomainRequest != "undefined") {
-
             // Otherwise, check if XDomainRequest.
             // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
             xhr = new XDomainRequest();
             xhr.open(method, url);
-
          } else {
-
             // Otherwise, CORS is not supported by the browser.
             xhr = null;
-
            }
            return xhr;
       }
@@ -487,7 +445,6 @@ tbody td, thead th {
         if (!xhr) {
             alert("CORS not supported");
         }
-
         // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
         // to do when the response arrives 
         xhr.onload = function(e) {
@@ -509,7 +466,6 @@ tbody td, thead th {
         if (!xhr) {
             alert("CORS not supported");
         }
-
         // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
         // to do when the response arrives 
         xhr.onload = function(e) {
@@ -520,7 +476,6 @@ tbody td, thead th {
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
-
       function addPlayer(player_id, position) {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
         var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/addPlayer?Id="+player_id+"&Pos="+position); // Request type and URL+parameters
@@ -529,7 +484,6 @@ tbody td, thead th {
         if (!xhr) {
             alert("CORS not supported");
         }
-
         // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
         // to do when the response arrives 
         xhr.onload = function(e) {
@@ -547,14 +501,12 @@ tbody td, thead th {
           document.getElementById("removeAll").style.display = "block";
           var button = document.getElementById("button"+position);
           button.dataset.target = "#removeModal";
-
           clubLimitReached().call;
         };
         
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
-
       function removePlayer(position) {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
         var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/removePlayer?Pos="+position); // Request type and URL+parameters
@@ -563,7 +515,6 @@ tbody td, thead th {
         if (!xhr) {
             alert("CORS not supported");
         }
-
         // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
         // to do when the response arrives 
         xhr.onload = function(e) {
@@ -577,7 +528,6 @@ tbody td, thead th {
             document.getElementById("errorText").style.display = "block";
             document.getElementById("successText").style.display = "none";
           }
-
           document.getElementById("removeAll").style.display = "block";
           var button = document.getElementById("button"+position);
           button.dataset.target = "#selectModal";
@@ -588,7 +538,6 @@ tbody td, thead th {
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
-
       function removeAllPlayers() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
         var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/removeAllPlayers"); // Request type and URL
@@ -597,14 +546,12 @@ tbody td, thead th {
         if (!xhr) {
             alert("CORS not supported");
         }
-
         // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
         // to do when the response arrives 
         xhr.onload = function(e) {
           document.getElementById("errorText").style.display = "none";
           document.getElementById("successText").style.display = "none";
   
-
           for(var x = 1;x<=15;x++){
             var button = document.getElementById("button"+x);
             button.dataset.target = "#selectModal";
@@ -615,7 +562,6 @@ tbody td, thead th {
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
-
        function registerTeam() {
         var teamName = document.getElementById('inputTeamName').value;
         // First create a CORS request, this is the message we are going to send (a get request in this case)
@@ -635,7 +581,6 @@ tbody td, thead th {
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
-
       function loadTable(array) {
           var table = document.getElementById('table-body');
         table.innerHTML = "";
@@ -645,22 +590,18 @@ tbody td, thead th {
               tr.setAttribute('value', array[i].player_id);
               tr.setAttribute('class', "clickable-row");
               tr.setAttribute('style', "cursor:pointer");
-
               var name = document.createElement('td');
               name.setAttribute('class', "name");
               var nText = document.createTextNode(array[i].name);
               name.appendChild(nText);
-
               var club = document.createElement('td');
               club.setAttribute('class', "club");
               var cText = document.createTextNode(convertClub(array[i].club_id));
               club.appendChild(cText);
-
               var price = document.createElement('td');
               price.setAttribute('class', "price");
               var pText = document.createTextNode(array[i].price);
               price.appendChild(pText);
-
               tr.appendChild(name);
               tr.appendChild(club);
               tr.appendChild(price);
@@ -671,7 +612,6 @@ tbody td, thead th {
           return list;
       }
       
-
       function buildPlayers() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
         var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildPlayers"); // Request type and URL
@@ -680,7 +620,6 @@ tbody td, thead th {
         if (!xhr) {
             alert("CORS not supported");
         }
-
         // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
         // to do when the response arrives 
         xhr.onload = function(e) {
@@ -714,7 +653,6 @@ tbody td, thead th {
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
-
       function buildUser() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
         var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildUser"); // Request type and URL
@@ -723,7 +661,6 @@ tbody td, thead th {
         if (!xhr) {
             alert("CORS not supported");
         }
-
         // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
         // to do when the response arrives 
         xhr.onload = function(e) {
@@ -746,7 +683,6 @@ tbody td, thead th {
         if (!xhr) {
             alert("CORS not supported");
         }
-
         // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
         // to do when the response arrives 
         xhr.onload = function(e) {
@@ -760,7 +696,6 @@ tbody td, thead th {
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
-
       function doesDuplicateExist() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
         var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/duplicateExists"); // Request type and URL+parameters
@@ -769,7 +704,6 @@ tbody td, thead th {
         if (!xhr) {
             alert("CORS not supported");
         }
-
         // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
         // to do when the response arrives 
         xhr.onload = function(e) {
@@ -784,7 +718,6 @@ tbody td, thead th {
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
-
        function clubLimitReached() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
         var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/clubLimitReached"); // Request type and URL+parameters
@@ -793,7 +726,6 @@ tbody td, thead th {
         if (!xhr) {
             alert("CORS not supported");
         }
-
         // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
         // to do when the response arrives 
         xhr.onload = function(e) {
@@ -822,7 +754,6 @@ tbody td, thead th {
         else{
           document.getElementById("continue").style.display = "none";
         }
-
         for(var x = 1;x<=15;x++){
           var button = document.getElementById("button"+x);
           button.style.background = "rgb(255,255,255)";
@@ -943,7 +874,6 @@ tbody td, thead th {
           }
         }
       }
-
       jQuery(document).ready(function($) {
           $('#table').on('click', '.clickable-row', function() {
               addPlayer($(this).attr('value'), position);
@@ -953,7 +883,6 @@ tbody td, thead th {
               $("#selectModal").modal('hide');
           });
       });
-
     </script>     
 </body>
 </html>

@@ -11,6 +11,8 @@ public class Score {
 	private int yellow_cards;
 	private int apps;
 	private int clean_sheets;
+	private int concede_Two;
+	private int own_goals;
 	private int fixture_id;
 	
 	Score(){
@@ -79,6 +81,22 @@ public class Score {
 
 	public void setClean_sheets(int clean_sheets) {
 		this.clean_sheets = clean_sheets;
+	}
+
+	public int getConcede_Two() {
+		return concede_Two;
+	}
+
+	public void setConcede_Two(int concede_Two) {
+		this.concede_Two = concede_Two;
+	}
+
+	public int getOwn_goals() {
+		return own_goals;
+	}
+
+	public void setOwn_goals(int own_goals) {
+		this.own_goals = own_goals;
 	}
 
 	public int getFixture_id() {

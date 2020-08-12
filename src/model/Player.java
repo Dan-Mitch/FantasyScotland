@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class Player{
@@ -8,30 +9,12 @@ public class Player{
 	private String position;
 	private double price;
 	private int club_id;
-	private int points;
-	private int goals;
-	private int assists;
-	private int yellowCards;
-	private int redCards;
-	private int ownGoals;
-	private int apps;
-	private int clean_sheets;
-	
-	private boolean isCaptain;
 	private boolean isSelectable;
-	
+	//private ArrayList<Score> scores;
 	
 	public Player() {
-		this.points = 0;
-		this.goals = 0;
-		this.assists = 0;
-		this.yellowCards = 0;
-		this.redCards = 0;
-		this.ownGoals = 0;
-		this.apps = 0;
-		this.clean_sheets = 0;
-		this.isCaptain = false;
 		this.isSelectable = true;
+		//this.scores = new ArrayList<Score>();
 	}
 	
 	public UUID getPlayer_id() {
@@ -74,82 +57,10 @@ public class Player{
 		this.club_id = club_id;
 	}
 
-	public int getPoints() {
-		return points;
-	}
-
-	public void setPoints(int points) {
-		this.points = points;
-	}
-
-	public int getGoals() {
-		return goals;
-	}
-
-	public void setGoals(int goals) {
-		this.goals = goals;
-	}
-
-	public int getAssists() {
-		return assists;
-	}
-
-	public void setAssists(int assists) {
-		this.assists = assists;
-	}
-
-	public int getYellowCards() {
-		return yellowCards;
-	}
-
-	public void setYellowCards(int yellowCards) {
-		this.yellowCards = yellowCards;
-	}
-
-	public int getRedCards() {
-		return redCards;
-	}
-
-	public void setRedCards(int redCards) {
-		this.redCards = redCards;
-	}
-
-	public int getOwnGoals() {
-		return ownGoals;
-	}
-
-	public void setOwnGoals(int ownGoals) {
-		this.ownGoals = ownGoals;
-	}
-
-	public int getApps() {
-		return apps;
-	}
-
-	public void setApps(int apps) {
-		this.apps = apps;
-	}
-
-	public int getClean_sheets() {
-		return clean_sheets;
-	}
-
-	public void setClean_sheets(int clean_sheets) {
-		this.clean_sheets = clean_sheets;
-	}
-
-	public boolean isCaptain() {
-		return isCaptain;
-	}
-
-	public void setCaptain(boolean isCaptain) {
-		this.isCaptain = isCaptain;
-	}
-
-	private static double round (double value, int precision) {
-	    int scale = (int) Math.pow(10, precision);
-	    return (double) Math.round(value * scale) / scale;
-	}
+//	private static double round (double value, int precision) {
+//	    int scale = (int) Math.pow(10, precision);
+//	    return (double) Math.round(value * scale) / scale;
+//	}
 
 	public boolean isSelectable() {
 		return isSelectable;
@@ -158,4 +69,18 @@ public class Player{
 	public void setSelectable(boolean isSelectable) {
 		this.isSelectable = isSelectable;
 	}
+
+//	/**
+//	 * @return the scores
+//	 */
+//	public ArrayList<Score> getScores() {
+//		return scores;
+//	}
+//
+//	/**
+//	 * @param scores the scores to set
+//	 */
+//	public void setScores(ArrayList<Score> scores) {
+//		this.scores = scores;
+//	}
 }

@@ -121,8 +121,8 @@ public class DatabaseLinker {
 		}
 	}
 	
-	public void writeScore(int round, UUID player_id, int goals, int assists, int red_cards, int yellow_cards, int appearances, int clean_sheets, int fixture_id) {
-		String query = "INSERT INTO scores (round, player_id, goals, assists, red_cards, yellow_cards, appearances, clean_sheets, fixture_id) VALUES ('" + round + "', '" + player_id  + "', '" + goals  + "', '" + assists + "', '" + red_cards + "', '" + yellow_cards + "', '" + appearances + "', '" + clean_sheets + "', '" + fixture_id + "')";
+	public void writeScore(int round, UUID player_id, int goals, int assists, int red_cards, int yellow_cards, int appearances, int clean_sheets, int concede_two, int own_goals, int fixture_id) {
+		String query = "INSERT INTO scores (round, player_id, goals, assists, red_cards, yellow_cards, appearances, clean_sheets, concede_two, own_goals, fixture_id) VALUES ('" + round + "', '" + player_id  + "', '" + goals  + "', '" + assists + "', '" + red_cards + "', '" + yellow_cards + "', '" + appearances + "', '" + clean_sheets + "', '" + concede_two + "', '" + own_goals + "', '" + fixture_id + "')";
 		openConnection();
 		PreparedStatement statement;
 		try {
@@ -207,7 +207,7 @@ public class DatabaseLinker {
 	}
 	
 	public boolean doesFixtureExist(int fixture_id) {
-		String query = "SELECT * FROM fixtures as f WHERE f.fixture_id='" + fixture_id + "')";
+		String query = "SELECT * FROM fixtures as f WHERE f.fixture_id='" + fixture_id + "'";
 		boolean b = false;
 		openConnection();
 		try {
@@ -229,7 +229,7 @@ public class DatabaseLinker {
 	}
 	
 	public boolean doesScoreExist(int fixture_id) {
-		String query = "SELECT * FROM scores as s WHERE s.fixture_id='" + fixture_id + "')";
+		String query = "SELECT * FROM scores as s WHERE s.fixture_id='" + fixture_id + "'";
 		boolean b = false;
 		openConnection();
 		try {
