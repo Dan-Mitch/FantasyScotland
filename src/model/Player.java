@@ -1,6 +1,6 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class Player{
@@ -10,11 +10,11 @@ public class Player{
 	private double price;
 	private int club_id;
 	private boolean isSelectable;
-	//private ArrayList<Score> scores;
+	private HashMap<Integer, Integer> weeklyScores;
 	
 	public Player() {
 		this.isSelectable = true;
-		//this.scores = new ArrayList<Score>();
+		this.weeklyScores = new HashMap<Integer, Integer>();
 	}
 	
 	public UUID getPlayer_id() {
@@ -70,17 +70,11 @@ public class Player{
 		this.isSelectable = isSelectable;
 	}
 
-//	/**
-//	 * @return the scores
-//	 */
-//	public ArrayList<Score> getScores() {
-//		return scores;
-//	}
-//
-//	/**
-//	 * @param scores the scores to set
-//	 */
-//	public void setScores(ArrayList<Score> scores) {
-//		this.scores = scores;
-//	}
+	public HashMap<Integer, Integer> getWeeklyScores() {
+		return weeklyScores;
+	}
+
+	public void setWeeklyScores(HashMap<Integer, Integer> weeklyScores) {
+		this.weeklyScores = weeklyScores;
+	}	
 }

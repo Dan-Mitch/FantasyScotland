@@ -5,6 +5,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 import java.util.UUID;
@@ -15,6 +16,7 @@ import com.github.pabloo99.xmlsoccer.api.dto.GetMatchLineupsDto;
 import com.github.pabloo99.xmlsoccer.api.service.XmlSoccerService;
 import com.github.pabloo99.xmlsoccer.client.XmlSoccerServiceImpl;
 
+import constants.Scores;
 import model.User;
 
 import database.DatabaseLinker;
@@ -27,6 +29,7 @@ public class MainModel {
 	private Fixtures fixtures;
 	private ArrayList<League> leagues;
 	private ArrayList<User> users;
+//	private ArrayList<Team> teams;
 	private XmlSoccerService xmlSoccerService;
 
 	public MainModel() {
@@ -37,10 +40,14 @@ public class MainModel {
 
 		MainModel.clubs = database.loadClubs();
 		this.fixtures = new Fixtures(this.xmlSoccerService);
-		this.setLeagues(new ArrayList<League>());
 		this.players = new Players(database.loadPlayers());
-		this.users = new ArrayList<User>();
 		writePreviousFixtures();
+		initialise();
+	}
+
+	public void initialise() {
+		this.leagues = new ArrayList<League>(database.loadLeagues());
+		this.users = new ArrayList<User>(database.loadUsers());
 	}
 
 	public void writePreviousFixtures() {
@@ -52,10 +59,20 @@ public class MainModel {
 					this.database.writeFixture(fixture.getFixtureMatchId(), fixture.getRound(), fixture.getHomeTeamId(),
 							fixture.getAwayTeamId());
 					if (!this.database.doesScoreExist(fixture.getFixtureMatchId())) {
-						for (Score score : this.buildScoresForFixture(fixture)) {
+						ArrayList<Score> scores = new ArrayList<Score>(this.buildScoresForFixture(fixture));
+						for (Score score : scores) {
 							this.database.writeScore(score.getRound(), score.getPlayer_id(), score.getGoals(),
 									score.getAssists(), score.getRed_cards(), score.getYellow_cards(), score.getApps(),
-									score.getClean_sheets(),score.getConcede_Two(), score.getOwn_goals(), score.getFixture_id());
+									score.getClean_sheets(), score.getConcede_Two(), score.getOwn_goals(),
+									score.getFixture_id());
+							if(this.database.doesPlayerPointsExist(score.getPlayer_id(), score.getRound())) {
+								this.database.writePlayerPoints(score.getPlayer_id(), score.getRound(),
+										this.calculatePointsFrom(score));
+							}
+							else {
+								continue;
+							}
+							
 						}
 					} else {
 						continue;
@@ -67,6 +84,81 @@ public class MainModel {
 				continue;
 			}
 		}
+	}
+
+	public void writeTeamScores() {
+		initialise();
+		int round = this.getFixtures().whatsCurrentRound(getTodayDate()) - 1;
+		ArrayList<Team> teams = new ArrayList<Team>();
+		for (User u : this.users) {
+			teams.add(this.database.loadTeam(u.getId(), round));
+		}
+		
+		for (Team t : teams) {
+			int weeklyScore = 0;
+			for (Map.Entry<Integer, Player> member : t.getSquad().entrySet()) {
+				Player player = member.getValue();
+				int position = member.getKey();
+				if(position == 12 || position == 13 || position == 14 || position == 15) {
+					continue;
+				}
+				else
+				for (Map.Entry<Integer, Integer> score : player.getWeeklyScores().entrySet()) {
+					int gameWeek = score.getKey();
+					int points = score.getValue();
+					if (gameWeek == round) {
+						weeklyScore += points;
+					}
+					else {
+						continue;
+					}
+				}
+				if(!this.database.doesTeamMembershipExist(t.getTeam_id(), player.getPlayer_id(), round + 1)){
+					this.database.writeTeamMembership(t.getTeam_id(), player.getPlayer_id(), round + 1, position);
+				}
+				else {
+					continue;
+				}
+				
+
+			}
+			if(!this.database.doesTeamPointsExist(t.getTeam_id(), round)) {
+				this.database.writeTeamPoints(t.getTeam_id(), round, weeklyScore);
+			}
+			else {
+				continue;
+			}
+		}
+	}
+
+	public int calculatePointsFrom(Score score) {
+		int totalPoints = 0;
+		String position = this.getPlayers().getPosition(score.getPlayer_id());
+
+		if ((position).equals("Forward")) {
+			totalPoints += Scores.GOAL_FOR.getValue() * score.getGoals();
+		} else if ((position).equals("Defender")) {
+			totalPoints += Scores.GOAL_DEF.getValue() * score.getGoals();
+			totalPoints += Scores.CLEAN_DEF.getValue() * score.getClean_sheets();
+			totalPoints += Scores.CONCEDE2_DEF.getValue() * score.getConcede_Two();
+		} else if ((position).equals("Midfielder")) {
+			totalPoints += Scores.GOAL_MID.getValue() * score.getGoals();
+			totalPoints += Scores.CLEAN_MID.getValue() * score.getClean_sheets();
+			totalPoints += Scores.CONCEDE2_MID.getValue() * score.getConcede_Two();
+		} else if ((position).equals("Goalkeeper")) {
+			totalPoints += Scores.GOAL_GK.getValue() * score.getGoals();
+			totalPoints += Scores.CLEAN_GK.getValue() * score.getClean_sheets();
+			totalPoints += Scores.CONCEDE2_GK.getValue() * score.getConcede_Two();
+		}
+
+		totalPoints += Scores.APPEARANCE.getValue() * score.getApps();
+		totalPoints += Scores.ASSIST.getValue() * score.getAssists();
+
+		totalPoints += Scores.OWN_GOAL.getValue() * score.getOwn_goals();
+		totalPoints += Scores.RED_CARD.getValue() * score.getRed_cards();
+		totalPoints += Scores.YELLOW_CARD.getValue() * score.getYellow_cards();
+
+		return totalPoints;
 	}
 
 	public ArrayList<Score> buildScoresForFixture(GetHistoricMatchesResultDto fixture) {
@@ -99,17 +191,18 @@ public class MainModel {
 			int clean_sheets = calculateCleanSheet(fixture, participant);
 			int concedeTwo = calculateConcedeTwo(fixture, participant);
 			int own_goals = 0;
-			if(participant.getParticipantName().equals("Chris Kane")) {
+			if (participant.getParticipantName().equals("Chris Kane")) {
 				score.setPlayer_id(UUID.fromString("599b7145-5388-4722-aca5-2cddd5f3b7e2"));
-			}
-			else if(participant.getParticipantName().equals("Ross Stewart") && participant.getTeamId() == 560) {
+			} else if (participant.getParticipantName().equals("Ross Stewart") && participant.getTeamId() == 560) {
 				score.setPlayer_id(UUID.fromString("653e7499-9c43-4d50-b9af-4c991cd4d5bb"));
-			}
-			else if(participant.getParticipantName().equals("Ross Stewart") && participant.getTeamId() == 360) {
+			} else if (participant.getParticipantName().equals("Ross Stewart") && participant.getTeamId() == 360) {
 				score.setPlayer_id(UUID.fromString("a75b0120-4abc-4eb3-8ffa-2b7da60a7cf4"));
-			}
-			else
-			score.setPlayer_id(this.getPlayers().getID(participant.getParticipantName()));
+			} else
+				try {
+					score.setPlayer_id(this.getPlayers().getID(participant.getParticipantName()));
+				} catch (NullPointerException e) {
+					System.err.println("Could not find " + participant.getParticipantName() + " in the db.");
+				}
 			score.setRound(fixture.getRound());
 			for (GetMatchEventsDto event : match_events) {
 				if (event.getParticipantName() == null) {
@@ -149,17 +242,19 @@ public class MainModel {
 			int clean_sheets = calculateCleanSheet(fixture, participant);
 			int concedeTwo = calculateConcedeTwo(fixture, participant);
 			int own_goals = 0;
-			if(participant.getParticipantName().equals("Chris Kane")) {
+			if (participant.getParticipantName().equals("Chris Kane")) {
 				score.setPlayer_id(UUID.fromString("599b7145-5388-4722-aca5-2cddd5f3b7e2"));
-			}
-			else if(participant.getParticipantName().equals("Ross Stewart") && participant.getTeamId() == 560) {
+			} else if (participant.getParticipantName().equals("Ross Stewart") && participant.getTeamId() == 560) {
 				score.setPlayer_id(UUID.fromString("653e7499-9c43-4d50-b9af-4c991cd4d5bb"));
-			}
-			else if(participant.getParticipantName().equals("Ross Stewart") && participant.getTeamId() == 360) {
+			} else if (participant.getParticipantName().equals("Ross Stewart") && participant.getTeamId() == 360) {
 				score.setPlayer_id(UUID.fromString("a75b0120-4abc-4eb3-8ffa-2b7da60a7cf4"));
-			}
-			else
-			score.setPlayer_id(this.getPlayers().getID(participant.getParticipantName()));
+			} else
+				try {
+					score.setPlayer_id(this.getPlayers().getID(participant.getParticipantName()));
+				} catch (NullPointerException e) {
+					System.err.println("Could not find " + participant.getParticipantName() + " in the db.");
+				}
+
 			score.setRound(fixture.getRound());
 			for (GetMatchEventsDto event : match_events) {
 				if (event.getParticipantName() == null) {
@@ -290,8 +385,11 @@ public class MainModel {
 				team.getCaptain().getPlayer_id());
 		this.database.writeTeam(team.getTeam_id(), team.getOwner_id());
 		for (Entry<Integer, Player> entry : team.getSquad().entrySet()) {
-			this.database.writeTeamMembership(team.getTeam_id(), entry.getValue().getPlayer_id(), entry.getKey());
+			this.database.writeTeamMembership(team.getTeam_id(), entry.getValue().getPlayer_id(),
+					this.getFixtures().whatsCurrentRound(getTodayDate()), entry.getKey());
 		}
+		this.database.writeLeagueMembership(UUID.fromString("3573e359-7c59-4d43-90c9-52d3ba04a66e"), team.getTeam_id(),
+				0);
 	}
 
 	public String addPlayerToTeam(UUID id, int position, UUID user_id) {
@@ -304,13 +402,13 @@ public class MainModel {
 	}
 
 	public void loadTeam(UUID user_id) {
-		Team team = this.database.loadTeam(user_id);
+		Team team = this.database.loadTeam(user_id, this.fixtures.whatsCurrentRound(getTodayDate()));
 		User user = this.getUser(user_id);
 		user.setTeam(team);
 	}
 
-	public ArrayList<GetHistoricMatchesResultDto> loadNextFixtures() {
-		int nextRound = this.fixtures.whatRoundNext(this.getTodayDate());
+	public ArrayList<GetHistoricMatchesResultDto> getNextFixtures() {
+		int nextRound = this.fixtures.whatsCurrentRound(this.getTodayDate());
 		return this.fixtures.whatFixturesIn(nextRound);
 	}
 
@@ -336,11 +434,11 @@ public class MainModel {
 		User user = this.getUser(id);
 		return u.indexOf(user);
 	}
-	
+
 	public static String getNameFrom(int club_id) {
 		String clubName = null;
-		for(Club c : MainModel.clubs) {
-			if(c.getClub_id() == club_id) {
+		for (Club c : MainModel.clubs) {
+			if (c.getClub_id() == club_id) {
 				clubName = c.getName();
 			}
 		}
@@ -371,6 +469,7 @@ public class MainModel {
 
 //	public static void main(String[] args) {
 //		MainModel m = new MainModel();
+//		System.err.println(m.getFixtures().endDateOfRound(m.getFixtures().whatRoundNext(m.getTodayDate())));
 //		// System.err.println(m.getPlayers().getPlayer(UUID.fromString("f5ecf81e-f227-4058-82e6-9e72d8d76139")).getName());
 //		// GetHistoricMatchesResultDto fixture =
 //		// m.getFixtures().getFixtureFromID(403261);

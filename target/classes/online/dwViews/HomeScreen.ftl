@@ -18,16 +18,23 @@ body {
 .wrapper {
   margin: 90px;
 }
+
 .main {
   max-width: 2000px;
-  max-height: 1200px;
-  height: 730px;
+  max-height: 1000px;
+  min-height:730px;
   margin: 0 auto;
   margin-bottom: 100px;
   background-color: #fff;
   padding: 15px 60px 20px;
   border: 1px solid #e5e5e5;
   border-radius: 10px;
+}
+
+.body{
+  max-width: 2000px;
+  max-height: 1000px;
+  width:100%;
 }
 .form-signin-heading, .form-signin .warning {
   margin-bottom: 16px;
@@ -91,73 +98,49 @@ body {
 .modal{
   position:absolute;
   top: 24%;
-    left: 31%;
+  left: 31%;
   background-color: white;
   width: 500px;
   height:auto;
-    max-width: 700px;
-    margin-top:100px;
-    margin-left:100px;
+  max-width: 700px;
+  margin-top:100px;
+  margin-left:100px;
 }
 
-.grid-container {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  background-color: #fff;
-  padding: 10px;
-  max-height: 500px;
+.table-responsive-sm {
+     display:table;
+     margin-right:auto;
+     margin-left:auto;
+     width:100%;
+}
+
+th {
+    white-space: nowrap;
+}
+
+td {
+    white-space: nowrap;
+}
+
+.scroll{
+  overflow:scroll;
+  max-height:300px;
+}
+
+
+.container{
   max-width: 2000px;
-  height: 500px;
-}
-.grid-item {
-  background-color: rgba(250, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0.8);
-  padding: 20px;
-  font-size: 30px;
-  text-align: center;
+  max-height: 900px;
+  height: 100%;
+  width:100%;
 }
 
-table {
-    width: 100%;
+.border-bottom {
+    white-space: nowrap;
 }
-
-thead, tbody, tr, td, th { 
-  display: block; 
-}
-
-tr:after {
-    content: ' ';
-    display: block;
-    visibility: hidden;
-    clear: both;
-}
-
-thead th {
-    height: 50px;
-
-    /*text-align: left;*/
-}
-
-tbody {
-    height: 300px;
-    overflow-y: auto;
-}
-
-thead {
-  width: 450px;
-    /* fallback */
-}
-
-
-tbody td, thead th {
-    width: 33.2%;
-    height: 60px;
-    float: left;
-}
-
- .navbar {
-  min-height: 50px;
-  height:90px;
+.navbar {
+min-height: 50px;
+height:90px;
 }
 
 .navbar-brand {
@@ -188,12 +171,7 @@ tbody td, thead th {
 <body onload="initalize()">
   
   <div class="wrapper">
-    <div class="main">
-      <div class = "header">
-        <h6 class="form-signin-heading text-right" id="welcomeHeader">Signed in: user</h6>
-      </div>
-      
-      <nav class="navbar fixed-top navbar-light" style="background-color: #8eb7de;">
+    <nav class="navbar fixed-top navbar-light" style="background-color: #8eb7de;">
         <a class="navbar-brand" id="logo" href='/fantasyscotland/home'><img src="https://i.ibb.co/yVc3vPy/Fantasy-Scotland.png" alt="Fantasy-Scotland" width="200" ></a>
         <h2 class="form-signin-heading text-center">Welcome to Fantasy Scotland!</h2>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -208,25 +186,350 @@ tbody td, thead th {
           </div>
         </div>
       </nav>
-  
-      <div class="grid-container">
-        <div class="grid-item">Points per Week
-          <div class="points-item">
-            <h1>1</h1>
-          </div>
-          </div>
-        <div class="grid-item">Team Overview
-          <div class="team-item">
-            <h1>2</h1>
-          </div>
-        </div>
-        <div class="grid-item">Fixtures
-          <div class="fixture-item">
-            <h1>3</h1>
-          </div>
-        </div> 
+    <div class="main">
+      <div class = "header">
+        <h6 class="form-signin-heading text-right" id="welcomeHeader">Signed in: user</h6>
       </div>
 
+      <div class="body">
+      <div class="point-header text-center">
+          <h1 class="">Round 4 Starts: 25th Aug 15:00</h1>
+       </div>
+      <div class="point-header text-center ">
+        <h4>Points in Round 3</h4>
+          <div class="container">
+            <div class="row">
+              <div class="col-sm border border-dark font-weight-bold">
+                Your Score
+              </div>
+              <div class="col-sm border border-dark font-weight-bold">
+                Global Average
+              </div>
+              <div class="col-sm border border-dark font-weight-bold">
+                Global Top
+              </div>
+              <div class="w-100"></div>
+              <div class="container">
+            <div class="row">
+              <div class="col-sm border border-dark">
+                45
+              </div>
+              <div class="col-sm border border-dark">
+                24
+              </div>
+              <div class="col-sm border border-dark">
+                65
+              </div>
+            </div>
+          </div>
+       </div>
+      <div class="container" id="main-container">
+          <div class="row">
+            <div class="col-lg border" >
+              <div class="border-bottom ">
+                <h4 class="text-center">Points History<h4>
+              </div>
+              <div class="scroll">
+               <table class="table-responsive-sm">
+                  <thead>
+                <tr>
+                  <th scope="col">Round</th>
+                  <th scope="col">GK</th>
+                    <th scope="col">DF1</th>
+                    <th scope="col">DF2</th>
+                    <th scope="col">DF3</th>
+                    <th scope="col">DF4</th>
+                    <th scope="col">MF1</th>
+                    <th scope="col">MF2</th>
+                    <th scope="col">MF3</th>
+                    <th scope="col">MF4</th>
+                    <th scope="col">FW1</th>
+                    <th scope="col">FW2</th>
+                    <th scope="col">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>1</th>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">5</th>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">6</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">7</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">8</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">9</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">10</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">11</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">12</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">13</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">14</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">15</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">16</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">17</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">18</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">19</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">20</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">21</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">22</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">23</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">24</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">25</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">26</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">27</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">28</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table> 
+            </div>
+            </div>
+             
+             <div class="col-lg border" >
+              <div class="border-bottom ">
+             <h4 class="text-center">Team Overview<h4>
+             </div>
+             <table class="table-responsive-sm">
+                  <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Home Club</th>
+                    <th scope="col">Away Club</th>
+                    <th scope="col">Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Celtic</td>
+                    <td>Hibs</td>
+                    <td>25 Aug</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Hearts</td>
+                    <td>St. Mirren</td>
+                    <td>25 Aug</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Motherwell</td>
+                    <td>Livingstone</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Hearts</td>
+                    <td>St. Mirren</td>
+                    <td>25 Aug</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Hearts</td>
+                    <td>St. Mirren</td>
+                    <td>25 Aug</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Hearts</td>
+                    <td>St. Mirren</td>
+                    <td>25 Aug</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+              
+              <div class="col-lg border" >
+                <div class="border-bottom">
+                  <h4 class="text-center">Next Fixtures<h4>
+                </div>
+                <table class="table-responsive-sm table-striped" id="fixture-table">
+                  <thead>
+                <tr>
+                  <th scope="col">Home Club</th>
+                   <th scope="col"></th>
+                    <th scope="col">Away Club</th>
+                  </tr>
+                </thead>
+                <tbody id="fixture-body">
+                  <tr>
+                    <td>Celtic</td>
+                    <td>v</td>
+                    <td>Hibs</td>
+                  </tr>
+                  <tr>
+                    <td>Hearts</td>
+                    <td>v</td>
+                    <td>St. Mirren</td>
+                  </tr>
+                  <tr>
+                    <td>Motherwell</td>
+                    <td>v</td>
+                    <td>Livingstone</td>
+                  </tr>
+                  <tr>
+                    <td>Hearts</td>
+                    <td>v</td>
+                    <td>St. Mirren</td>
+                  </tr>
+                  <tr>
+                    <td>Hearts</td>
+                    <td>v</td>
+                    <td>St. Mirren</td>
+                  </tr>
+                  <tr>
+                    <td>Hearts</td>
+                    <td>v</td>
+                    <td>St. Mirren</td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
+            </div>
+          </div>
+        </div>
 
       <footer class="footer mt-auto py-2 fixed-bottom">
           <div class="container">
@@ -343,42 +646,7 @@ tbody td, thead th {
       var user;
       var clubs = [];
       var position;
-
-      function loadTable(array) {
-          var table = document.getElementById('table-body');
-        table.innerHTML = "";
-          for(var i = 0; i < array.length; i++) {
-              // Create the list item:
-              var tr = document.createElement('tr');
-              tr.setAttribute('value', array[i].player_id);
-              tr.setAttribute('class', "clickable-row");
-              tr.setAttribute('style', "cursor:pointer");
-
-              var name = document.createElement('td');
-              name.setAttribute('class', "name");
-              var nText = document.createTextNode(array[i].name);
-              name.appendChild(nText);
-
-              var club = document.createElement('td');
-              club.setAttribute('class', "club");
-              var cText = document.createTextNode(convertClub(array[i].club_id));
-              club.appendChild(cText);
-
-              var price = document.createElement('td');
-              price.setAttribute('class', "price");
-              var pText = document.createTextNode(array[i].price);
-              price.appendChild(pText);
-
-              tr.appendChild(name);
-              tr.appendChild(club);
-              tr.appendChild(price);
-              // Add it to the list:
-              table.appendChild(tr);
-          }
-           // Finally, return the constructed list:
-          return list;
-      }
-      
+      var fixtures = [];
 
       function buildPlayers() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
@@ -459,10 +727,10 @@ tbody td, thead th {
           var fields = user.email.split('@');
           document.getElementById("welcomeHeader").innerHTML = "Signed in as: " + fields[0] + "!";
            for(var i in user.team.squad){
-	          alert(user.team.squad[i].name);
-	          alert(user.team.squad[i].position);
-        	}
-          repaint().call;
+            // alert(user.team.squad[i].name);
+            // alert(user.team.squad[i].position);
+          }
+          buildNextFixtures().call;
         }
         
         // We have done everything we need to prepare the CORS request, so send it
@@ -491,11 +759,70 @@ tbody td, thead th {
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
+
+      function buildNextFixtures() {
+        // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildNextFixtures"); // Request type and URL
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+          var response = JSON.parse(xhr.response); // the text of the response
+          for(var i = 0; i < response.length; i++){
+            fixtures.push(response[i]);
+          }
+          paintFixtureTable().call;
+        }
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();   
+      }
+
+      function paintFixtureTable() {
+          var fixturetable = document.getElementById('fixture-table');
+          var fixturebody = document.getElementById('fixture-body');
+          fixturebody.innerHTML = "";
+          for(var i = 0; i < fixtures.length; i++) {
+              // Create the list item:
+              var tr = document.createElement('tr');
+
+
+
+              var home = document.createElement('td');
+              home.setAttribute('class', "home");
+              var hText = document.createTextNode(fixtures[i].homeTeam);
+              home.appendChild(hText);
+
+              var versus = document.createElement('td');
+              versus.setAttribute('class', "date");
+              var vText = document.createTextNode("v");
+              versus.appendChild(vText);
+
+              var away = document.createElement('td');
+              away.setAttribute('class', "away");
+              var aText = document.createTextNode(fixtures[i].awayTeam);
+              away.appendChild(aText);
+
+              tr.appendChild(home);
+              tr.appendChild(versus);
+               tr.appendChild(away);
+              // Add it to the list:
+              fixturebody.appendChild(tr);
+              fixturetable.appendChild(fixturebody);
+          }
+           // Finally, return the constructed list:
+          repaint().call;
+      }
       
       function repaint(){
         document.getElementById("budgetBadge").innerHTML = user.team.transferBudget;
         var length = Object.keys(user.team.squad).length;
-       
+        document.getElementById('fixture-table').appendChild(loadTable(fixtures));
         if(length == "0"){
           document.getElementById("removeAll").style.display = "none";
         }
@@ -518,6 +845,7 @@ tbody td, thead th {
           document.getElementById("button"+i+"Text").firstChild.nodeValue = names[1];
           document.getElementById("button"+i+"Badge").innerHTML = user.team.squad[i].price;
         }
+        document.getElementById('fixture-table').appendChild(loadTable(fixtures));
       }
       
       function buttonPainter(club){
@@ -624,6 +952,16 @@ tbody td, thead th {
             }
           }
         }
+      }
+
+      const dateFormat = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/;
+
+      function reviver(key, value) {
+        if (typeof value === "string" && dateFormat.test(value)) {
+        return new Date(value);
+        }
+
+        return value;
       }
 
       jQuery(document).ready(function($) {

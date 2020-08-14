@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
@@ -13,7 +14,7 @@ public class Team {
 	private HashMap<Integer, Player> squad;
 	private Player captain;
 	private double transferBudget;
-	private ArrayList<Integer> scores;
+	private HashMap<Integer, Integer> weeklyScores;
 	private int totalScore;
 	
 	public Team(UUID owner_id) {
@@ -21,7 +22,7 @@ public class Team {
 		this.owner_id = owner_id;
 		this.team_id = null;
 		this.squad = new HashMap<Integer, Player>();
-		this.setScores(new ArrayList<Integer>());
+		this.weeklyScores = new HashMap<Integer, Integer>();
 	}
 
 	public String addPlayer(Player p, int position) {
@@ -138,20 +139,6 @@ public class Team {
 	}
 
 	/**
-	 * @return the scores
-	 */
-	public ArrayList<Integer> getScores() {
-		return scores;
-	}
-
-	/**
-	 * @param scores the scores to set
-	 */
-	public void setScores(ArrayList<Integer> scores) {
-		this.scores = scores;
-	}
-
-	/**
 	 * @return the totalScore
 	 */
 	public int getTotalScore() {
@@ -163,5 +150,9 @@ public class Team {
 	 */
 	public void setTotalScore(int totalScore) {
 		this.totalScore = totalScore;
+	}
+
+	public HashMap<Integer, Integer> getWeeklyScores() {
+		return weeklyScores;
 	}
 }

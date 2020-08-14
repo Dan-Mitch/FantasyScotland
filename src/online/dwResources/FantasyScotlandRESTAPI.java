@@ -20,6 +20,7 @@ import online.configuration.FantasyScotlandJSONConfiguration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.github.pabloo99.xmlsoccer.api.dto.GetHistoricMatchesResultDto;
 
 import io.dropwizard.jersey.sessions.Session;
 import model.*;
@@ -313,6 +314,23 @@ public class FantasyScotlandRESTAPI {
 		String userAsJSONString = oWriter.writeValueAsString(user);
 		
 		return userAsJSONString;
+	}
+	
+	@GET
+	@Path("/buildNextFixtures")
+	/**
+	 * Here is an example of a simple REST get request that returns a String.
+	 * We also illustrate here how we can convert Java objects to JSON strings.
+	 * @return - List of words as JSON
+	 * @throws IOException
+	 */
+	public String buildNextFixtures(@Session HttpSession session) throws IOException {
+		
+		ArrayList<GetHistoricMatchesResultDto> listOfFixtures = this.model.getNextFixtures();
+		// We can turn arbatory Java objects directly into JSON strings using
+		// Jackson seralization, assuming that the Java objects are not too complex.
+		String listAsJSONString = oWriter.writeValueAsString(listOfFixtures);
+		return listAsJSONString;
 	}
 	
 	@GET

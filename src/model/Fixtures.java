@@ -25,7 +25,7 @@ public class Fixtures {
 
 	}
 
-	public int whatRoundNext(LocalDateTime today) {
+	public int whatsCurrentRound(LocalDateTime today) {
 		int round = 0;
 		for (GetHistoricMatchesResultDto fixture : this.getAllFixtures()) {
 			Date date = fixture.getDate();
@@ -92,28 +92,28 @@ public class Fixtures {
 		return result;
 	}
 
-	public static void main(String[] args) {
-		XmlSoccerService xmlSoccerService = new XmlSoccerServiceImpl();
-		xmlSoccerService.setApiKey("ZBOBAXRYOHGALWSSPOVSNUYWPJDNLZWLAXBURALTOSGSDJETYA");
-		xmlSoccerService.setServiceUrl("http://www.xmlsoccer.com/FootballDataDemo.asmx");
-		LocalDateTime today = LocalDateTime.now().minusYears(1).withNano(0).withSecond(0);
-		LocalDateTime fakeToday = LocalDateTime.parse("2019-08-11T15:00");
-		Fixtures f = new Fixtures(xmlSoccerService);
-		Date date = f.getAllFixtures().get(f.getAllFixtures().size() - 11).getDate();
-		LocalDateTime fixtureDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-		System.err.println(fakeToday);
-		System.err.println(fixtureDate);
-		if (fixtureDate.isBefore(fakeToday)) {
-			System.err.println("bef");
-		} else if (fixtureDate.isAfter(fakeToday)) {
-			System.err.println("aft");
-		} else if (fixtureDate.isEqual(fakeToday)) {
-			System.err.println("same");
-		}
-		int round = f.whatRoundNext(today);
-		System.err.println(round);
-		System.err.println(f.whatFixturesIn(round).toString());
-		System.err.println(f.startDateOfRound(round));
-		System.err.println(f.endDateOfRound(round));
-	}
+//	public static void main(String[] args) {
+//		XmlSoccerService xmlSoccerService = new XmlSoccerServiceImpl();
+//		xmlSoccerService.setApiKey("ZBOBAXRYOHGALWSSPOVSNUYWPJDNLZWLAXBURALTOSGSDJETYA");
+//		xmlSoccerService.setServiceUrl("http://www.xmlsoccer.com/FootballDataDemo.asmx");
+//		LocalDateTime today = LocalDateTime.now().minusYears(1).withNano(0).withSecond(0);
+//		LocalDateTime fakeToday = LocalDateTime.parse("2019-08-11T15:00");
+//		Fixtures f = new Fixtures(xmlSoccerService);
+//		Date date = f.getAllFixtures().get(f.getAllFixtures().size() - 11).getDate();
+//		LocalDateTime fixtureDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+//		System.err.println(fakeToday);
+//		System.err.println(fixtureDate);
+//		if (fixtureDate.isBefore(fakeToday)) {
+//			System.err.println("bef");
+//		} else if (fixtureDate.isAfter(fakeToday)) {
+//			System.err.println("aft");
+//		} else if (fixtureDate.isEqual(fakeToday)) {
+//			System.err.println("same");
+//		}
+//		int round = f.whatRoundNext(today);
+//		System.err.println(round);
+//		System.err.println(f.whatFixturesIn(round).toString());
+//		System.err.println(f.startDateOfRound(round));
+//		System.err.println(f.endDateOfRound(round));
+//	}
 }

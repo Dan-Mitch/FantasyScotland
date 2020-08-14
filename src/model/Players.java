@@ -26,7 +26,7 @@ public class Players {
 			}
 		}
 		if(result == null) {
-		//	System.err.println("Could not find player with that id: " + id);
+			System.err.println("Could not find player with that id: " + id);
 	}
 		return result;
 	}
@@ -45,6 +45,20 @@ public class Players {
 		return result;
 	}
 	
+	public String getPosition(UUID id) {
+		String position = null;
+		for(Player p : this.players) {
+			if(p.getPlayer_id().equals(id)) {
+				position = p.getPosition();
+				break;
+			}
+		}
+		if(position == null) {
+			System.err.println("Could not find player with that id: " + id);
+		}
+		return position;
+	}
+	
 	public String getPosition(String name) {
 		String position = null;
 		for(Player p : this.players) {
@@ -54,7 +68,7 @@ public class Players {
 			}
 		}
 		if(position == null) {
-			//System.err.println("Could not find player with that name: " + name);
+			System.err.println("Could not find player with that name: " + name);
 		}
 		return position;
 	}
