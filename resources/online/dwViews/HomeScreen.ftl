@@ -179,9 +179,9 @@ height:90px;
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-item nav-link text-right" href="#">Team</a>
+            <a class="nav-item nav-link text-right" href="#">Manage</a>
             <a class="nav-item nav-link text-right" href="#">Leagues</a>
-            <a class="nav-item nav-link text-right" href="#">Transfers</a>
+            <a class="nav-item nav-link text-right" href="#">Transfer</a>
             <a class="nav-item nav-link text-right" href="#">Rules</a>
           </div>
         </div>
@@ -193,10 +193,10 @@ height:90px;
 
       <div class="body">
       <div class="point-header text-center">
-          <h1 class="">Round 4 Starts: 25th Aug 15:00</h1>
+          <h1 class="" id=>Round 3 Starts: 24th Aug 12:00 Ends: 25th Aug 15:00</h1>
        </div>
       <div class="point-header text-center ">
-        <h4>Points in Round 3</h4>
+        <h4>Points in Round 2</h4>
           <div class="container">
             <div class="row">
               <div class="col-sm border border-dark font-weight-bold">
@@ -212,7 +212,7 @@ height:90px;
               <div class="container">
             <div class="row">
               <div class="col-sm border border-dark">
-                45
+                14
               </div>
               <div class="col-sm border border-dark">
                 24
@@ -230,7 +230,7 @@ height:90px;
                 <h4 class="text-center">Points History<h4>
               </div>
               <div class="scroll">
-               <table class="table-responsive-sm">
+               <table class="table-responsive-sm" id="history-table">
                   <thead>
                 <tr>
                   <th scope="col">Round</th>
@@ -248,7 +248,7 @@ height:90px;
                     <th scope="col">Total</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="history-body">
                   <tr>
                     <th>1</th>
                     <td>2</td>
@@ -264,165 +264,6 @@ height:90px;
                     <td>2</td>
                     <td>2</td>
                   </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">6</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">7</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">8</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">9</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">10</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">11</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">12</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">13</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">14</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">15</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">16</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">17</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">18</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">19</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">20</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">21</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">22</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">23</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">24</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">25</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">26</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">27</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">28</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
                 </tbody>
               </table> 
             </div>
@@ -432,52 +273,30 @@ height:90px;
               <div class="border-bottom ">
              <h4 class="text-center">Team Overview<h4>
              </div>
-             <table class="table-responsive-sm">
-                  <thead>
+             <table class="table-responsive-sm table-striped" id="team-table">
+              <tbody>
                 <tr>
-                  <th scope="col"></th>
-                  <th scope="col">Home Club</th>
-                    <th scope="col">Away Club</th>
-                    <th scope="col">Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Celtic</td>
-                    <td>Hibs</td>
-                    <td>25 Aug</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Hearts</td>
-                    <td>St. Mirren</td>
-                    <td>25 Aug</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Motherwell</td>
-                    <td>Livingstone</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Hearts</td>
-                    <td>St. Mirren</td>
-                    <td>25 Aug</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Hearts</td>
-                    <td>St. Mirren</td>
-                    <td>25 Aug</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Hearts</td>
-                    <td>St. Mirren</td>
-                    <td>25 Aug</td>
-                  </tr>
-                </tbody>
+                  <th>Team Name</th>
+                  <td>Default</td>
+                </tr>
+                <tr>
+                  <th>Budget</th>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <th>Captain</th>
+                  <td>johncarter@mail.com</td>
+                </tr>
+                <tr>
+                  <th>Global Position</th>
+                  <td>6334</td>
+                </tr>
+                <tr>
+                  <th>Total Points</th>
+                  <td>123</td>
+                </tr>
+            </tbody>
+              
               </table>
             </div>
               
@@ -495,34 +314,34 @@ height:90px;
                 </thead>
                 <tbody id="fixture-body">
                   <tr>
-                    <td>Celtic</td>
+                    <td>Default</td>
                     <td>v</td>
-                    <td>Hibs</td>
+                    <td>Default</td>
                   </tr>
                   <tr>
-                    <td>Hearts</td>
+                    <td>Default</td>
                     <td>v</td>
-                    <td>St. Mirren</td>
+                    <td>Default</td>
                   </tr>
                   <tr>
-                    <td>Motherwell</td>
+                    <td>Default</td>
                     <td>v</td>
-                    <td>Livingstone</td>
+                    <td>Default</td>
                   </tr>
                   <tr>
-                    <td>Hearts</td>
+                    <td>Default</td>
                     <td>v</td>
-                    <td>St. Mirren</td>
+                    <td>Default</td>
                   </tr>
                   <tr>
-                    <td>Hearts</td>
+                    <td>Default</td>
                     <td>v</td>
-                    <td>St. Mirren</td>
+                    <td>Default</td>
                   </tr>
                   <tr>
-                    <td>Hearts</td>
+                    <td>Default</td>
                     <td>v</td>
-                    <td>St. Mirren</td>
+                    <td>Default</td>
                   </tr>
                 </tbody>
               </table>
@@ -538,56 +357,6 @@ height:90px;
       </footer>
     </div>
   </div>
-
-  <div class="modal hide" id="selectModal" tabindex="-1" role="dialog" aria-labelledby="selectModalLabel" aria-hidden="true">
-
-      <div class="modal-header">
-        <h3 id="selectModalLabel">Select Player</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-          </button>
-      </div>
-
-      <div class="modal-body">
-        <table id="table" class="table table-bordered table-hover table-sm " cellspacing="0" width="100%">
-          <thead>
-            <tr>
-                <th class="th-sm" style="cursor:s-resize" onclick="sortTable(0)">Name
-                </th>
-                <th class="th-sm" style="cursor:s-resize" onclick="sortTable(1)">Club
-                </th>
-                <th class="th-sm" style="cursor:s-resize" onclick="sortTable(2)">Cost(&pound mill)
-                </th>
-      
-            </tr>
-          </thead>
-          <tbody id="table-body">
-            <tr class='clickable-row' style="cursor:pointer" value="111111111">
-                <td class="name">Default Default</td> <td class="club">Default</td> <td class="price">0.0</td>
-            </tr>
-          </tbody>
-      </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn-primary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="modal hide" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
-
-      <div class="modal-header">
-        <h3 id="removeModalLabel">Remove Player</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-          </button>
-      </div>
-
-      <div class="modal-body" id = "removeDiv">
-          <button type="button" class="btn-primary" data-dismiss="modal" onclick = "removePlayer(position);">Remove Player</button>
-      </div>
-    </div>
   </div>
 
 
@@ -647,6 +416,7 @@ height:90px;
       var clubs = [];
       var position;
       var fixtures = [];
+      var history = [];
 
       function buildPlayers() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
@@ -726,11 +496,13 @@ height:90px;
           user = JSON.parse(xhr.response);
           var fields = user.email.split('@');
           document.getElementById("welcomeHeader").innerHTML = "Signed in as: " + fields[0] + "!";
+           alert(xhr.response);
            for(var i in user.team.squad){
+              alert(user.team.squad[i].weeklyScores);
             // alert(user.team.squad[i].name);
             // alert(user.team.squad[i].position);
           }
-          buildNextFixtures().call;
+          buildPointHistory().call;
         }
         
         // We have done everything we need to prepare the CORS request, so send it
@@ -760,6 +532,106 @@ height:90px;
         xhr.send();   
       }
 
+      function buildPointHistory() {
+        // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildPointHistory"); // Request type and URL
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+          var response = JSON.parse(xhr.response); // the text of the response
+          var keys = Object.keys(response);
+          alert(xhr.response);
+          alert(response [1] [1]);
+          alert(keys[0]);
+          var historytable = document.getElementById('history-table');
+          var historybody = document.getElementById('history-body');
+          historybody.innerHTML = "";
+          alert(keys.length);
+          for(var i = 0; i < keys.length; i++) {
+              var tr = document.createElement('tr');
+
+              var round = document.createElement('th');
+              var rText = document.createTextNode(keys[i]);
+              round.appendChild(rText);
+
+              var gk = document.createElement('td');
+              var gText = document.createTextNode(response [i+1] [1]);
+              gk.appendChild(gText);
+
+              var df1 = document.createElement('td');
+              var df1Text = document.createTextNode(response [i+1] [2]);
+              df1.appendChild(df1Text);
+
+              var df2 = document.createElement('td');
+              var df2Text = document.createTextNode(response [i+1] [3]);
+              df2.appendChild(df2Text);
+
+              var df3 = document.createElement('td');
+              var df3Text = document.createTextNode(response [i+1] [4]);
+              df3.appendChild(df3Text);
+
+              var df4 = document.createElement('td');
+              var df4Text = document.createTextNode(response [i+1] [5]);
+              df4.appendChild(df4Text);
+
+              var mf1 = document.createElement('td');
+              var mf1Text = document.createTextNode(response [i+1] [6]);
+              mf1.appendChild(mf1Text);
+
+              var mf2 = document.createElement('td');
+              var mf2Text = document.createTextNode(response [i+1] [7]);
+              mf2.appendChild(mf2Text);
+
+              var mf3 = document.createElement('td');
+              var mf3Text = document.createTextNode(response [i+1] [8]);
+              mf3.appendChild(mf3Text);
+
+              var mf4 = document.createElement('td');
+              var mf4Text = document.createTextNode(response [i+1] [9]);
+              mf4.appendChild(mf4Text);
+
+              var fw1 = document.createElement('td');
+              var fw1Text = document.createTextNode(response [i+1] [10]);
+              fw1.appendChild(fw1Text);
+
+              var fw2 = document.createElement('td');
+              var fw2Text = document.createTextNode(response [i+1] [11]);
+              fw2.appendChild(fw2Text);
+
+              var tot = ((response [i+1] [1]) + (response [i+1] [2]) + (response [i+1] [3]) + (response [i+1] [4]) + (response [i+1] [5]) + (response [i+1] [6]) + (response [i+1] [7]) + (response [i+1] [8]) + (response [i+1] [9]) + (response [i+1] [10]) + (response [i+1] [11]))
+              var total = document.createElement('td');
+              var totalText = document.createTextNode(tot);
+              total.appendChild(totalText);
+
+              tr.appendChild(round);
+              tr.appendChild(gk);
+              tr.appendChild(df1);
+              tr.appendChild(df2);
+              tr.appendChild(df3);
+              tr.appendChild(df4);
+              tr.appendChild(mf1);
+              tr.appendChild(mf2);
+              tr.appendChild(mf3);
+              tr.appendChild(mf4);
+              tr.appendChild(fw1);
+              tr.appendChild(fw2);
+              tr.appendChild(total);
+              historybody.appendChild(tr);
+              historytable.appendChild(historybody);
+          }
+          buildNextFixtures().call;
+        }
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();   
+      }
+
       function buildNextFixtures() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
         var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildNextFixtures"); // Request type and URL
@@ -776,22 +648,12 @@ height:90px;
           for(var i = 0; i < response.length; i++){
             fixtures.push(response[i]);
           }
-          paintFixtureTable().call;
-        }
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();   
-      }
-
-      function paintFixtureTable() {
           var fixturetable = document.getElementById('fixture-table');
           var fixturebody = document.getElementById('fixture-body');
           fixturebody.innerHTML = "";
           for(var i = 0; i < fixtures.length; i++) {
               // Create the list item:
               var tr = document.createElement('tr');
-
-
 
               var home = document.createElement('td');
               home.setAttribute('class', "home");
@@ -817,6 +679,10 @@ height:90px;
           }
            // Finally, return the constructed list:
           repaint().call;
+        }
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();   
       }
       
       function repaint(){
@@ -848,108 +714,10 @@ height:90px;
         document.getElementById('fixture-table').appendChild(loadTable(fixtures));
       }
       
-      function buttonPainter(club){
-        if(club === 45){
-          return "rgb(226,0,26)";
-        }
-        else if(club === 54){
-          return "linear-gradient(to bottom, rgb(1,135,73) 50%, white 50%)";
-        }
-        else if(club === 228){
-          return "linear-gradient(to bottom, rgb(204,56,63) 50%, white 50%)";
-        }
-        else if(club === 50){
-          return "rgb(159,25,49)";
-        }
-        else if(club === 53){
-          return "rgb(0,117,59)";
-        }
-        else if(club === 52){
-          return "linear-gradient(to right, rgb(47,54,143) 50%, white 50%)";
-        }
-        else if(club === 560){
-          return "rgb(255,204,0)";
-        }
-        else if(club === 47){
-          return "linear-gradient(to bottom, rgb(251,186,45) 50%, rgb(122,20,63)  50%)";
-        }
-        else if(club === 49){
-          return "rgb(27,69,143)";
-        }
-        else if(club === 360){
-          return "linear-gradient(to bottom, rgb(4,9,87) 50%, rgb(244,19,43)  50%)";
-        }
-        else if(club === 46){
-          return "linear-gradient(to bottom, rgb(36,63,144) 50%, white  50%)";
-        }
-        else if(club === 56){
-          return "linear-gradient(to right, black 50%, white 50%)";
-        }
-      }
-      
-      function setPosition(pos){
-        position = pos; 
-      }
-      
       function convertClub(id){
         for(var i = 0; i < clubs.length; i++){
           if(clubs[i].club_id === id){
             return clubs[i].name;
-          }
-        }
-      }
-      
-      function sortTable(n) {
-        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-        table = document.getElementById("table");
-        switching = true;
-        // Set the sorting direction to ascending:
-        dir = "asc";
-        /* Make a loop that will continue until
-        no switching has been done: */
-        while (switching) {
-          // Start by saying: no switching is done:
-          switching = false;
-          rows = table.rows;
-          /* Loop through all table rows (except the
-          first, which contains table headers): */
-          for (i = 1; i < (rows.length - 1); i++) {
-            // Start by saying there should be no switching:
-            shouldSwitch = false;
-            /* Get the two elements you want to compare,
-            one from current row and one from the next: */
-            x = rows[i].getElementsByTagName("TD")[n];
-            y = rows[i + 1].getElementsByTagName("TD")[n];
-            /* Check if the two rows should switch place,
-            based on the direction, asc or desc: */
-            if (dir == "asc") {
-              if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                // If so, mark as a switch and break the loop:
-                shouldSwitch = true;
-                break;
-              }
-            } else if (dir == "desc") {
-              if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                // If so, mark as a switch and break the loop:
-                shouldSwitch = true;
-                break;
-              }
-            }
-          }
-          if (shouldSwitch) {
-            /* If a switch has been marked, make the switch
-            and mark that a switch has been done: */
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switching = true;
-            // Each time a switch is done, increase this count by 1:
-            switchcount ++;
-          } else {
-            /* If no switching has been done AND the direction is "asc",
-            set the direction to "desc" and run the while loop again. */
-            if (switchcount == 0 && dir == "asc") {
-              dir = "desc";
-              switching = true;
-            }
           }
         }
       }

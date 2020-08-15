@@ -10,11 +10,9 @@ public class Player{
 	private double price;
 	private int club_id;
 	private boolean isSelectable;
-	private HashMap<Integer, Integer> weeklyScores;
 	
 	public Player() {
 		this.isSelectable = true;
-		this.weeklyScores = new HashMap<Integer, Integer>();
 	}
 	
 	public UUID getPlayer_id() {
@@ -68,13 +66,5 @@ public class Player{
 
 	public void setSelectable(boolean isSelectable) {
 		this.isSelectable = isSelectable;
-	}
-
-	public HashMap<Integer, Integer> getWeeklyScores() {
-		return weeklyScores;
-	}
-
-	public void setWeeklyScores(HashMap<Integer, Integer> weeklyScores) {
-		this.weeklyScores = weeklyScores;
 	}	
 }

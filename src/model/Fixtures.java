@@ -37,6 +37,16 @@ public class Fixtures {
 		return round;
 
 	}
+	
+	public int whatsLastRound() {
+		ArrayList<Integer> rounds = new ArrayList<Integer>();
+		for (GetHistoricMatchesResultDto fixture : this.getAllFixtures()) {
+			int round = fixture.getRound();
+			rounds.add(round);
+		}
+		return Collections.max(rounds);
+
+	}
 
 	public ArrayList<GetHistoricMatchesResultDto> whatFixturesIn(int round) {
 		ArrayList<GetHistoricMatchesResultDto> fixtures = new ArrayList<GetHistoricMatchesResultDto>();
@@ -99,6 +109,7 @@ public class Fixtures {
 //		LocalDateTime today = LocalDateTime.now().minusYears(1).withNano(0).withSecond(0);
 //		LocalDateTime fakeToday = LocalDateTime.parse("2019-08-11T15:00");
 //		Fixtures f = new Fixtures(xmlSoccerService);
+//		System.out.println(f.whatsLastRound());
 //		Date date = f.getAllFixtures().get(f.getAllFixtures().size() - 11).getDate();
 //		LocalDateTime fixtureDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 //		System.err.println(fakeToday);

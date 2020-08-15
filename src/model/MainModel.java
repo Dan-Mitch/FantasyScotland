@@ -1,14 +1,22 @@
 package model;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 import java.util.UUID;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import com.github.pabloo99.xmlsoccer.api.dto.GetHistoricMatchesResultDto;
 import com.github.pabloo99.xmlsoccer.api.dto.GetMatchEventsDto;
@@ -16,7 +24,7 @@ import com.github.pabloo99.xmlsoccer.api.dto.GetMatchLineupsDto;
 import com.github.pabloo99.xmlsoccer.api.service.XmlSoccerService;
 import com.github.pabloo99.xmlsoccer.client.XmlSoccerServiceImpl;
 
-import constants.Scores;
+import Constants.Scores;
 import model.User;
 
 import database.DatabaseLinker;
@@ -26,35 +34,75 @@ public class MainModel {
 	private DatabaseLinker database;
 	public static ArrayList<Club> clubs;
 	private Players players;
-	private Fixtures fixtures;
+	private static Fixtures fixtures;
 	private ArrayList<League> leagues;
 	private ArrayList<User> users;
-//	private ArrayList<Team> teams;
 	private XmlSoccerService xmlSoccerService;
-
 	public MainModel() {
 		this.database = new DatabaseLinker();
 		this.xmlSoccerService = new XmlSoccerServiceImpl();
 		this.xmlSoccerService.setApiKey("ZBOBAXRYOHGALWSSPOVSNUYWPJDNLZWLAXBURALTOSGSDJETYA");
 		this.xmlSoccerService.setServiceUrl("http://www.xmlsoccer.com/FootballDataDemo.asmx");
-
+		
 		MainModel.clubs = database.loadClubs();
-		this.fixtures = new Fixtures(this.xmlSoccerService);
+		fixtures = new Fixtures(this.xmlSoccerService);
 		this.players = new Players(database.loadPlayers());
-		writePreviousFixtures();
 		initialise();
+		writePreviousFixtures();
+		doIt();
 	}
 
 	public void initialise() {
 		this.leagues = new ArrayList<League>(database.loadLeagues());
 		this.users = new ArrayList<User>(database.loadUsers());
 	}
+	
+	private void doIt () {
+        ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run ( ) {
+                try {
+                	ZonedDateTime zdt = ZonedDateTime.now( ZoneId.systemDefault() ); // Capture the current moment.
+                    System.out.println( "Current moment: " + zdt ); // Report the current moment.
+                    // Schedule the next run of this task.
+                    OffsetDateTime now = OffsetDateTime.now( ZoneOffset.UTC ).minusYears(1) ;
+                    OffsetDateTime later = OffsetDateTime.of(MainModel.getRoundEndDate(), ZoneOffset.UTC).plusMinutes(1);
+                    System.out.println(now.toString());
+                    System.out.println(later.toString());
+                    if(!now.isBefore(later)) {
+                    	initialise();
+                    	writePreviousFixtures();
+                    	writeTeamScores();
+                    }
+                    System.err.println("Setting new schedule");
+                    Duration d = Duration.between( now , later ) ;
+                    long seconds = d.toMillis() ; // Truncates any fractional second.
+                    scheduledExecutorService.schedule( this , seconds , TimeUnit.MILLISECONDS );  // Delay will not be *exactly* this amount of time due to interruptions of scheduling cores on CPU and threads by the JVM and host OS.	
+                } catch ( Exception e ) {
+                    // TODO: Handle unexpected exeption.
+                    System.err.println( "ERROR - unexpected exception caught on its way to reaching a scheduled executor service. Message # 55cbae82-8492-4638-9630-60c5b28ad876." );
+                }
+            }
+        };
+
+        // Jump-start this perpetual motion machine.
+        scheduledExecutorService.schedule( runnable , 0L , TimeUnit.SECONDS );  // Start immediately, no delay.
+        try {
+            Thread.sleep( TimeUnit.SECONDS.toMillis( 3 ) );  // Let our app, and the executor, run for 3 seconds, then shut them both down.
+        } catch ( InterruptedException e ) {
+            e.printStackTrace();
+        }
+        scheduledExecutorService.shutdown();
+        System.out.println( "INFO - Executor shutting down. App exiting. " + ZonedDateTime.now( ZoneId.systemDefault() ) );
+
+    }
 
 	public void writePreviousFixtures() {
 		for (GetHistoricMatchesResultDto fixture : fixtures.getAllFixtures()) {
 			Date date = fixture.getDate();
 			LocalDateTime fixtureDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-			if (fixtureDate.isBefore(this.getTodayDate())) {
+			if (fixtureDate.isBefore(MainModel.getTodayDate())) {
 				if (!this.database.doesFixtureExist(fixture.getFixtureMatchId())) {
 					this.database.writeFixture(fixture.getFixtureMatchId(), fixture.getRound(), fixture.getHomeTeamId(),
 							fixture.getAwayTeamId());
@@ -65,7 +113,7 @@ public class MainModel {
 									score.getAssists(), score.getRed_cards(), score.getYellow_cards(), score.getApps(),
 									score.getClean_sheets(), score.getConcede_Two(), score.getOwn_goals(),
 									score.getFixture_id());
-							if(this.database.doesPlayerPointsExist(score.getPlayer_id(), score.getRound())) {
+							if(!this.database.doesPlayerPointsExist(score.getPlayer_id(), score.getRound())) {
 								this.database.writePlayerPoints(score.getPlayer_id(), score.getRound(),
 										this.calculatePointsFrom(score));
 							}
@@ -87,46 +135,40 @@ public class MainModel {
 	}
 
 	public void writeTeamScores() {
-		initialise();
-		int round = this.getFixtures().whatsCurrentRound(getTodayDate()) - 1;
+		int currentRound = MainModel.getFixtures().whatsCurrentRound(getTodayDate());
+		int previousRound = currentRound - 1;
 		ArrayList<Team> teams = new ArrayList<Team>();
 		for (User u : this.users) {
-			teams.add(this.database.loadTeam(u.getId(), round));
+			teams.add(this.database.loadTeam(u.getId(), previousRound));
 		}
 		
 		for (Team t : teams) {
-			int weeklyScore = 0;
-			for (Map.Entry<Integer, Player> member : t.getSquad().entrySet()) {
-				Player player = member.getValue();
-				int position = member.getKey();
-				if(position == 12 || position == 13 || position == 14 || position == 15) {
-					continue;
-				}
-				else
-				for (Map.Entry<Integer, Integer> score : player.getWeeklyScores().entrySet()) {
-					int gameWeek = score.getKey();
-					int points = score.getValue();
-					if (gameWeek == round) {
-						weeklyScore += points;
-					}
-					else {
-						continue;
-					}
-				}
-				if(!this.database.doesTeamMembershipExist(t.getTeam_id(), player.getPlayer_id(), round + 1)){
-					this.database.writeTeamMembership(t.getTeam_id(), player.getPlayer_id(), round + 1, position);
+			int weeklyScore = this.database.calculateTeamScore(t.getTeam_id(), previousRound);
+			
+			if(!this.database.doesTeamPointsExist(t.getTeam_id(), previousRound)) {
+				this.database.writeTeamPoints(t.getTeam_id(), previousRound, weeklyScore);
+			}
+			else {
+				continue;
+			}
+			HashMap<UUID,Integer> previousScores = this.database.getPreviousLeagueScores(t.getTeam_id());
+			for(Map.Entry<UUID, Integer> entry : previousScores.entrySet()) {
+				UUID league_id = entry.getKey();
+				int score = entry.getValue();
+				
+				score +=weeklyScore;
+				this.database.updateLeagueScore(league_id, t.getTeam_id(), score);
+			}
+			for(Map.Entry<Integer, Player> entry : t.getSquad().entrySet()) {
+				int position = entry.getKey();
+				Player player = entry.getValue();
+				
+				if(!this.database.doesTeamMembershipExist(t.getTeam_id(), player.getPlayer_id(), currentRound)) {
+					this.database.writeTeamMembership(t.getTeam_id(), player.getPlayer_id(), currentRound, position);
 				}
 				else {
 					continue;
 				}
-				
-
-			}
-			if(!this.database.doesTeamPointsExist(t.getTeam_id(), round)) {
-				this.database.writeTeamPoints(t.getTeam_id(), round, weeklyScore);
-			}
-			else {
-				continue;
 			}
 		}
 	}
@@ -333,6 +375,35 @@ public class MainModel {
 			}
 		}
 	}
+	
+	public HashMap<Integer,HashMap<Integer, Integer>> getPointHistory(UUID team_id){
+		HashMap<Integer,HashMap<Integer, Integer>> history = new HashMap<Integer,HashMap<Integer, Integer>>();
+		int lastRound = MainModel.getFixtures().whatsLastRound();
+		for(int i = 1; i<=lastRound;i++) {
+			HashMap<Integer, Integer> playersScores = new HashMap<Integer, Integer>();
+			
+			if(this.database.doesTeamExist(team_id, i)) {
+				HashMap<Integer, Player> squad = this.database.loadSquad(team_id, i);
+				
+				for(Map.Entry<Integer, Player> entry : squad.entrySet()) {
+					int position = entry.getKey();
+					Player player = entry.getValue();
+					if(this.database.doesPlayerPointsExist(player.getPlayer_id(), i)) {
+						playersScores.put(position, this.database.getPlayerScoreIn(player.getPlayer_id(), i));
+
+					}
+					else {
+						playersScores.put(entry.getKey(), null);
+					}
+				}
+				history.put(i, playersScores);
+			}
+			else {
+				continue;
+			}
+		}
+		return history;
+	}
 
 	public UUID authenticateUser(String email, String pass) {
 		String response = this.database.authenticateUser(email, pass);
@@ -386,7 +457,7 @@ public class MainModel {
 		this.database.writeTeam(team.getTeam_id(), team.getOwner_id());
 		for (Entry<Integer, Player> entry : team.getSquad().entrySet()) {
 			this.database.writeTeamMembership(team.getTeam_id(), entry.getValue().getPlayer_id(),
-					this.getFixtures().whatsCurrentRound(getTodayDate()), entry.getKey());
+					MainModel.getFixtures().whatsCurrentRound(getTodayDate()), entry.getKey());
 		}
 		this.database.writeLeagueMembership(UUID.fromString("3573e359-7c59-4d43-90c9-52d3ba04a66e"), team.getTeam_id(),
 				0);
@@ -402,14 +473,14 @@ public class MainModel {
 	}
 
 	public void loadTeam(UUID user_id) {
-		Team team = this.database.loadTeam(user_id, this.fixtures.whatsCurrentRound(getTodayDate()));
+		Team team = this.database.loadTeam(user_id, MainModel.fixtures.whatsCurrentRound(getTodayDate()));
 		User user = this.getUser(user_id);
 		user.setTeam(team);
 	}
 
 	public ArrayList<GetHistoricMatchesResultDto> getNextFixtures() {
-		int nextRound = this.fixtures.whatsCurrentRound(this.getTodayDate());
-		return this.fixtures.whatFixturesIn(nextRound);
+		int nextRound = MainModel.fixtures.whatsCurrentRound(MainModel.getTodayDate());
+		return MainModel.fixtures.whatFixturesIn(nextRound);
 	}
 
 	public Players getPlayers() {
@@ -445,11 +516,17 @@ public class MainModel {
 		return clubName;
 	}
 
-	public LocalDateTime getTodayDate() {
-		return LocalDateTime.now().minusYears(1).withNano(0).withSecond(0);
+	public static LocalDateTime getTodayDate() {
+		//LocalDateTime fakeDate = LocalDateTime.of(2019, 8, 25, 14, 59);
+		LocalDateTime realDate = LocalDateTime.now().minusYears(1).withNano(0).withSecond(0);
+		return realDate;
+	}
+	
+	public static LocalDateTime getRoundEndDate() {
+		return getFixtures().endDateOfRound(getFixtures().whatsCurrentRound(getTodayDate()));
 	}
 
-	public Fixtures getFixtures() {
+	public static Fixtures getFixtures() {
 		return fixtures;
 	}
 
@@ -469,6 +546,9 @@ public class MainModel {
 
 //	public static void main(String[] args) {
 //		MainModel m = new MainModel();
+//		System.err.println(m.getFixtures().startDateOfRound(2));
+//		System.err.println(m.database.loadSquad(UUID.fromString("acc727e3-5cdb-4f92-991a-b340cb471ba4"), 2));
+//		System.err.println(m.getPointHistory(UUID.fromString("acc727e3-5cdb-4f92-991a-b340cb471ba4")));
 //		System.err.println(m.getFixtures().endDateOfRound(m.getFixtures().whatRoundNext(m.getTodayDate())));
 //		// System.err.println(m.getPlayers().getPlayer(UUID.fromString("f5ecf81e-f227-4058-82e6-9e72d8d76139")).getName());
 //		// GetHistoricMatchesResultDto fixture =

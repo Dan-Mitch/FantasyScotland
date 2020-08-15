@@ -322,8 +322,8 @@ public class DatabaseLinker {
 		return b;
 	}
 	
-	public boolean doesTeamPointsExist(UUID player_id, int round) {
-		String query = "SELECT * FROM teams_weekly_scores as t WHERE t.player_id='" + player_id + "' AND t.round ='" + round + "'";
+	public boolean doesTeamPointsExist(UUID team_id, int round) {
+		String query = "SELECT * FROM teams_weekly_scores as t WHERE t.team_id='" + team_id + "' AND t.round ='" + round + "'";
 		boolean b = false;
 		openConnection();
 		try {
@@ -332,7 +332,7 @@ public class DatabaseLinker {
 			if (result.next()) {
 				b = true;
 			} else {
-				System.err.println("Player weekly score does not exist on database...");
+				System.err.println("Team weekly score does not exist on database...");
 				b = false;
 			}
 		} catch (SQLException ex) {
@@ -355,6 +355,28 @@ public class DatabaseLinker {
 				b = true;
 			} else {
 				System.err.println("Player weekly score does not exist on database...");
+				b = false;
+			}
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+		return b;
+	}
+	
+	public boolean doesTeamExist(UUID team_id, int round) {
+		String query = "SELECT * FROM team_membership as t WHERE t.team_id='" + team_id + "' AND t.round ='" + round + "'";
+		boolean b = false;
+		openConnection();
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(query);
+			if (result.next()) {
+				b = true;
+			} else {
+				System.err.println("Team does not exist on database in round " + round);
 				b = false;
 			}
 		} catch (SQLException ex) {
@@ -423,7 +445,6 @@ public class DatabaseLinker {
 				player.setPosition(result.getString("position"));
 				player.setPrice(result.getDouble("price"));
 				player.setClub_id(Integer.parseInt(result.getString("club_id")));
-				player.setWeeklyScores(this.loadPlayerScores(player_id));
 				players.add(player);
 			}
 		} catch (SQLException ex) {
@@ -475,11 +496,11 @@ public class DatabaseLinker {
 		} finally {
 			closeConnection();
 		}
-		return this.loadTeamDetails(team_id, team, user_id, round);
+		return this.loadTeamDetails(team_id, team, round);
 	}
 	
-	public HashMap<Integer, Player> loadSquad(UUID user_id, UUID team_id, int round) {
-		String query = "SELECT * FROM team_membership as t WHERE t.team_id='" + team_id +"';";
+	public HashMap<Integer, Player> loadSquad(UUID team_id, int round) {
+		String query = "SELECT * FROM team_membership as t WHERE t.team_id='" + team_id +"' AND t.round='" + round + "' ORDER BY t.position";
 		HashMap<Integer, Player> squad = new HashMap<Integer, Player>();
 		openConnection();
 		try {
@@ -504,6 +525,7 @@ public class DatabaseLinker {
 		return squad;
 	}
 	
+	
 	public ArrayList<UUID> loadMembers(UUID league_id) {
 		String query = "SELECT * FROM league_membership as l WHERE l.league_id='" + league_id +"';";
 		ArrayList<UUID> members = new ArrayList<UUID>();
@@ -523,18 +545,17 @@ public class DatabaseLinker {
 		return members;
 	}
 	
-	public Team loadTeamDetails(UUID team_id, Team team, UUID user_id, int round) {
-		String query = "SELECT * FROM team_details as t WHERE t.team_id ='" + team_id + "';";
+	public Team loadTeamDetails(UUID team_id, Team team, int round) {
+		String query = "SELECT * FROM team_details as t WHERE t.team_id ='" + team_id + "'";
 		openConnection();
 		try {
 			Statement statement = connection.createStatement();
 			ResultSet result = statement.executeQuery(query);
 			while(result.next()) {
-				team = new Team(user_id);
 				team.setName(result.getString("name"));
 				team.setTeam_id(team_id);
 				team.setTransferBudget(result.getDouble("budget"));
-				team.setSquad(this.loadSquad(user_id, team_id, round));
+				team.setSquad(this.loadSquad(team_id, round));
 			}
 		} catch (SQLException ex) {
 			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
@@ -545,15 +566,18 @@ public class DatabaseLinker {
 		return team;
 	}
 	
-	public HashMap<Integer, Integer> loadPlayerScores(UUID player_id) {
-		String query = "SELECT * FROM players_weekly_scores as s WHERE s.player_id ='" + player_id + "';";
-		HashMap<Integer, Integer> weeklyScores = new HashMap<Integer, Integer>();
+	public int getPlayerScoreIn(UUID player_id, int round) {
+		int score = 0;
+		String query = "SELECT * FROM players_weekly_scores as p WHERE p.player_id ='" + player_id + "' AND p.round ='" + round + "'";
 		openConnection();
 		try {
 			Statement statement = connection.createStatement();
 			ResultSet result = statement.executeQuery(query);
-			while(result.next()) {
-				weeklyScores.put(result.getInt("round"), result.getInt("score"));
+			if(result.next()) {
+				score = result.getInt("score");
+			}
+			else {
+				System.err.println("no score found for player_id " + player_id + " and round = " +round);
 			}
 		} catch (SQLException ex) {
 			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
@@ -561,9 +585,67 @@ public class DatabaseLinker {
 		} finally {
 			closeConnection();
 		}
-		return weeklyScores;
+		return score;
+	}
+	
+	public int calculateTeamScore(UUID team_id, int round) {
+		int weeklyScore = 0;
+		String query = "SELECT SUM(p.score) FROM players_weekly_scores as p WHERE p.round ='" + round + "' AND p.player_id IN (SELECT t.player_id FROM team_membership as t WHERE round ='" + round + "' AND t.team_id ='" + team_id + "' ORDER BY t.position LIMIT 11)";
+		openConnection();
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(query);
+			if(result.next()) {
+				weeklyScore = result.getInt("sum");
+			}
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+		return weeklyScore;
+	}	
+	
+	public HashMap<UUID, Integer> getPreviousLeagueScores(UUID team_id ){
+		HashMap<UUID, Integer> scores = new HashMap<UUID, Integer>();
+		String query = "SELECT * FROM league_membership WHERE team_id='" + team_id + "'";
+		openConnection();
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(query);
+			while(result.next()) {
+				scores.put(UUID.fromString(result.getString("league_id")), result.getInt("score"));
+			}
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+		return scores;
+	}
+	
+	public void updateLeagueScore(UUID league_id, UUID team_id, int score) {
+		String query = "UPDATE league_membership SET score ='" + score + "' WHERE league_id='" + league_id + "' AND team_id='" + team_id + "'";
+		openConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.executeUpdate();
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+	
 	}
 
+	
+	
+	
+	
+	
 	private void openConnection() {
 		try {
 			connection = DriverManager.getConnection(url, username, password);
@@ -573,8 +655,6 @@ public class DatabaseLinker {
 		}
 	}
 	
-	
-
 	private void closeConnection() {
 		try {
 			connection.close();

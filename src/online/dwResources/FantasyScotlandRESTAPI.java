@@ -2,6 +2,7 @@ package online.dwResources;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -330,6 +331,22 @@ public class FantasyScotlandRESTAPI {
 		// We can turn arbatory Java objects directly into JSON strings using
 		// Jackson seralization, assuming that the Java objects are not too complex.
 		String listAsJSONString = oWriter.writeValueAsString(listOfFixtures);
+		return listAsJSONString;
+	}
+	
+	@GET
+	@Path("/buildPointHistory")
+	/**
+	 * Here is an example of a simple REST get request that returns a String.
+	 * We also illustrate here how we can convert Java objects to JSON strings.
+	 * @return - List of words as JSON
+	 * @throws IOException
+	 */
+	public String buildPointHistory(@Session HttpSession session) throws IOException {
+		Team team = this.model.getUser((UUID)session.getAttribute("id")).getTeam();
+		// We can turn arbatory Java objects directly into JSON strings using
+		// Jackson seralization, assuming that the Java objects are not too complex.
+		String listAsJSONString = oWriter.writeValueAsString(this.model.getPointHistory(team.getTeam_id()));
 		return listAsJSONString;
 	}
 	
