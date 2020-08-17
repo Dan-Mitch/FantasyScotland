@@ -1,12 +1,12 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class League {
 	private UUID league_id;
 	private String name;
-	private ArrayList<UUID> members;
+	private HashMap<UUID,Integer> memberScores;
 
 	public void calculateRankings() {
 	}
@@ -17,14 +17,6 @@ public class League {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public ArrayList<UUID> getParticipants() {
-		return members;
-	}
-
-	public void setParticipants(ArrayList<UUID> members) {
-		this.members = members;
 	}
 
 	/**
@@ -39,6 +31,20 @@ public class League {
 	 */
 	public void setLeague_id(UUID league_id) {
 		this.league_id = league_id;
+	}
+
+	/**
+	 * @return the memberScores
+	 */
+	public HashMap<UUID,Integer> getMemberScores() {
+		return memberScores;
+	}
+
+	/**
+	 * @param memberScores the memberScores to set
+	 */
+	public void setMemberScores(HashMap<UUID,Integer> memberScores) {
+		this.memberScores = memberScores;
 	}
 
 }

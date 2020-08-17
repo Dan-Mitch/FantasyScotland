@@ -64,8 +64,12 @@ body {
   margin-top:10px;
 }
 
-.warning{
-	display:none;
+.text-danger{
+  display: none;
+}
+
+.text-warning{
+  display: none;
 }
 </style>
 </head>
@@ -79,9 +83,8 @@ body {
 		  <input type="email" id="email" class="form-control" name="email" placeholder="Enter Email Address" required="" autofocus="" />
 		  <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" id="password" class="form-control" name="password" placeholder="Enter Password" required="" />
 		  <input type="password" id="passwordRepeat" class="form-control" name="passwordRepeat" placeholder="Repeat Password" required="" />
-		  <div class="warning" id="warning">
-		    <p id="warning_text" class="text-danger"></p>
-		  </div>
+		  <p id="text-danger" class="text-danger"></p>
+		  <p class="text-warning" id="text-warning">Caps lock is ON.</p>
 		  <div class="login">
 		    <button type="submit" class="btn btn-lg btn-primary btn-block" id="registerButton" value="Submit"">Register</button>
 		    <p id="loginLine">Already got an account? <a href='/fantasyscotland'>Sign In.</p>
@@ -149,8 +152,8 @@ body {
 		        var passRep = document.getElementById("passwordRepeat").value;
 	     		
 	     		if(pass !== passRep){
-	        		document.getElementById('warning_text').innerText = "Passwords did not match.";
-	          		document.getElementById("warning").style.display = "block";
+	        		document.getElementById('text-danger').innerText = "Passwords did not match.";
+	          		document.getElementById("text-danger").style.display = "block";
 	        	}else{
 		        	// First create a CORS request, this is the message we are going to send (a get request in this case)
 		        	var xhr = createCORSRequest('POST', "http://localhost:7777/fantasyscotland/register?Email="+email+"&Pass="+pass); // Request type and URL+parameters
@@ -163,7 +166,6 @@ body {
 		        	// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
 		        	// to do when the response arrives 
 	       			 xhr.onload = function(e) {
-	         		 	var responseText = xhr.response; // the text of the response
 	         		 	window.location.href = '/fantasyscotland/newteam';
 	       			 }
 	       		 } 
@@ -187,8 +189,8 @@ body {
 				xhr.onload = function(e) {
 					var responseText = xhr.response; // the text of the response
  					if(xhr.response == "true"){
-	     				document.getElementById("warning_text").innerText = "Email already registered.";
-	          			document.getElementById("warning").style.display = "block";
+	     				document.getElementById("text-danger").innerText = "Email already registered.";
+	          			document.getElementById("text-danger").style.display = "block";
 	          			return false;
 	     			}
 	     			else{
@@ -199,6 +201,28 @@ body {
 				// We have done everything we need to prepare the CORS request, so send it
 				xhr.send();		
 			}
+			
+			var input = document.getElementById("password");
+			var input2 = document.getElementById("passwordRepeat");
+			var text = document.getElementById("text-warning");
+			
+			input.addEventListener("keyup", function(event) {
+				if (event.getModifierState("CapsLock")) {
+			    	text.style.display = "block";
+			  	} else {
+			    	text.style.display = "none"
+			  	}
+			
+			});
+			
+			input2.addEventListener("keyup", function(event) {
+				if (event.getModifierState("CapsLock")) {
+			    	text.style.display = "block";
+			  	} else {
+			    	text.style.display = "none"
+			  	}
+			
+			});
 	  		
 		</script>
 </body>

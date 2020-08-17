@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 import com.github.pabloo99.xmlsoccer.api.dto.GetHistoricMatchesResultDto;
 import com.github.pabloo99.xmlsoccer.model.enums.Leagues;
 import com.github.pabloo99.xmlsoccer.api.service.XmlSoccerService;
-import com.github.pabloo99.xmlsoccer.client.XmlSoccerServiceImpl;
 
 public class Fixtures {
 	XmlSoccerService xmlSoccerService;

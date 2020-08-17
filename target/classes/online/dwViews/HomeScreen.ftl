@@ -179,28 +179,28 @@ height:90px;
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-item nav-link text-right" href="#">Manage</a>
-            <a class="nav-item nav-link text-right" href="#">Leagues</a>
-            <a class="nav-item nav-link text-right" href="#">Transfer</a>
-            <a class="nav-item nav-link text-right" href="#">Rules</a>
+            <a class="nav-item nav-link text-right" href='/fantasyscotland/manage'>Manage</a>
+            <a class="nav-item nav-link text-right" href='/fantasyscotland/leagues'>Leagues</a>
+            <a class="nav-item nav-link text-right" href='/fantasyscotland/transfer'>Transfer</a>
+            <a class="nav-item nav-link text-right" href='/fantasyscotland/rules'>Rules</a>
           </div>
         </div>
       </nav>
     <div class="main">
       <div class = "header">
-        <h6 class="form-signin-heading text-right" id="welcomeHeader">Signed in: user</h6>
+        <h6 class="form-signin-heading text-right" id="welcomeHeader"></h6>
       </div>
 
       <div class="body">
       <div class="point-header text-center">
-          <h1 class="" id=>Round 3 Starts: 24th Aug 12:00 Ends: 25th Aug 15:00</h1>
+          <h1 id="roundHeader"></h1>
        </div>
       <div class="point-header text-center ">
-        <h4>Points in Round 2</h4>
+        <h4>Scores</h4>
           <div class="container">
             <div class="row">
               <div class="col-sm border border-dark font-weight-bold">
-                Your Score
+                Your Total Score
               </div>
               <div class="col-sm border border-dark font-weight-bold">
                 Global Average
@@ -211,14 +211,14 @@ height:90px;
               <div class="w-100"></div>
               <div class="container">
             <div class="row">
-              <div class="col-sm border border-dark">
-                14
+              <div class="col-sm border border-dark" id="your-score">
+                
               </div>
-              <div class="col-sm border border-dark">
-                24
+              <div class="col-sm border border-dark" id="average-score">
+                
               </div>
-              <div class="col-sm border border-dark">
-                65
+              <div class="col-sm border border-dark" id="top-score">
+                
               </div>
             </div>
           </div>
@@ -249,21 +249,6 @@ height:90px;
                   </tr>
                 </thead>
                 <tbody id="history-body">
-                  <tr>
-                    <th>1</th>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>2</td>
-                  </tr>
                 </tbody>
               </table> 
             </div>
@@ -277,23 +262,23 @@ height:90px;
               <tbody>
                 <tr>
                   <th>Team Name</th>
-                  <td>Default</td>
+                  <td id="team-name"></td>
                 </tr>
                 <tr>
                   <th>Budget</th>
-                  <td>0</td>
+                  <td id="team-budget"></td>
                 </tr>
                 <tr>
                   <th>Captain</th>
-                  <td>johncarter@mail.com</td>
+                  <td id="team-captain"></td>
                 </tr>
                 <tr>
                   <th>Global Position</th>
-                  <td>6334</td>
+                  <td id="global-rank"></td>
                 </tr>
                 <tr>
                   <th>Total Points</th>
-                  <td>123</td>
+                  <td id="total-points"></td>
                 </tr>
             </tbody>
               
@@ -313,36 +298,6 @@ height:90px;
                   </tr>
                 </thead>
                 <tbody id="fixture-body">
-                  <tr>
-                    <td>Default</td>
-                    <td>v</td>
-                    <td>Default</td>
-                  </tr>
-                  <tr>
-                    <td>Default</td>
-                    <td>v</td>
-                    <td>Default</td>
-                  </tr>
-                  <tr>
-                    <td>Default</td>
-                    <td>v</td>
-                    <td>Default</td>
-                  </tr>
-                  <tr>
-                    <td>Default</td>
-                    <td>v</td>
-                    <td>Default</td>
-                  </tr>
-                  <tr>
-                    <td>Default</td>
-                    <td>v</td>
-                    <td>Default</td>
-                  </tr>
-                  <tr>
-                    <td>Default</td>
-                    <td>v</td>
-                    <td>Default</td>
-                  </tr>
                 </tbody>
               </table>
               </div>
@@ -363,7 +318,7 @@ height:90px;
   <script type="text/javascript">
       // Method that is called on page load
       function initalize() {
-        buildPlayers();
+        isUserSignedIn();
         // --------------------------------------------------------------------------
         // You can call other methods you want to run when the page first loads here
         // --------------------------------------------------------------------------
@@ -417,6 +372,40 @@ height:90px;
       var position;
       var fixtures = [];
       var history = [];
+      var globalAverage;
+      var globalMax;
+      var teamTotal;
+      var captain;
+      var globalRank;
+      var startDate;
+      var endDate;
+      var currentRound;
+
+      function isUserSignedIn(){
+         // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/userSignedIn"); // Request type and URL
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+          if(xhr.response == "false"){
+            alert("You are not logged in. Redirecting...")
+            window.location.href = '/fantasyscotland';
+          }
+          else{
+            buildPlayers().call;
+          }
+          
+        }
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();  
+      }
 
       function buildPlayers() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
@@ -496,22 +485,16 @@ height:90px;
           user = JSON.parse(xhr.response);
           var fields = user.email.split('@');
           document.getElementById("welcomeHeader").innerHTML = "Signed in as: " + fields[0] + "!";
-           alert(xhr.response);
-           for(var i in user.team.squad){
-              alert(user.team.squad[i].weeklyScores);
-            // alert(user.team.squad[i].name);
-            // alert(user.team.squad[i].position);
-          }
-          buildPointHistory().call;
+          buildNextFixtures().call;
         }
         
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
-      
-      function buildClubs() {
+
+      function buildNextFixtures() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildClubs"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildNextFixtures"); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -523,13 +506,235 @@ height:90px;
         xhr.onload = function(e) {
           var response = JSON.parse(xhr.response); // the text of the response
           for(var i = 0; i < response.length; i++){
-            clubs.push(response[i]);
+            fixtures.push(response[i]);
           }
-          buildPlayers().call;
+          var fixturetable = document.getElementById('fixture-table');
+          var fixturebody = document.getElementById('fixture-body');
+          fixturebody.innerHTML = "";
+          for(var i = 0; i < fixtures.length; i++) {
+              // Create the list item:
+              var tr = document.createElement('tr');
+
+              var home = document.createElement('td');
+              home.setAttribute('class', "home");
+              var hText = document.createTextNode(fixtures[i].homeTeam);
+              home.appendChild(hText);
+
+              var versus = document.createElement('td');
+              versus.setAttribute('class', "date");
+              var vText = document.createTextNode("v");
+              versus.appendChild(vText);
+
+              var away = document.createElement('td');
+              away.setAttribute('class', "away");
+              var aText = document.createTextNode(fixtures[i].awayTeam);
+              away.appendChild(aText);
+
+              tr.appendChild(home);
+              tr.appendChild(versus);
+               tr.appendChild(away);
+              // Add it to the list:
+              fixturebody.appendChild(tr);
+              fixturetable.appendChild(fixturebody);
+          }
+          buildGlobalMax().call;
+           // Finally, return the constructed list:
         }
         
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
+      }
+
+       function buildGlobalMax() {
+        // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getGlobalMax"); // Request type and URL
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+          var response = JSON.parse(xhr.response); // the text of the response
+          globalMax = response;
+          buildGlobalAvg().call;
+           // Finally, return the constructed list:
+        }
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();   
+      }
+
+       function buildGlobalAvg() {
+        // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getGlobalAvg"); // Request type and URL
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+          var response = JSON.parse(xhr.response); // the text of the response
+          globalAvg = response;
+          buildTeamTotal().call;
+           // Finally, return the constructed list:
+        }
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();   
+      }
+
+       function buildTeamTotal() {
+        // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getTeamTotal"); // Request type and URL
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+          var response = JSON.parse(xhr.response); // the text of the response
+          teamTotal = response;
+          getNameFrom(user.team.captain).call;
+           // Finally, return the constructed list:
+        }
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();   
+      }
+
+      function getNameFrom(id){
+        // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getNameFrom?Id="+id); // Request type and URL
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+          var response = JSON.parse(xhr.response); // the text of the response
+          captain = response;
+          getGlobalRank().call;
+        }
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();  
+      }
+
+       function getGlobalRank(){
+        var id = '3573e359-7c59-4d43-90c9-52d3ba04a66e';
+        // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getRankIn?Id="+id); // Request type and URL
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+          var response = JSON.parse(xhr.response); // the text of the response
+          globalRank = response;
+          getStartDate().call;
+        }
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();  
+      }
+
+      function getStartDate(){
+        // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getStartDate"); // Request type and URL
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+          var response = JSON.parse(xhr.response); // the text of the response
+          startDate = response;
+          var myNumber = startDate.minute;
+          var formattedNumber = ("0" + myNumber).slice(-2);
+          startDate.minute = formattedNumber;
+          getEndDate().call;
+        }
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();  
+      }
+
+      function getEndDate(){
+        // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getEndDate"); // Request type and URL
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+          var response = JSON.parse(xhr.response); // the text of the response
+          endDate = response;
+          var myNumber = endDate.minute;
+          var formattedNumber = ("0" + myNumber).slice(-2);
+          endDate.minute = formattedNumber;
+          getCurrentRound().call;
+        }
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();  
+      }
+
+      function getCurrentRound(){
+        // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getCurrentRound"); // Request type and URL
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+          var response = JSON.parse(xhr.response); // the text of the response
+          currentRound = response;
+          repaint().call;
+        }
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();  
+      }
+
+      function repaint(){
+        var length = Object.keys(user.team.squad).length;
+        document.getElementById("average-score").innerHTML = globalAvg;
+        document.getElementById("top-score").innerHTML = globalMax;
+        document.getElementById("your-score").innerHTML = teamTotal;
+        document.getElementById("team-name").innerHTML = user.team.name;
+        document.getElementById("team-captain").innerHTML = captain;
+        document.getElementById("total-points").innerHTML = teamTotal;
+        document.getElementById("team-budget").innerHTML = "&#163 " + user.team.transferBudget + "million";
+        document.getElementById("global-rank").innerHTML = globalRank;
+        document.getElementById("roundHeader").innerHTML = "Round " + currentRound + " Starts: " + startDate.dayOfMonth + "th " + startDate.month + " " + startDate.hour + ":" + startDate.minute + " Ends: " + endDate.dayOfMonth + "th " + endDate.month + " " + endDate.hour + ":" + endDate.minute;
+        buildPointHistory().call;
       }
 
       function buildPointHistory() {
@@ -544,15 +749,15 @@ height:90px;
         // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
         // to do when the response arrives 
         xhr.onload = function(e) {
-          var response = JSON.parse(xhr.response); // the text of the response
-          var keys = Object.keys(response);
-          alert(xhr.response);
-          alert(response [1] [1]);
-          alert(keys[0]);
           var historytable = document.getElementById('history-table');
           var historybody = document.getElementById('history-body');
           historybody.innerHTML = "";
-          alert(keys.length);
+          if(xhr.response == "null"){
+            buildNextFixtures().call;
+            }
+          var response = JSON.parse(xhr.response); // the text of the response
+          var keys = Object.keys(response);
+    
           for(var i = 0; i < keys.length; i++) {
               var tr = document.createElement('tr');
 
@@ -625,122 +830,13 @@ height:90px;
               historybody.appendChild(tr);
               historytable.appendChild(historybody);
           }
-          buildNextFixtures().call;
         }
         
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
 
-      function buildNextFixtures() {
-        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildNextFixtures"); // Request type and URL
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
 
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          var response = JSON.parse(xhr.response); // the text of the response
-          for(var i = 0; i < response.length; i++){
-            fixtures.push(response[i]);
-          }
-          var fixturetable = document.getElementById('fixture-table');
-          var fixturebody = document.getElementById('fixture-body');
-          fixturebody.innerHTML = "";
-          for(var i = 0; i < fixtures.length; i++) {
-              // Create the list item:
-              var tr = document.createElement('tr');
-
-              var home = document.createElement('td');
-              home.setAttribute('class', "home");
-              var hText = document.createTextNode(fixtures[i].homeTeam);
-              home.appendChild(hText);
-
-              var versus = document.createElement('td');
-              versus.setAttribute('class', "date");
-              var vText = document.createTextNode("v");
-              versus.appendChild(vText);
-
-              var away = document.createElement('td');
-              away.setAttribute('class', "away");
-              var aText = document.createTextNode(fixtures[i].awayTeam);
-              away.appendChild(aText);
-
-              tr.appendChild(home);
-              tr.appendChild(versus);
-               tr.appendChild(away);
-              // Add it to the list:
-              fixturebody.appendChild(tr);
-              fixturetable.appendChild(fixturebody);
-          }
-           // Finally, return the constructed list:
-          repaint().call;
-        }
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();   
-      }
-      
-      function repaint(){
-        document.getElementById("budgetBadge").innerHTML = user.team.transferBudget;
-        var length = Object.keys(user.team.squad).length;
-        document.getElementById('fixture-table').appendChild(loadTable(fixtures));
-        if(length == "0"){
-          document.getElementById("removeAll").style.display = "none";
-        }
-        if(length == "15" && user.team.transferBudget >= "0"){
-          document.getElementById("continue").style.display = "block";
-        }
-        else{
-          document.getElementById("continue").style.display = "none";
-        }
-        for(var x = 1;x<=15;x++){
-          var button = document.getElementById("button"+x);
-          button.style.background = "rgb(255,255,255)";
-          document.getElementById("button"+x+"Text").firstChild.nodeValue = "";
-          document.getElementById("button"+x+"Badge").innerHTML = 0;
-        }  
-        for(var i in user.team.squad){
-          var button = document.getElementById("button"+i);
-          button.style.background = buttonPainter(user.team.squad[i].club_id);
-          var names = (user.team.squad[i].name).split(' ');
-          document.getElementById("button"+i+"Text").firstChild.nodeValue = names[1];
-          document.getElementById("button"+i+"Badge").innerHTML = user.team.squad[i].price;
-        }
-        document.getElementById('fixture-table').appendChild(loadTable(fixtures));
-      }
-      
-      function convertClub(id){
-        for(var i = 0; i < clubs.length; i++){
-          if(clubs[i].club_id === id){
-            return clubs[i].name;
-          }
-        }
-      }
-
-      const dateFormat = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/;
-
-      function reviver(key, value) {
-        if (typeof value === "string" && dateFormat.test(value)) {
-        return new Date(value);
-        }
-
-        return value;
-      }
-
-      jQuery(document).ready(function($) {
-          $('#table').on('click', '.clickable-row', function() {
-              addPlayer($(this).attr('value'), position);
-              var $item = $(this).closest("tr") 
-                       .find(".price")     // Gets a descendent with class="price"
-                       .text();         // Retrieves the text within <td>
-              $("#selectModal").modal('hide');
-          });
-      });
 
     </script>     
 </body>

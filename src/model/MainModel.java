@@ -379,6 +379,7 @@ public class MainModel {
 	public HashMap<Integer,HashMap<Integer, Integer>> getPointHistory(UUID team_id){
 		HashMap<Integer,HashMap<Integer, Integer>> history = new HashMap<Integer,HashMap<Integer, Integer>>();
 		int lastRound = MainModel.getFixtures().whatsLastRound();
+		int nullCount = 0;
 		for(int i = 1; i<=lastRound;i++) {
 			HashMap<Integer, Integer> playersScores = new HashMap<Integer, Integer>();
 			
@@ -394,6 +395,7 @@ public class MainModel {
 					}
 					else {
 						playersScores.put(entry.getKey(), null);
+						nullCount++;
 					}
 				}
 				history.put(i, playersScores);
@@ -402,6 +404,10 @@ public class MainModel {
 				continue;
 			}
 		}
+		if(nullCount >= 11) {
+			return null;
+		}
+		else 
 		return history;
 	}
 
@@ -453,7 +459,7 @@ public class MainModel {
 		team.setTeam_id(UUID.randomUUID());
 		team.setRandomCaptain();
 		this.database.writeTeamDetails(team.getTeam_id(), team.getName(), team.getTransferBudget(),
-				team.getCaptain().getPlayer_id());
+				team.getCaptain());
 		this.database.writeTeam(team.getTeam_id(), team.getOwner_id());
 		for (Entry<Integer, Player> entry : team.getSquad().entrySet()) {
 			this.database.writeTeamMembership(team.getTeam_id(), entry.getValue().getPlayer_id(),
@@ -461,6 +467,22 @@ public class MainModel {
 		}
 		this.database.writeLeagueMembership(UUID.fromString("3573e359-7c59-4d43-90c9-52d3ba04a66e"), team.getTeam_id(),
 				0);
+	}
+	
+	public int getRankIn(UUID league_id, UUID team_id) {
+		return this.database.getRankInLeague(league_id, team_id);
+	}
+	
+	public int getGlobalAverage() {
+		return this.database.getGlobalAverage();
+	}
+	
+	public int getGlobalMax() {
+		return this.database.getGlobalMax();
+	}
+	
+	public int getTeamTotal(UUID team_id) {
+		return this.database.getTeamTotal(team_id);
 	}
 
 	public String addPlayerToTeam(UUID id, int position, UUID user_id) {
@@ -522,6 +544,14 @@ public class MainModel {
 		return realDate;
 	}
 	
+	public static int getCurrentRound() {
+		return getFixtures().whatsCurrentRound(getTodayDate());
+	}
+	
+	public static LocalDateTime getRoundStartDate() {
+		return getFixtures().startDateOfRound(getFixtures().whatsCurrentRound(getTodayDate()));
+	}
+	
 	public static LocalDateTime getRoundEndDate() {
 		return getFixtures().endDateOfRound(getFixtures().whatsCurrentRound(getTodayDate()));
 	}
@@ -549,7 +579,7 @@ public class MainModel {
 //		System.err.println(m.getFixtures().startDateOfRound(2));
 //		System.err.println(m.database.loadSquad(UUID.fromString("acc727e3-5cdb-4f92-991a-b340cb471ba4"), 2));
 //		System.err.println(m.getPointHistory(UUID.fromString("acc727e3-5cdb-4f92-991a-b340cb471ba4")));
-//		System.err.println(m.getFixtures().endDateOfRound(m.getFixtures().whatRoundNext(m.getTodayDate())));
+//		System.err.println(MainModel.getRoundEndDate());
 //		// System.err.println(m.getPlayers().getPlayer(UUID.fromString("f5ecf81e-f227-4058-82e6-9e72d8d76139")).getName());
 //		// GetHistoricMatchesResultDto fixture =
 //		// m.getFixtures().getFixtureFromID(403261);

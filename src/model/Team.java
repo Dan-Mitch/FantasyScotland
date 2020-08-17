@@ -3,7 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
@@ -12,7 +11,7 @@ public class Team {
 	private String name;
 	private UUID owner_id;
 	private HashMap<Integer, Player> squad;
-	private Player captain;
+	private UUID captain_id;
 	private double transferBudget;
 	private HashMap<Integer, Integer> weeklyScores;
 	private int totalScore;
@@ -119,14 +118,18 @@ public class Team {
 		this.squad = squad;
 	}
 
-	public Player getCaptain() {
-		return captain;
+	public UUID getCaptain() {
+		return captain_id;
+	}
+	
+	public void setCaptain(UUID captain_id) {
+		this.captain_id = captain_id;
 	}
 
 	public void setRandomCaptain() {
 		Random rand = new Random();
 		int n = rand.nextInt(15) + 1;
-		this.captain = this.getSquad().get(n);
+		this.captain_id = this.getSquad().get(n).getPlayer_id();
 	}
 
 	public double getTransferBudget() {

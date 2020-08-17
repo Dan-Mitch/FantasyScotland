@@ -10,7 +10,7 @@ public class FantasyScotland {
 		System.out.println("---------------------------------");
 		System.out.println("-----Starting Applciation--------");
 		System.out.println("---------------------------------");
-		System.out.println("----------v0.4-------------------");
+		System.out.println("----------v0.5-------------------");
 		System.out.println("---------------------------------");
 		System.out.println("---------------------------------");
 		System.out.println("If loading for first time please ");

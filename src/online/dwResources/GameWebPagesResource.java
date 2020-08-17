@@ -6,9 +6,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import online.dwViews.HomeScreenView;
+import online.dwViews.LeagueScreenView;
 import online.dwViews.LoginScreenView;
+import online.dwViews.ManageScreenView;
 import online.dwViews.NewTeamScreenView;
 import online.dwViews.RegisterScreenView;
+import online.dwViews.RulesScreenView;
+import online.dwViews.TransferScreenView;
 
 @Path("/fantasyscotland") // Resources specified here should be hosted at http://localhost:7777/fantasyscotland
 @Produces(MediaType.TEXT_HTML) // This resource returns HTML content
@@ -65,4 +69,49 @@ public class GameWebPagesResource {
     public HomeScreenView getHomeScreen() {
         return new HomeScreenView();
     }
+	
+	@GET
+	@Path("/manage")
+	/**
+	 * The Web page within which the user can play a game of FantasyScotland.
+	 * Hosted at 'http://localhost:7777/fantasyscotland/newteam'
+	 * @return
+	 */
+    public ManageScreenView getManageScreen() {
+        return new ManageScreenView();
+    }
+	
+	@GET
+	@Path("/leagues")
+	/**
+	 * The Web page within which the user can play a game of FantasyScotland.
+	 * Hosted at 'http://localhost:7777/fantasyscotland/newteam'
+	 * @return
+	 */
+    public LeagueScreenView getLeagueScreen() {
+        return new LeagueScreenView();
+    }
+	
+	@GET
+	@Path("/transfer")
+	/**
+	 * The Web page within which the user can play a game of FantasyScotland.
+	 * Hosted at 'http://localhost:7777/fantasyscotland/newteam'
+	 * @return
+	 */
+    public TransferScreenView getTransferScreen() {
+        return new TransferScreenView();
+    }
+	
+	@GET
+	@Path("/rules")
+	/**
+	 * The Web page within which the user can play a game of FantasyScotland.
+	 * Hosted at 'http://localhost:7777/fantasyscotland/newteam'
+	 * @return
+	 */
+    public RulesScreenView getRulesScreen() {
+        return new RulesScreenView();
+    }
+	
 }

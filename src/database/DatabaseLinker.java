@@ -107,7 +107,7 @@ public class DatabaseLinker {
 	}
 	
 	public void writeLeagueMembership(UUID league_id, UUID team_id, int score) {
-		String query = "INSERT INTO league_membership (league_id, player_id, score) VALUES ('" + league_id + "', '" + team_id  + "', '" + score + "')";
+		String query = "INSERT INTO league_membership (league_id, team_id, score) VALUES ('" + league_id + "', '" + team_id  + "', '" + score + "')";
 
 		openConnection();
 		PreparedStatement statement;
@@ -420,7 +420,8 @@ public class DatabaseLinker {
 				league.setName(result.getString("name"));
 				UUID league_id = UUID.fromString(result.getString("league_id"));
 				league.setLeague_id(league_id);
-				league.setParticipants(this.loadMembers(league_id));
+				league.setMemberScores(this.loadMembers(league_id));
+				leagues.add(league);
 			}
 		} catch (SQLException ex) {
 			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
@@ -526,15 +527,15 @@ public class DatabaseLinker {
 	}
 	
 	
-	public ArrayList<UUID> loadMembers(UUID league_id) {
+	public HashMap<UUID,Integer> loadMembers(UUID league_id) {
 		String query = "SELECT * FROM league_membership as l WHERE l.league_id='" + league_id +"';";
-		ArrayList<UUID> members = new ArrayList<UUID>();
+		HashMap<UUID,Integer> members = new HashMap<UUID,Integer>();
 		openConnection();
 		try {
 			Statement statement = connection.createStatement();
 			ResultSet result = statement.executeQuery(query);
 			while(result.next()) {
-				members.add(UUID.fromString(result.getString("team_id")));
+				members.put(UUID.fromString(result.getString("team_id")), result.getInt("score"));
 			}
 		} catch (SQLException ex) {
 			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
@@ -556,6 +557,7 @@ public class DatabaseLinker {
 				team.setTeam_id(team_id);
 				team.setTransferBudget(result.getDouble("budget"));
 				team.setSquad(this.loadSquad(team_id, round));
+				team.setCaptain(UUID.fromString(result.getString("captain_id")));
 			}
 		} catch (SQLException ex) {
 			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
@@ -640,8 +642,83 @@ public class DatabaseLinker {
 		}
 	
 	}
-
 	
+	public int getRankInLeague(UUID league_id, UUID team_id) {
+		int rank = 0;
+		String query = "SELECT rank FROM(WITH my_ranks AS (SELECT league_membership.*, row_number() OVER (ORDER BY score DESC) AS rank FROM league_membership WHERE league_id = '" + league_id + "')SELECT * FROM my_ranks WHERE rank >= 1 AND rank <= 100000 ORDER BY rank ASC) AS board WHERE team_id ='" + team_id + "'";
+		openConnection();
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(query);
+			while(result.next()) {
+				rank = result.getInt("rank");
+			}
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+		return rank;
+	}
+	
+	public int getGlobalAverage() {
+		int globalAverage = 0;
+		String query = "SELECT CAST(AVG(NULLIF(l.score,0)) AS DECIMAL(10,1)) FROM league_membership as l WHERE l.league_id = '3573e359-7c59-4d43-90c9-52d3ba04a66e'";
+		openConnection();
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(query);
+			while(result.next()) {
+				globalAverage = result.getInt("avg");
+			}
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+		return globalAverage;
+	}
+	
+	
+	public int getGlobalMax() {
+		int globalMax = 0;
+		String query = "SELECT CAST(MAX(l.score) AS DECIMAL(10,1)) FROM league_membership as l WHERE l.league_id = '3573e359-7c59-4d43-90c9-52d3ba04a66e'";
+		openConnection();
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(query);
+			while(result.next()) {
+				globalMax = result.getInt("max");
+			}
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+		return globalMax;
+	}
+	
+	public int getTeamTotal(UUID team_id) {
+		int teamTotal = 0;
+		String query = "SELECT CAST(SUM(t.score) AS DECIMAL(10,1)) FROM teams_weekly_scores as t WHERE t.team_id ='" + team_id + "'";
+		openConnection();
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(query);
+			while(result.next()) {
+				teamTotal= result.getInt("sum");
+			}
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+		return teamTotal;
+	}
 	
 	
 	

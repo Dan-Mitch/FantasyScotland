@@ -1,8 +1,8 @@
 package online.dwResources;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -97,6 +97,23 @@ public class FantasyScotlandRESTAPI {
 	 */
 	public String helloWord(@QueryParam("Word") String Word) throws IOException {
 		return "Hello "+Word;
+	}
+	
+	@GET
+	@Path("/userSignedIn")
+	/**
+	 * Here is an example of how to read parameters provided in an HTML Get request.
+	 * @param Word - A word
+	 * @return - A String
+	 * @throws IOException
+	 */
+	public boolean doesUserExist(@Session HttpSession session) throws IOException {
+		if(session.getAttribute("id") == null) {
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 	
 	@POST
@@ -361,4 +378,121 @@ public class FantasyScotlandRESTAPI {
 	public void loadTeam(@Session HttpSession session) throws IOException {
 		this.model.loadTeam((UUID) session.getAttribute("id"));
 	}
+	
+	@GET
+	@Path("/getRankIn")
+	/**
+	 * Here is an example of a simple REST get request that returns a String.
+	 * We also illustrate here how we can convert Java objects to JSON strings.
+	 * @return - List of words as JSON
+	 * @throws IOException
+	 */
+	public String getRankIn(@QueryParam("Id") UUID league_id, @Session HttpSession session) throws IOException {
+		Team team = this.model.getUser((UUID)session.getAttribute("id")).getTeam();
+		int rank = this.model.getRankIn(league_id, team.getTeam_id());
+		System.err.println(rank);
+		String rankAsJSONString = oWriter.writeValueAsString(rank);
+		return rankAsJSONString;
+	}
+	
+	@GET
+	@Path("/getGlobalMax")
+	/**
+	 * Here is an example of a simple REST get request that returns a String.
+	 * We also illustrate here how we can convert Java objects to JSON strings.
+	 * @return - List of words as JSON
+	 * @throws IOException
+	 */
+	public String getGlobalMax(@Session HttpSession session) throws IOException {
+		int globalMax = this.model.getGlobalMax();
+		String maxAsJSONString = oWriter.writeValueAsString(globalMax);
+		return maxAsJSONString;
+	}
+	
+	@GET
+	@Path("/getGlobalAvg")
+	/**
+	 * Here is an example of a simple REST get request that returns a String.
+	 * We also illustrate here how we can convert Java objects to JSON strings.
+	 * @return - List of words as JSON
+	 * @throws IOException
+	 */
+	public String getGlobalAvg(@Session HttpSession session) throws IOException {
+		int globalAvg = this.model.getGlobalAverage();
+		String avgAsJSONString = oWriter.writeValueAsString(globalAvg);
+		return avgAsJSONString;
+	}
+	
+	@GET
+	@Path("/getTeamTotal")
+	/**
+	 * Here is an example of a simple REST get request that returns a String.
+	 * We also illustrate here how we can convert Java objects to JSON strings.
+	 * @return - List of words as JSON
+	 * @throws IOException
+	 */
+	public String getTeamTotal(@Session HttpSession session) throws IOException {
+		Team team = this.model.getUser((UUID)session.getAttribute("id")).getTeam();
+		int teamTotal = this.model.getTeamTotal(team.getTeam_id());
+		String avgAsJSONString = oWriter.writeValueAsString(teamTotal);
+		return avgAsJSONString;
+	}
+	
+	@GET
+	@Path("/getNameFrom")
+	/**
+	 * Here is an example of a simple REST get request that returns a String.
+	 * We also illustrate here how we can convert Java objects to JSON strings.
+	 * @return - List of words as JSON
+	 * @throws IOException
+	 */
+	public String getNameFrom(@QueryParam("Id") UUID id,@Session HttpSession session) throws IOException {
+		String name = this.model.getPlayers().getPlayer(id).getName();
+		String nameAsJSONString = oWriter.writeValueAsString(name);
+		return nameAsJSONString;
+	}
+	
+	@GET
+	@Path("/getCurrentRound")
+	/**
+	 * Here is an example of a simple REST get request that returns a String.
+	 * We also illustrate here how we can convert Java objects to JSON strings.
+	 * @return - List of words as JSON
+	 * @throws IOException
+	 */
+	public String getCurrentRound() throws IOException {
+		int round = MainModel.getCurrentRound();
+		String roundAsJSONString = oWriter.writeValueAsString(round);
+		return roundAsJSONString;
+	}
+	
+	
+	@GET
+	@Path("/getStartDate")
+	/**
+	 * Here is an example of a simple REST get request that returns a String.
+	 * We also illustrate here how we can convert Java objects to JSON strings.
+	 * @return - List of words as JSON
+	 * @throws IOException
+	 */
+	public String getstartDate() throws IOException {
+		LocalDateTime startDate = MainModel.getRoundStartDate();
+		String startAsJSONString = oWriter.writeValueAsString(startDate);
+		return startAsJSONString;
+	}
+	
+	@GET
+	@Path("/getEndDate")
+	/**
+	 * Here is an example of a simple REST get request that returns a String.
+	 * We also illustrate here how we can convert Java objects to JSON strings.
+	 * @return - List of words as JSON
+	 * @throws IOException
+	 */
+	public String getEndDate() throws IOException {
+		LocalDateTime endDate = MainModel.getRoundEndDate();
+		String endAsJSONString = oWriter.writeValueAsString(endDate);
+		return endAsJSONString;
+	}
+	
 }
