@@ -12,6 +12,31 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 <style type="text/css">
+/*******************************
+font-family: 
+// Safari for OS X and iOS (San Francisco)
+-apple-system,
+// Chrome < 56 for OS X (San Francisco)
+BlinkMacSystemFont,
+// Windows
+"Segoe UI",
+// Android
+"Roboto",
+// Basic web fallback
+"Helvetica Neue", Arial, sans-serif,
+// Emoji fonts
+"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" 
+
+font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+***********************************/
+html{
+    font-size: 16px;
+    line-height: 1.7;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial,  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" ;
+}
+pre, code{
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
 body {
   background: #8eb7de;
 }
@@ -46,6 +71,10 @@ body {
 
 .form-signin .form-signin-button {
   background-color: #1e5422;
+}
+
+.form-signin-heading{
+  padding-right: 9%;
 }
 
 .footer{
@@ -95,49 +124,126 @@ body {
   background-color: black;
 }
 
+.image{
+  width: 100%;
+  text-align: center;
+}
+.one{
+  position: absolute;
+  top: 32.5%;
+  left:10%;
+}
+.two{
+  position: absolute;
+  top: 65%;
+  left:30%;
+}
+.three{
+  position: absolute;
+  top: 5%;
+  left:30%;
+}
+.four{
+  position: absolute;
+  top: 45%;
+  left:30%;
+}
+.five{
+  position: absolute;
+  top: 25%;
+  left:30%;
+}
+.six{
+  position: absolute;
+  top: 45%;
+  left:50%;
+}
+.seven{
+  position: absolute;
+  top: 45%;
+  right:20%;
+}
+.eight{
+  position: absolute;
+  top: 65%;
+  left:50%;
+}
+.nine{
+  position: absolute;
+  top: 25%;
+  right:20%;
+}
+.ten{
+  position: absolute;
+  top: 25%;
+  left:50%;
+}
+.eleven{
+  position: absolute;
+  top: 5%;
+  left:50%;
+}
+.twelve{
+  position: absolute;
+  top: 57.5%;
+  left:10%;
+}
+.thirteen{
+  position: absolute;
+  top: 85%;
+  left:30%;
+}
+.fourteen{
+  position: absolute;
+  top: 85%;
+  left:50%;
+}
+.fifteen{
+  position: absolute;
+  top: 65%;
+  right:20%;
+}
 .modal{
   position:absolute;
   top: 24%;
-  left: 31%;
+    left: 31%;
   background-color: white;
   width: 500px;
   height:auto;
-  max-width: 700px;
-  margin-top:100px;
-  margin-left:100px;
+    max-width: 700px;
+    margin-top:100px;
+    margin-left:100px;
+}
+table {
+    width: 100%;
+}
+thead, tbody, tr, td, th { 
+  display: block; 
+}
+tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+thead th {
+    height: 50px;
+    /*text-align: left;*/
+}
+tbody {
+    height: 300px;
+    overflow-y: auto;
+}
+thead {
+  width: 450px;
+    /* fallback */
+}
+tbody td, thead th {
+    width: 33.2%;
+    height: 60px;
+    float: left;
 }
 
-.table-responsive-sm {
-     display:table;
-     margin-right:auto;
-     margin-left:auto;
-     width:100%;
-}
-
-th {
-    white-space: nowrap;
-}
-
-td {
-    white-space: nowrap;
-}
-
-.scroll{
-  overflow:scroll;
-  max-height:300px;
-}
-
-
-.container{
-  max-width: 2000px;
-  max-height: 900px;
-  height: 100%;
-  width:100%;
-}
-
-.border-bottom {
-    white-space: nowrap;
-}
 .navbar {
 min-height: 50px;
 height:90px;
@@ -173,7 +279,7 @@ height:90px;
   <div class="wrapper">
     <nav class="navbar fixed-top navbar-light" style="background-color: #8eb7de;">
         <a class="navbar-brand" id="logo" href='/fantasyscotland/home'><img src="https://i.ibb.co/yVc3vPy/Fantasy-Scotland.png" alt="Fantasy-Scotland" width="200" ></a>
-        <h2 class="form-signin-heading text-center">Welcome to Fantasy Scotland!</h2>
+        <h1 class="form-signin-heading text-center ">Leagues</h1>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -192,118 +298,10 @@ height:90px;
       </div>
 
       <div class="body">
-      <div class="point-header text-center">
-          <h1 id="roundHeader"></h1>
-       </div>
-      <div class="point-header text-center ">
-        <h4>Scores</h4>
-          <div class="container">
-            <div class="row">
-              <div class="col-sm border border-dark font-weight-bold">
-                Your Total Score
-              </div>
-              <div class="col-sm border border-dark font-weight-bold">
-                Global Average
-              </div>
-              <div class="col-sm border border-dark font-weight-bold">
-                Global Top
-              </div>
-              <div class="w-100"></div>
-              <div class="container">
-            <div class="row">
-              <div class="col-sm border border-dark" id="your-score">
-                
-              </div>
-              <div class="col-sm border border-dark" id="average-score">
-                
-              </div>
-              <div class="col-sm border border-dark" id="top-score">
-                
-              </div>
-            </div>
-          </div>
-       </div>
-      <div class="container" id="main-container">
-          <div class="row">
-            <div class="col-lg border" >
-              <div class="border-bottom ">
-                <h4 class="text-center">Points History<h4>
-              </div>
-              <div class="scroll">
-               <table class="table-responsive-sm" id="history-table">
-                  <thead>
-                <tr>
-                  <th scope="col">Round</th>
-                  <th scope="col">GK</th>
-                    <th scope="col">DF1</th>
-                    <th scope="col">DF2</th>
-                    <th scope="col">DF3</th>
-                    <th scope="col">DF4</th>
-                    <th scope="col">MF1</th>
-                    <th scope="col">MF2</th>
-                    <th scope="col">MF3</th>
-                    <th scope="col">MF4</th>
-                    <th scope="col">FW1</th>
-                    <th scope="col">FW2</th>
-                    <th scope="col">Total</th>
-                  </tr>
-                </thead>
-                <tbody id="history-body">
-                </tbody>
-              </table> 
-            </div>
-            </div>
-             
-             <div class="col-lg border" >
-              <div class="border-bottom ">
-             <h4 class="text-center">Team Overview<h4>
-             </div>
-             <table class="table-responsive-sm table-striped" id="team-table">
-              <tbody>
-                <tr>
-                  <th>Team Name</th>
-                  <td id="team-name"></td>
-                </tr>
-                <tr>
-                  <th>Budget</th>
-                  <td id="team-budget"></td>
-                </tr>
-                <tr>
-                  <th>Captain</th>
-                  <td id="team-captain"></td>
-                </tr>
-                <tr>
-                  <th>Global Position</th>
-                  <td id="global-rank"></td>
-                </tr>
-                <tr>
-                  <th>Total Points</th>
-                  <td id="total-points"></td>
-                </tr>
-            </tbody>
-              
-              </table>
-            </div>
-              
-              <div class="col-lg border" >
-                <div class="border-bottom">
-                  <h4 class="text-center">Next Fixtures<h4>
-                </div>
-                <table class="table-responsive-sm table-striped" id="fixture-table">
-                  <thead>
-                <tr>
-                  <th scope="col">Home Club</th>
-                   <th scope="col"></th>
-                    <th scope="col">Away Club</th>
-                  </tr>
-                </thead>
-                <tbody id="fixture-body">
-                </tbody>
-              </table>
-              </div>
-            </div>
-          </div>
-        </div>
+         <h6>General Rules</h6>
+         <h6>Scoring</h6>
+        
+      </div>
 
       <footer class="footer mt-auto py-2 fixed-bottom">
           <div class="container">
@@ -312,6 +310,59 @@ height:90px;
       </footer>
     </div>
   </div>
+
+  <div class="modal hide" id="selectModal" tabindex="-1" role="dialog" aria-labelledby="selectModalLabel" aria-hidden="true">
+
+      <div class="modal-header">
+        <h3 id="selectModalLabel">Select Player</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+
+      <div class="modal-body">
+        <table id="table" class="table table-bordered table-hover table-sm " cellspacing="0" width="100%">
+          <thead>
+            <tr>
+                <th class="th-sm" style="cursor:s-resize" onclick="sortTable(0)">Name
+                </th>
+                <th class="th-sm" style="cursor:s-resize" onclick="sortTable(1)">Club
+                </th>
+                <th class="th-sm" style="cursor:s-resize" onclick="sortTable(2)">Cost(&pound mill)
+                </th>
+      
+            </tr>
+          </thead>
+          <tbody id="table-body">
+            <tr class='clickable-row' style="cursor:pointer" value="111111111">
+                <td class="name">Default Default</td> <td class="club">Default</td> <td class="price">0.0</td>
+            </tr>
+          </tbody>
+      </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal hide" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+
+      <div class="modal-header">
+        <h3 id="confirmModalLabel">Confirm Transfer.</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+
+      <form onsubmit="updateTeam();return false" class="form-inline">
+        <div class="form-group mb-2">
+          <div class="form-group mx-sm-3 mb-2">
+            <p>Are you sure you want to make this transfer?</p>
+          <button type="submit" class="btn btn-primary mb-2">Make Transfer</button>
+      </form>
+    </div>
   </div>
 
 
@@ -370,16 +421,9 @@ height:90px;
       var user;
       var clubs = [];
       var position;
-      var fixtures = [];
-      var history = [];
-      var globalAverage;
-      var globalMax;
-      var teamTotal;
-      var captain;
-      var globalRank;
-      var startDate;
-      var endDate;
-      var currentRound;
+      var clubLimit = false;
+      var dupPlayer = false;
+      var changes = 1;
 
       function isUserSignedIn(){
          // First create a CORS request, this is the message we are going to send (a get request in this case)
@@ -398,7 +442,7 @@ height:90px;
             window.location.href = '/fantasyscotland';
           }
           else{
-            buildPlayers().call;
+            isRoundRunning().call;
           }
           
         }
@@ -407,6 +451,159 @@ height:90px;
         xhr.send();  
       }
 
+      function isRoundRunning(){
+         // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/isRoundRunning"); // Request type and URL
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+          if(xhr.response == "true"){
+            alert("Round is currently in progress, you cant make transfers. Redirecting...")
+            window.location.href = '/fantasyscotland/home';
+          }
+          else{
+            isTransferOn().call;
+          }
+          
+        }
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();  
+      }
+
+      function isTransferOn(){
+         // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/isTransferOn"); // Request type and URL
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+          if(xhr.response == "false"){
+            alert("You have no remaining transfers. Redirecting...")
+            window.location.href = '/fantasyscotland/home';
+          }
+          else{
+            buildClubs().call;
+          }
+          
+        }
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();  
+      }
+
+      function swapPlayer(player_id, position){
+        changes--;
+        removePlayer(player_id, position);
+      }
+
+      function addPlayer(player_id, position) {
+        // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/addPlayer?Id="+player_id+"&Pos="+position); // Request type and URL+parameters
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+          var responseText = xhr.response.replace(/['"]+/g, '');
+          if(responseText.localeCompare("Successfully added player.") === 0){
+            document.getElementById("successText").innerHTML = "Successfully swaped player.";
+            document.getElementById("successText").style.display = "block";
+            document.getElementById("errorText").style.display = "none";
+          } else {
+            document.getElementById("errorText").innerHTML = responseText;
+            document.getElementById("errorText").style.display = "block";
+            document.getElementById("successText").style.display = "none";
+          }
+          var button = document.getElementById("button"+position);
+          clubLimitReached().call;
+        };
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();   
+      }
+      function removePlayer(player_id, position) {
+        // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/removePlayer?Pos="+position); // Request type and URL+parameters
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+          addPlayer(player_id, position).call;
+        };
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();   
+      }
+
+       function updateTeam() {
+        // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/updateTeam"); // Request type and URL+parameters
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+          window.location.href = '/fantasyscotland/home';
+         // return false;
+        };
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();   
+      }
+
+      function loadTable(array) {
+          var table = document.getElementById('table-body');
+        table.innerHTML = "";
+          for(var i = 0; i < array.length; i++) {
+              // Create the list item:
+              var tr = document.createElement('tr');
+              tr.setAttribute('value', array[i].player_id);
+              tr.setAttribute('class', "clickable-row");
+              tr.setAttribute('style', "cursor:pointer");
+              var name = document.createElement('td');
+              name.setAttribute('class', "name");
+              var nText = document.createTextNode(array[i].name);
+              name.appendChild(nText);
+              var club = document.createElement('td');
+              club.setAttribute('class', "club");
+              var cText = document.createTextNode(convertClub(array[i].club_id));
+              club.appendChild(cText);
+              var price = document.createElement('td');
+              price.setAttribute('class', "price");
+              var pText = document.createTextNode(array[i].price);
+              price.appendChild(pText);
+              tr.appendChild(name);
+              tr.appendChild(club);
+              tr.appendChild(price);
+              // Add it to the list:
+              table.appendChild(tr);
+          }
+           // Finally, return the constructed list:
+          return list;
+      }
+      
       function buildPlayers() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
         var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildPlayers"); // Request type and URL
@@ -415,7 +612,6 @@ height:90px;
         if (!xhr) {
             alert("CORS not supported");
         }
-
         // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
         // to do when the response arrives 
         xhr.onload = function(e) {
@@ -462,7 +658,6 @@ height:90px;
         // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
         // to do when the response arrives 
         xhr.onload = function(e) {
-          
           buildUser().call;
         }
         
@@ -478,366 +673,248 @@ height:90px;
         if (!xhr) {
             alert("CORS not supported");
         }
-
         // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
         // to do when the response arrives 
         xhr.onload = function(e) {
           user = JSON.parse(xhr.response);
           var fields = user.email.split('@');
-          document.getElementById("welcomeHeader").innerHTML = "Signed in as: " + fields[0] + "!";
-          buildNextFixtures().call;
+          document.getElementById("welcomeHeader").innerHTML = "Welcome " + fields[0] + "!";
+          repaint().call;
         }
         
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
-
-      function buildNextFixtures() {
+      
+      function buildClubs() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildNextFixtures"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildClubs"); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
             alert("CORS not supported");
         }
-
         // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
         // to do when the response arrives 
         xhr.onload = function(e) {
           var response = JSON.parse(xhr.response); // the text of the response
           for(var i = 0; i < response.length; i++){
-            fixtures.push(response[i]);
+            clubs.push(response[i]);
           }
-          var fixturetable = document.getElementById('fixture-table');
-          var fixturebody = document.getElementById('fixture-body');
-          fixturebody.innerHTML = "";
-          for(var i = 0; i < fixtures.length; i++) {
-              // Create the list item:
-              var tr = document.createElement('tr');
-
-              var home = document.createElement('td');
-              home.setAttribute('class', "home");
-              var hText = document.createTextNode(fixtures[i].homeTeam);
-              home.appendChild(hText);
-
-              var versus = document.createElement('td');
-              versus.setAttribute('class', "date");
-              var vText = document.createTextNode("v");
-              versus.appendChild(vText);
-
-              var away = document.createElement('td');
-              away.setAttribute('class', "away");
-              var aText = document.createTextNode(fixtures[i].awayTeam);
-              away.appendChild(aText);
-
-              tr.appendChild(home);
-              tr.appendChild(versus);
-               tr.appendChild(away);
-              // Add it to the list:
-              fixturebody.appendChild(tr);
-              fixturetable.appendChild(fixturebody);
-          }
-          buildGlobalMax().call;
-           // Finally, return the constructed list:
+          buildPlayers().call;
         }
         
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
-
-       function buildGlobalMax() {
+      function doesDuplicateExist() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getGlobalMax"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/duplicateExists"); // Request type and URL+parameters
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
             alert("CORS not supported");
         }
-
         // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
         // to do when the response arrives 
         xhr.onload = function(e) {
-          var response = JSON.parse(xhr.response); // the text of the response
-          globalMax = response;
-          buildGlobalAvg().call;
-           // Finally, return the constructed list:
-        }
+          if(xhr.response == "false"){
+            dupPlayer = false;
+          }else{
+            dupPlayer = true;
+          } 
+          buildUser().call;
+        };
         
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
 
-       function buildGlobalAvg() {
+       function clubLimitReached() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getGlobalAvg"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/clubLimitReached"); // Request type and URL+parameters
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
             alert("CORS not supported");
         }
-
         // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
         // to do when the response arrives 
         xhr.onload = function(e) {
-          var response = JSON.parse(xhr.response); // the text of the response
-          globalAvg = response;
-          buildTeamTotal().call;
-           // Finally, return the constructed list:
-        }
+          if(xhr.response == "false"){
+          clubLimit = false;
+          }else{
+            clubLimit = true;
+          } 
+          doesDuplicateExist().call;
+        };
         
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
-      }
-
-       function buildTeamTotal() {
-        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getTeamTotal"); // Request type and URL
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          var response = JSON.parse(xhr.response); // the text of the response
-          teamTotal = response;
-          getNameFrom(user.team.captain).call;
-           // Finally, return the constructed list:
-        }
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();   
-      }
-
-      function getNameFrom(id){
-        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getNameFrom?Id="+id); // Request type and URL
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          var response = JSON.parse(xhr.response); // the text of the response
-          captain = response;
-          getGlobalRank().call;
-        }
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();  
-      }
-
-       function getGlobalRank(){
-        var id = '3573e359-7c59-4d43-90c9-52d3ba04a66e';
-        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getRankIn?Id="+id); // Request type and URL
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          var response = JSON.parse(xhr.response); // the text of the response
-          globalRank = response;
-          getStartDate().call;
-        }
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();  
-      }
-
-      function getStartDate(){
-        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getStartDate"); // Request type and URL
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          var response = JSON.parse(xhr.response); // the text of the response
-          startDate = response;
-          var myNumber = startDate.minute;
-          var formattedNumber = ("0" + myNumber).slice(-2);
-          startDate.minute = formattedNumber;
-          getEndDate().call;
-        }
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();  
-      }
-
-      function getEndDate(){
-        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getEndDate"); // Request type and URL
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          var response = JSON.parse(xhr.response); // the text of the response
-          endDate = response;
-          var myNumber = endDate.minute;
-          var formattedNumber = ("0" + myNumber).slice(-2);
-          endDate.minute = formattedNumber;
-          getCurrentRound().call;
-        }
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();  
-      }
-
-      function getCurrentRound(){
-        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getCurrentRound"); // Request type and URL
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          var response = JSON.parse(xhr.response); // the text of the response
-          currentRound = response;
-          repaint().call;
-        }
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();  
       }
 
       function repaint(){
+        document.getElementById("budgetBadge").innerHTML = user.team.transferBudget;
+        document.getElementById("transferBadge").innerHTML = changes;
         var length = Object.keys(user.team.squad).length;
-        document.getElementById("average-score").innerHTML = globalAvg;
-        document.getElementById("top-score").innerHTML = globalMax;
-        document.getElementById("your-score").innerHTML = teamTotal;
-        document.getElementById("team-name").innerHTML = user.team.name;
-        document.getElementById("team-captain").innerHTML = captain;
-        document.getElementById("total-points").innerHTML = teamTotal;
-        document.getElementById("team-budget").innerHTML = "&#163 " + user.team.transferBudget + "million";
-        document.getElementById("global-rank").innerHTML = globalRank;
-        document.getElementById("roundHeader").innerHTML = "Round " + currentRound + " Starts: " + startDate.dayOfMonth + "th " + startDate.month + " " + startDate.hour + ":" + startDate.minute + " Ends: " + endDate.dayOfMonth + "th " + endDate.month + " " + endDate.hour + ":" + endDate.minute;
-        buildPointHistory().call;
+        if(changes == "0"){
+          document.getElementById("removeTransfer").style.display = "block";
+          for(var x = 1;x<=15;x++){
+            var button = document.getElementById("button"+x);
+            button.disabled = true;
+          } 
+        }
+        else{
+          document.getElementById("removeTransfer").style.display = "none";
+           for(var x = 1;x<=15;x++){
+          var button = document.getElementById("button"+x);
+          button.disabled = false;
+          } 
+        }
+        if(length == "15" && user.team.transferBudget >= "0" && dupPlayer === false && clubLimit === false && changes == "0"){
+          document.getElementById("continue").style.display = "block";
+        }
+        else{
+          document.getElementById("continue").style.display = "none";
+        }
+        for(var x = 1;x<=15;x++){
+          var button = document.getElementById("button"+x);
+          button.style.background = "rgb(255,255,255)";
+          document.getElementById("button"+x+"Text").firstChild.nodeValue = "";
+          document.getElementById("button"+x+"Badge").innerHTML = 0;
+        }  
+        for(var i in user.team.squad){
+          var button = document.getElementById("button"+i);
+          button.style.background = buttonPainter(user.team.squad[i].club_id);
+          var names = (user.team.squad[i].name).split(' ');
+          document.getElementById("button"+i+"Text").firstChild.nodeValue = names[names.length-1];
+          document.getElementById("button"+i+"Badge").innerHTML = user.team.squad[i].price;
+        }
       }
 
-      function buildPointHistory() {
-        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildPointHistory"); // Request type and URL
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
+      function removeChanges(){
+        changes = 1;
+        document.getElementById("errorText").style.display = "none";
+        document.getElementById("successText").style.display = "none";
+        loadTeam().call;
+      }
+
+
+       function buttonPainter(club){
+        if(club === 45){
+          return "rgb(226,0,26)";
         }
+        else if(club === 54){
+          return "linear-gradient(to bottom, rgb(1,135,73) 50%, white 50%)";
+        }
+        else if(club === 228){
+          return "linear-gradient(to bottom, rgb(204,56,63) 50%, white 50%)";
+        }
+        else if(club === 50){
+          return "rgb(159,25,49)";
+        }
+        else if(club === 53){
+          return "rgb(0,117,59)";
+        }
+        else if(club === 52){
+          return "linear-gradient(to right, rgb(47,54,143) 50%, white 50%)";
+        }
+        else if(club === 560){
+          return "rgb(255,204,0)";
+        }
+        else if(club === 47){
+          return "linear-gradient(to bottom, rgb(251,186,45) 50%, rgb(122,20,63)  50%)";
+        }
+        else if(club === 49){
+          return "rgb(27,69,143)";
+        }
+        else if(club === 360){
+          return "linear-gradient(to bottom, rgb(4,9,87) 50%, rgb(244,19,43)  50%)";
+        }
+        else if(club === 46){
+          return "linear-gradient(to bottom, rgb(36,63,144) 50%, white  50%)";
+        }
+        else if(club === 56){
+          return "linear-gradient(to right, black 50%, white 50%)";
+        }
+      }
 
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          var historytable = document.getElementById('history-table');
-          var historybody = document.getElementById('history-body');
-          historybody.innerHTML = "";
-          if(xhr.response == "null"){
-            buildNextFixtures().call;
+      function setPosition(pos){
+        position = pos; 
+      }
+
+      function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("table");
+        switching = true;
+        // Set the sorting direction to ascending:
+        dir = "asc";
+        /* Make a loop that will continue until
+        no switching has been done: */
+        while (switching) {
+          // Start by saying: no switching is done:
+          switching = false;
+          rows = table.rows;
+          /* Loop through all table rows (except the
+          first, which contains table headers): */
+          for (i = 1; i < (rows.length - 1); i++) {
+            // Start by saying there should be no switching:
+            shouldSwitch = false;
+            /* Get the two elements you want to compare,
+            one from current row and one from the next: */
+            x = rows[i].getElementsByTagName("TD")[n];
+            y = rows[i + 1].getElementsByTagName("TD")[n];
+            /* Check if the two rows should switch place,
+            based on the direction, asc or desc: */
+            if (dir == "asc") {
+              if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                // If so, mark as a switch and break the loop:
+                shouldSwitch = true;
+                break;
+              }
+            } else if (dir == "desc") {
+              if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                // If so, mark as a switch and break the loop:
+                shouldSwitch = true;
+                break;
+              }
             }
-          var response = JSON.parse(xhr.response); // the text of the response
-          var keys = Object.keys(response);
-    
-          for(var i = 0; i < keys.length; i++) {
-              var tr = document.createElement('tr');
-
-              var round = document.createElement('th');
-              var rText = document.createTextNode(keys[i]);
-              round.appendChild(rText);
-
-              var gk = document.createElement('td');
-              var gText = document.createTextNode(response [i+1] [1]);
-              gk.appendChild(gText);
-
-              var df1 = document.createElement('td');
-              var df1Text = document.createTextNode(response [i+1] [2]);
-              df1.appendChild(df1Text);
-
-              var df2 = document.createElement('td');
-              var df2Text = document.createTextNode(response [i+1] [3]);
-              df2.appendChild(df2Text);
-
-              var df3 = document.createElement('td');
-              var df3Text = document.createTextNode(response [i+1] [4]);
-              df3.appendChild(df3Text);
-
-              var df4 = document.createElement('td');
-              var df4Text = document.createTextNode(response [i+1] [5]);
-              df4.appendChild(df4Text);
-
-              var mf1 = document.createElement('td');
-              var mf1Text = document.createTextNode(response [i+1] [6]);
-              mf1.appendChild(mf1Text);
-
-              var mf2 = document.createElement('td');
-              var mf2Text = document.createTextNode(response [i+1] [7]);
-              mf2.appendChild(mf2Text);
-
-              var mf3 = document.createElement('td');
-              var mf3Text = document.createTextNode(response [i+1] [8]);
-              mf3.appendChild(mf3Text);
-
-              var mf4 = document.createElement('td');
-              var mf4Text = document.createTextNode(response [i+1] [9]);
-              mf4.appendChild(mf4Text);
-
-              var fw1 = document.createElement('td');
-              var fw1Text = document.createTextNode(response [i+1] [10]);
-              fw1.appendChild(fw1Text);
-
-              var fw2 = document.createElement('td');
-              var fw2Text = document.createTextNode(response [i+1] [11]);
-              fw2.appendChild(fw2Text);
-
-              var tot = ((response [i+1] [1]) + (response [i+1] [2]) + (response [i+1] [3]) + (response [i+1] [4]) + (response [i+1] [5]) + (response [i+1] [6]) + (response [i+1] [7]) + (response [i+1] [8]) + (response [i+1] [9]) + (response [i+1] [10]) + (response [i+1] [11]))
-              var total = document.createElement('td');
-              var totalText = document.createTextNode(tot);
-              total.appendChild(totalText);
-
-              tr.appendChild(round);
-              tr.appendChild(gk);
-              tr.appendChild(df1);
-              tr.appendChild(df2);
-              tr.appendChild(df3);
-              tr.appendChild(df4);
-              tr.appendChild(mf1);
-              tr.appendChild(mf2);
-              tr.appendChild(mf3);
-              tr.appendChild(mf4);
-              tr.appendChild(fw1);
-              tr.appendChild(fw2);
-              tr.appendChild(total);
-              historybody.appendChild(tr);
-              historytable.appendChild(historybody);
+          }
+          if (shouldSwitch) {
+            /* If a switch has been marked, make the switch
+            and mark that a switch has been done: */
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            // Each time a switch is done, increase this count by 1:
+            switchcount ++;
+          } else {
+            /* If no switching has been done AND the direction is "asc",
+            set the direction to "desc" and run the while loop again. */
+            if (switchcount == 0 && dir == "asc") {
+              dir = "desc";
+              switching = true;
+            }
           }
         }
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();   
       }
 
+       function convertClub(id){
+      for(var i = 0; i < clubs.length; i++){
+        if(clubs[i].club_id === id){
+          return clubs[i].name;
+        }
+      }
+    }
 
-
+      jQuery(document).ready(function($) {
+          $('#table').on('click', '.clickable-row', function() {
+              swapPlayer($(this).attr('value'), position);
+              var $item = $(this).closest("tr") 
+                       .find(".price")     // Gets a descendent with class="price"
+                       .text();         // Retrieves the text within <td>
+              $("#selectModal").modal('hide');
+          });
+      });
     </script>     
 </body>
 </html>

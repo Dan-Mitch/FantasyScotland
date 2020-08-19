@@ -100,6 +100,31 @@ public class FantasyScotlandRESTAPI {
 	}
 	
 	@GET
+	@Path("/isRoundRunning")
+	/**
+	 * Here is an example of how to read parameters provided in an HTML Get request.
+	 * @param Word - A word
+	 * @return - A String
+	 * @throws IOException
+	 */
+	public boolean isRoundRunning(@Session HttpSession session) throws IOException {
+		return this.model.isRoundRunning();
+	}
+	
+	@GET
+	@Path("/isTransferOn")
+	/**
+	 * Here is an example of how to read parameters provided in an HTML Get request.
+	 * @param Word - A word
+	 * @return - A String
+	 * @throws IOException
+	 */
+	public boolean isTransferOn(@Session HttpSession session) throws IOException {
+		Team team = this.model.getUser((UUID)session.getAttribute("id")).getTeam();
+		return this.model.isTransferOn(team.getTeam_id());
+	}
+	
+	@GET
 	@Path("/userSignedIn")
 	/**
 	 * Here is an example of how to read parameters provided in an HTML Get request.
@@ -216,6 +241,19 @@ public class FantasyScotlandRESTAPI {
 	public void registerTeam(@QueryParam("Name") String name, @Session HttpSession session) throws IOException {
 		this.model.registerTeam(name, (UUID)session.getAttribute("id"));
 	}
+	
+	@GET
+	@Path("/updateTeam")
+	/**
+	 * Here is an example of how to read parameters provided in an HTML Get request.
+	 * @param Word - A word
+	 * @return - A String
+	 * @throws IOException
+	 */
+	public void updateTeam(@Session HttpSession session) throws IOException {
+		this.model.updateTeam((UUID)session.getAttribute("id"));
+	}
+	
 	
 	@GET
 	@Path("/addPlayer")

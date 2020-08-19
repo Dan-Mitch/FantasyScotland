@@ -19,7 +19,7 @@ import model.Team;
 import model.User;
 
 public class DatabaseLinker {
-	private final String url = "jdbc:postgresql://217.39.223.45:5433/fantasyscotland";
+	private final String url = "jdbc:postgresql://217.39.217.31:5433/fantasyscotland";
 	private final String username = "postgres";
 	private final String password = "postgres";
 	Connection connection = null;
@@ -344,6 +344,8 @@ public class DatabaseLinker {
 		return b;
 	}
 	
+
+	
 	public boolean doesTeamMembershipExist(UUID team_id, UUID player_id, int round) {
 		String query = "SELECT * FROM team_membership as t WHERE t.player_id='" + player_id + "' AND t.team_id= '" + team_id + "' AND t.round ='" + round + "'";
 		boolean b = false;
@@ -386,6 +388,28 @@ public class DatabaseLinker {
 			closeConnection();
 		}
 		return b;
+	}
+	
+	public boolean isTransferOn(UUID team_id) {
+		boolean transferOn = false;
+		String query = "SELECT t.transfer FROM team_details as t WHERE team_id ='" + team_id + "'";
+		openConnection();
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(query);
+			if (result.next()) {
+				transferOn = result.getBoolean("transfer");
+			}
+			else {
+				System.err.println("no boolean found");
+			}
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+		return transferOn;
 	}
 	
 	public ArrayList<User> loadUsers() {
@@ -592,7 +616,7 @@ public class DatabaseLinker {
 	
 	public int calculateTeamScore(UUID team_id, int round) {
 		int weeklyScore = 0;
-		String query = "SELECT SUM(p.score) FROM players_weekly_scores as p WHERE p.round ='" + round + "' AND p.player_id IN (SELECT t.player_id FROM team_membership as t WHERE round ='" + round + "' AND t.team_id ='" + team_id + "' ORDER BY t.position LIMIT 11)";
+		String query = "SELECT SUM(p.score) FROM players_weekly_scores as p WHERE p.round ='" + round + "' AND p.player_id IN (SELECT t.player_id FROM team_membership as t WHERE round ='" + (round-1) + "' AND t.team_id ='" + team_id + "' ORDER BY t.position LIMIT 11)";
 		openConnection();
 		try {
 			Statement statement = connection.createStatement();
@@ -628,6 +652,39 @@ public class DatabaseLinker {
 		return scores;
 	}
 	
+	public void updateTeamMembership(UUID team_id, UUID player_id, int round, int position) {
+		String query = "UPDATE team_membership SET player_id = '"  + player_id + "' WHERE team_id ='" + team_id + "' AND round ='" + round + "' AND position='" + position + "'";
+		PreparedStatement statement;
+		openConnection();
+		try {
+			statement = connection.prepareStatement(query);
+			statement.executeUpdate();
+			System.out.println("Update to database successful...");
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+	}
+	
+	public void updateTeamDetails(UUID team_id, double transferBudget) {
+		String query = "UPDATE team_details SET budget = '"  + transferBudget + "' WHERE team_id ='" + team_id + "'";
+		PreparedStatement statement;
+		openConnection();
+		try {
+			statement = connection.prepareStatement(query);
+			statement.executeUpdate();
+			System.out.println("Update to database successful...");
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+		
+	}
+	
 	public void updateLeagueScore(UUID league_id, UUID team_id, int score) {
 		String query = "UPDATE league_membership SET score ='" + score + "' WHERE league_id='" + league_id + "' AND team_id='" + team_id + "'";
 		openConnection();
@@ -641,6 +698,38 @@ public class DatabaseLinker {
 			closeConnection();
 		}
 	
+	}
+	
+	public void setTransfer(UUID team_id, boolean transfer) {
+		String query = "UPDATE team_details SET transfer = '" + transfer + "' WHERE team_id = '" + team_id + "'";
+		PreparedStatement statement;
+		openConnection();
+		try {
+			statement = connection.prepareStatement(query);
+			statement.executeUpdate();
+			System.out.println("Update to database successful...");
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+	}
+	
+	public void setTransferAll(boolean transfer) {
+		String query = "UPDATE team_details SET transfer = '" + transfer + "'";
+		PreparedStatement statement;
+		openConnection();
+		try {
+			statement = connection.prepareStatement(query);
+			statement.executeUpdate();
+			System.out.println("Update to database successful...");
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
 	}
 	
 	public int getRankInLeague(UUID league_id, UUID team_id) {

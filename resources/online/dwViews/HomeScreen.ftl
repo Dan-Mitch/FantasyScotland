@@ -12,6 +12,31 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 <style type="text/css">
+/*******************************
+font-family: 
+// Safari for OS X and iOS (San Francisco)
+-apple-system,
+// Chrome < 56 for OS X (San Francisco)
+BlinkMacSystemFont,
+// Windows
+"Segoe UI",
+// Android
+"Roboto",
+// Basic web fallback
+"Helvetica Neue", Arial, sans-serif,
+// Emoji fonts
+"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" 
+
+font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+***********************************/
+html{
+    font-size: 16px;
+    line-height: 1.7;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial,  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" ;
+}
+pre, code{
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
 body {
   background: #8eb7de;
 }
@@ -46,6 +71,10 @@ body {
 
 .form-signin .form-signin-button {
   background-color: #1e5422;
+}
+
+.form-signin-heading{
+  padding-right: 9%;
 }
 
 .footer{
@@ -173,7 +202,7 @@ height:90px;
   <div class="wrapper">
     <nav class="navbar fixed-top navbar-light" style="background-color: #8eb7de;">
         <a class="navbar-brand" id="logo" href='/fantasyscotland/home'><img src="https://i.ibb.co/yVc3vPy/Fantasy-Scotland.png" alt="Fantasy-Scotland" width="200" ></a>
-        <h2 class="form-signin-heading text-center">Welcome to Fantasy Scotland!</h2>
+        <h1 class="form-signin-heading text-center ">Welcome to Fantasy Scotland!</h1>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -753,7 +782,7 @@ height:90px;
           var historybody = document.getElementById('history-body');
           historybody.innerHTML = "";
           if(xhr.response == "null"){
-            buildNextFixtures().call;
+            return;
             }
           var response = JSON.parse(xhr.response); // the text of the response
           var keys = Object.keys(response);

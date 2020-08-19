@@ -38,45 +38,56 @@ public class MainModel {
 	private ArrayList<League> leagues;
 	private ArrayList<User> users;
 	private XmlSoccerService xmlSoccerService;
+	private boolean isRoundRunning;
+	private OffsetDateTime nextUpdate;
+	private OffsetDateTime nextBlock;
+	
 	public MainModel() {
 		this.database = new DatabaseLinker();
 		this.xmlSoccerService = new XmlSoccerServiceImpl();
 		this.xmlSoccerService.setApiKey("ZBOBAXRYOHGALWSSPOVSNUYWPJDNLZWLAXBURALTOSGSDJETYA");
 		this.xmlSoccerService.setServiceUrl("http://www.xmlsoccer.com/FootballDataDemo.asmx");
-		
 		MainModel.clubs = database.loadClubs();
 		fixtures = new Fixtures(this.xmlSoccerService);
 		this.players = new Players(database.loadPlayers());
 		initialise();
-		writePreviousFixtures();
-		doIt();
+		scheduleUpdate();
+		scheduleBlock();
 	}
 
 	public void initialise() {
+		this.nextUpdate = OffsetDateTime.of(MainModel.getRoundEndDate(), ZoneOffset.UTC).plusMinutes(1);
+		this.nextBlock = OffsetDateTime.of(MainModel.getFixtures().getNextStartDate(MainModel.getTodayDate()), ZoneOffset.UTC).plusMinutes(1);   
 		this.leagues = new ArrayList<League>(database.loadLeagues());
-		this.users = new ArrayList<User>(database.loadUsers());
+		this.users = new ArrayList<User>(database.loadUsers());	//Loads users and their teams.
 	}
 	
-	private void doIt () {
+	public void isGameOver() {
+		if(!MainModel.getTodayDate().isBefore(MainModel.getFixtures().endDateOfRound(MainModel.getFixtures().whatsLastRound()))) {
+			System.err.println("The game has finished");
+			System.exit(0);
+		}
+	}
+	
+	private void scheduleUpdate () {
         ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         Runnable runnable = new Runnable() {
             @Override
             public void run ( ) {
                 try {
-                	ZonedDateTime zdt = ZonedDateTime.now( ZoneId.systemDefault() ); // Capture the current moment.
-                    System.out.println( "Current moment: " + zdt ); // Report the current moment.
+                	ZonedDateTime zdt = ZonedDateTime.of(getTodayDate(), ZoneId.systemDefault()); // Capture the current moment.
+                    System.err.println( "Current moment: " + zdt ); // Report the current moment.
                     // Schedule the next run of this task.
-                    OffsetDateTime now = OffsetDateTime.now( ZoneOffset.UTC ).minusYears(1) ;
-                    OffsetDateTime later = OffsetDateTime.of(MainModel.getRoundEndDate(), ZoneOffset.UTC).plusMinutes(1);
-                    System.out.println(now.toString());
-                    System.out.println(later.toString());
-                    if(!now.isBefore(later)) {
+                    OffsetDateTime now = OffsetDateTime.of(getTodayDate(), ZoneOffset.UTC);
+                    if(!now.isBefore(nextUpdate)) {
                     	initialise();
                     	writePreviousFixtures();
                     	writeTeamScores();
+                    	setTransferAll(true);	//Allows users to make transfers again at the start of the next round.    
+                    	setRoundRunning(false);
                     }
-                    System.err.println("Setting new schedule");
-                    Duration d = Duration.between( now , later ) ;
+                    System.err.println("Setting new schedule - Will next execute update at: " + nextUpdate.toString());
+                    Duration d = Duration.between( now , nextUpdate ) ;
                     long seconds = d.toMillis() ; // Truncates any fractional second.
                     scheduledExecutorService.schedule( this , seconds , TimeUnit.MILLISECONDS );  // Delay will not be *exactly* this amount of time due to interruptions of scheduling cores on CPU and threads by the JVM and host OS.	
                 } catch ( Exception e ) {
@@ -89,7 +100,46 @@ public class MainModel {
         // Jump-start this perpetual motion machine.
         scheduledExecutorService.schedule( runnable , 0L , TimeUnit.SECONDS );  // Start immediately, no delay.
         try {
-            Thread.sleep( TimeUnit.SECONDS.toMillis( 3 ) );  // Let our app, and the executor, run for 3 seconds, then shut them both down.
+            Thread.sleep( TimeUnit.SECONDS.toMillis( 2 ) );  // Let our app, and the executor, run for 2 seconds, then shut them both down.
+        } catch ( InterruptedException e ) {
+            e.printStackTrace();
+        }
+        scheduledExecutorService.shutdown();
+        System.out.println( "INFO - Executor shutting down. App exiting. " + ZonedDateTime.now( ZoneId.systemDefault() ) );
+
+    }
+	
+	private void scheduleBlock () {
+        ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run ( ) {
+                try {
+                	ZonedDateTime zdt = ZonedDateTime.of(getTodayDate(), ZoneId.systemDefault()); // Capture the current moment.
+                    System.out.println( "Current moment: " + zdt ); // Report the current moment.
+                    // Schedule the next run of this task.
+                    OffsetDateTime now = OffsetDateTime.of(getTodayDate(), ZoneOffset.UTC);            
+                    if(!now.isBefore(nextBlock)) {
+                    	isGameOver();
+                    	initialise();
+                    	setTransferAll(false);	//Blocks all users to make transfers again at the start of the next round.
+                    	setRoundRunning(true);
+                    }
+                    System.err.println("Setting new schedule - Will next execute block at: " + nextBlock.toString());
+                    Duration d = Duration.between( now , nextBlock ) ;
+                    long seconds = d.toMillis() ; // Truncates any fractional second.
+                    scheduledExecutorService.schedule( this , seconds , TimeUnit.MILLISECONDS );  // Delay will not be *exactly* this amount of time due to interruptions of scheduling cores on CPU and threads by the JVM and host OS.	
+                } catch ( Exception e ) {
+                    // TODO: Handle unexpected exeption.
+                    System.err.println( "ERROR - unexpected exception caught on its way to reaching a scheduled executor service. Message # 55cbae82-8492-4638-9630-60c5b28ad876." );
+                }
+            }
+        };
+
+        // Jump-start this perpetual motion machine.
+        scheduledExecutorService.schedule( runnable , 0L , TimeUnit.SECONDS );  // Start immediately, no delay.
+        try {
+            Thread.sleep( TimeUnit.SECONDS.toMillis( 2 ) );  // Let our app, and the executor, run for 2 seconds, then shut them both down.
         } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
@@ -137,9 +187,11 @@ public class MainModel {
 	public void writeTeamScores() {
 		int currentRound = MainModel.getFixtures().whatsCurrentRound(getTodayDate());
 		int previousRound = currentRound - 1;
+		int twoPreviousRound = currentRound - 2;
+		
 		ArrayList<Team> teams = new ArrayList<Team>();
 		for (User u : this.users) {
-			teams.add(this.database.loadTeam(u.getId(), previousRound));
+			teams.add(this.database.loadTeam(u.getId(), twoPreviousRound));
 		}
 		
 		for (Team t : teams) {
@@ -163,8 +215,8 @@ public class MainModel {
 				int position = entry.getKey();
 				Player player = entry.getValue();
 				
-				if(!this.database.doesTeamMembershipExist(t.getTeam_id(), player.getPlayer_id(), currentRound)) {
-					this.database.writeTeamMembership(t.getTeam_id(), player.getPlayer_id(), currentRound, position);
+				if(!this.database.doesTeamMembershipExist(t.getTeam_id(), player.getPlayer_id(), previousRound)) {
+					this.database.writeTeamMembership(t.getTeam_id(), player.getPlayer_id(), previousRound, position);
 				}
 				else {
 					continue;
@@ -380,7 +432,7 @@ public class MainModel {
 		HashMap<Integer,HashMap<Integer, Integer>> history = new HashMap<Integer,HashMap<Integer, Integer>>();
 		int lastRound = MainModel.getFixtures().whatsLastRound();
 		int nullCount = 0;
-		for(int i = 1; i<=lastRound;i++) {
+		for(int i = 0; i<lastRound;i++) {
 			HashMap<Integer, Integer> playersScores = new HashMap<Integer, Integer>();
 			
 			if(this.database.doesTeamExist(team_id, i)) {
@@ -389,8 +441,8 @@ public class MainModel {
 				for(Map.Entry<Integer, Player> entry : squad.entrySet()) {
 					int position = entry.getKey();
 					Player player = entry.getValue();
-					if(this.database.doesPlayerPointsExist(player.getPlayer_id(), i)) {
-						playersScores.put(position, this.database.getPlayerScoreIn(player.getPlayer_id(), i));
+					if(this.database.doesPlayerPointsExist(player.getPlayer_id(), i+1)) {
+						playersScores.put(position, this.database.getPlayerScoreIn(player.getPlayer_id(), i+1));
 
 					}
 					else {
@@ -398,16 +450,18 @@ public class MainModel {
 						nullCount++;
 					}
 				}
-				history.put(i, playersScores);
+				history.put(i+1, playersScores);
 			}
 			else {
 				continue;
 			}
 		}
-		if(nullCount >= 11) {
+		if(nullCount >= 11 && history.size() == 1) {
 			return null;
 		}
-		else 
+		else if(nullCount >= 11 && history.size() > 1) {
+			history.remove(history.size());
+		}
 		return history;
 	}
 
@@ -425,6 +479,19 @@ public class MainModel {
 		}
 		return null;
 	}
+	
+	public boolean isTransferOn(UUID team_id) {
+		return this.database.isTransferOn(team_id);
+	}
+	
+	public void setTransfer(UUID team_id, boolean transfer) {
+		this.database.setTransfer(team_id,transfer);
+	}
+	
+	public void setTransferAll(boolean transfer) {
+		this.database.setTransferAll(transfer);
+	}
+
 
 	public boolean doesUserExist(String email) {
 		String id = this.database.doesUserExist(email);
@@ -463,10 +530,22 @@ public class MainModel {
 		this.database.writeTeam(team.getTeam_id(), team.getOwner_id());
 		for (Entry<Integer, Player> entry : team.getSquad().entrySet()) {
 			this.database.writeTeamMembership(team.getTeam_id(), entry.getValue().getPlayer_id(),
-					MainModel.getFixtures().whatsCurrentRound(getTodayDate()), entry.getKey());
+					MainModel.getFixtures().whatsCurrentRound(getTodayDate())-1, entry.getKey());
 		}
 		this.database.writeLeagueMembership(UUID.fromString("3573e359-7c59-4d43-90c9-52d3ba04a66e"), team.getTeam_id(),
 				0);
+	}
+	
+	public void updateTeam(UUID id) {
+		User user = this.getUser(id);
+		Team team = user.getTeam();
+		this.database.updateTeamDetails(team.getTeam_id(), team.getTransferBudget());
+		
+		for (Entry<Integer, Player> entry : team.getSquad().entrySet()) {
+			this.database.updateTeamMembership(team.getTeam_id(), entry.getValue().getPlayer_id(),
+					MainModel.getFixtures().whatsCurrentRound(getTodayDate())-1, entry.getKey());
+		}
+		this.database.setTransfer(team.getTeam_id(), false);
 	}
 	
 	public int getRankIn(UUID league_id, UUID team_id) {
@@ -495,7 +574,7 @@ public class MainModel {
 	}
 
 	public void loadTeam(UUID user_id) {
-		Team team = this.database.loadTeam(user_id, MainModel.fixtures.whatsCurrentRound(getTodayDate()));
+		Team team = this.database.loadTeam(user_id, MainModel.fixtures.whatsCurrentRound(getTodayDate())-1);
 		User user = this.getUser(user_id);
 		user.setTeam(team);
 	}
@@ -539,8 +618,7 @@ public class MainModel {
 	}
 
 	public static LocalDateTime getTodayDate() {
-		//LocalDateTime fakeDate = LocalDateTime.of(2019, 8, 25, 14, 59);
-		LocalDateTime realDate = LocalDateTime.now().minusYears(1).withNano(0).withSecond(0);
+		LocalDateTime realDate = LocalDateTime.now().minusYears(1).withNano(0).withSecond(0).minusWeeks(2).minusDays(1).minusHours(2).minusMinutes(40);
 		return realDate;
 	}
 	
@@ -551,6 +629,11 @@ public class MainModel {
 	public static LocalDateTime getRoundStartDate() {
 		return getFixtures().startDateOfRound(getFixtures().whatsCurrentRound(getTodayDate()));
 	}
+	
+	public static LocalDateTime getNextRoundStartDate() {
+		return getFixtures().startDateOfRound(getFixtures().whatsCurrentRound(getTodayDate())+1);
+	}
+	
 	
 	public static LocalDateTime getRoundEndDate() {
 		return getFixtures().endDateOfRound(getFixtures().whatsCurrentRound(getTodayDate()));
@@ -574,9 +657,24 @@ public class MainModel {
 		this.leagues = leagues;
 	}
 
+	/**
+	 * @return the isRoundRunning
+	 */
+	public boolean isRoundRunning() {
+		return isRoundRunning;
+	}
+
+	/**
+	 * @param isRoundRunning the isRoundRunning to set
+	 */
+	public void setRoundRunning(boolean isRoundRunning) {
+		this.isRoundRunning = isRoundRunning;
+	}
+	
+
 //	public static void main(String[] args) {
 //		MainModel m = new MainModel();
-//		System.err.println(m.getFixtures().startDateOfRound(2));
+//		System.err.println(MainModel.getFixtures().endDateOfRound(MainModel.getFixtures().whatsLastRound()));
 //		System.err.println(m.database.loadSquad(UUID.fromString("acc727e3-5cdb-4f92-991a-b340cb471ba4"), 2));
 //		System.err.println(m.getPointHistory(UUID.fromString("acc727e3-5cdb-4f92-991a-b340cb471ba4")));
 //		System.err.println(MainModel.getRoundEndDate());

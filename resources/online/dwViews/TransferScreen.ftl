@@ -12,16 +12,42 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 <style type="text/css">
+/*******************************
+font-family: 
+// Safari for OS X and iOS (San Francisco)
+-apple-system,
+// Chrome < 56 for OS X (San Francisco)
+BlinkMacSystemFont,
+// Windows
+"Segoe UI",
+// Android
+"Roboto",
+// Basic web fallback
+"Helvetica Neue", Arial, sans-serif,
+// Emoji fonts
+"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" 
+
+font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+***********************************/
+html{
+    font-size: 16px;
+    line-height: 1.7;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial,  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" ;
+}
+pre, code{
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
 body {
   background: #8eb7de;
 }
 .wrapper {
   margin: 90px;
 }
+
 .main {
   max-width: 2000px;
-  max-height: 1200px;
-  height: 730px;
+  max-height: 1000px;
+  min-height:730px;
   margin: 0 auto;
   margin-bottom: 100px;
   background-color: #fff;
@@ -29,26 +55,41 @@ body {
   border: 1px solid #e5e5e5;
   border-radius: 10px;
 }
+
+.body{
+  max-width: 2000px;
+  max-height: 1000px;
+  width:100%;
+}
 .form-signin-heading, .form-signin .warning {
   margin-bottom: 16px;
 }
+
 .form-signin .form-control .logo {
   padding: 10px;
 }
+
 .form-signin .form-signin-button {
   background-color: #1e5422;
 }
+
+.form-signin-heading{
+  padding-right: 9%;
+}
+
 .footer{
   margin: 600 auto;
   text-align: center;
   background-color: #fff;  
 }
+
 .logo{
   padding: 15px;
   position: absolute;
   top: -6px;
   left: 0px;
 }
+
 .football {
   position:relative;
   width: auto;
@@ -56,11 +97,15 @@ body {
   margin-top: 0px;
   margin-left: auto;
   margin-right: auto;
+  background-color: black;
+
 }
+
 .football .p {
   width: 100%;
   height: auto;
 }
+
 /* Style the button and place it in the middle of the container/image */
 .football .btn {
   background-color: white;
@@ -74,9 +119,11 @@ body {
   margin: 0px 0px;
   text-align: center;
 }
+
 .btn:hover {
   background-color: black;
 }
+
 .image{
   width: 100%;
   text-align: center;
@@ -196,17 +243,65 @@ tbody td, thead th {
     height: 60px;
     float: left;
 }
+
+.navbar {
+min-height: 50px;
+height:90px;
+}
+
+.navbar-brand {
+  padding: 0 1px;
+  height: 75px;
+  line-height: 50px;
+}
+
+.navbar-toggle {
+  /* (80px - button height 34px) / 2 = 23px */
+  margin-top: 28px;
+  padding: 9px 10px !important;
+}
+
+@media (min-width: 768px) {
+  .navbar-nav > li > a {
+    /* (80px - line-height of 27px) / 2 = 26.5px */
+    padding-top: 31.5px;
+    padding-bottom: 31.5px;
+    line-height: 100px;
+  }
+}
+
+
 </style>
 </head>
 
 <body onload="initalize()">
-  <a class="logo" id="logo"><img src="https://i.ibb.co/yVc3vPy/Fantasy-Scotland.png" alt="Fantasy-Scotland" width="200" ></a>
+  
   <div class="wrapper">
+    <nav class="navbar fixed-top navbar-light" style="background-color: #8eb7de;">
+        <a class="navbar-brand" id="logo" href='/fantasyscotland/home'><img src="https://i.ibb.co/yVc3vPy/Fantasy-Scotland.png" alt="Fantasy-Scotland" width="200" ></a>
+        <h1 class="form-signin-heading text-center ">Transfer Players</h1>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link text-right" href='/fantasyscotland/manage'>Manage</a>
+            <a class="nav-item nav-link text-right" href='/fantasyscotland/leagues'>Leagues</a>
+            <a class="nav-item nav-link text-right" href='/fantasyscotland/transfer'>Transfer</a>
+            <a class="nav-item nav-link text-right" href='/fantasyscotland/rules'>Rules</a>
+          </div>
+        </div>
+      </nav>
     <div class="main">
       <div class = "header">
-        <h2 class="form-signin-heading text-center" id="welcomeHeader">Welcome to Fantasy Scotland!</h2>
-        <h3 class="form-signin-heading text-center">Please Create a Team!</h3>
-        <h3 class="form-signin-heading text-center">Remaining Budget &pound<span class="badge badge-secondary" id="budgetBadge"></span> million.</h3>
+        <h6 class="form-signin-heading text-right" id="welcomeHeader"></h6>
+      </div>
+
+      <div class="body">
+         <div class = "header">
+        <h4 class="form-signin-heading text-center">You can make one transfer per week.</h4>
+        <h4 class="form-signin-heading text-center">Remaining transfers: <span class="badge badge-secondary" id="transferBadge"></span></h4>
+        <h4 class="form-signin-heading text-center">Remaining Budget: &pound<span class="badge badge-secondary" id="budgetBadge"></span> million.</h4>
       </div>
       <div class="alert alert-success text-center" id="successText" style="display:none;vertical-align: top">
          Sucess text
@@ -216,8 +311,8 @@ tbody td, thead th {
       </div>
       <div class="col-md-12 text-center">
         <div class = "btn-group" >
-        <button type="button" class="btn btn-danger" id="removeAll" onclick="removeAllPlayers()" style="display:none">Remove All</button>
-        <button type="button" style="float: right;display:none" data-target="#nameModal" data-toggle="modal" class="btn btn-success" id="continue">Continue</button>
+        <button type="button" class="btn btn-danger" id="removeTransfer" onclick="removeChanges()" style="display:none">Remove Transfer</button>
+        <button type="button" style="float: right;display:none" data-target="#confirmModal" data-toggle="modal" class="btn btn-success" id="continue">Continue</button>
         </div>
       </div>
       
@@ -300,8 +395,8 @@ tbody td, thead th {
             <h7 id="button15Text">LName<span class="badge badge-dark" id="button15Badge">0</span></h7>
           </div>
       </div>
-
-      
+        
+      </div>
 
       <footer class="footer mt-auto py-2 fixed-bottom">
           <div class="container">
@@ -347,37 +442,20 @@ tbody td, thead th {
   </div>
 
 
-  <div class="modal hide" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
+  <div class="modal hide" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
 
       <div class="modal-header">
-        <h3 id="removeModalLabel">Remove Player</h3>
+        <h3 id="confirmModalLabel">Confirm Transfer.</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
           </button>
       </div>
 
-      <div class="modal-body" id = "removeDiv">
-          <button type="button" class="btn-primary" data-dismiss="modal" onclick = "removePlayer(position);">Remove Player</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal hide" id="nameModal" tabindex="-1" role="dialog" aria-labelledby="nameModalLabel" aria-hidden="true">
-
-      <div class="modal-header">
-        <h3 id="nameModalLabel">Enter a team name.</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-          </button>
-      </div>
-
-      <form onsubmit="registerTeam();return false" class="form-inline">
+      <form onsubmit="updateTeam();return false" class="form-inline">
         <div class="form-group mb-2">
           <div class="form-group mx-sm-3 mb-2">
-            <label for="inputTeamName" class="sr-only">Enter Team Name</label>
-            <input type="text" class="form-control" id="inputTeamName" placeholder="Enter Team Name" required>
-          </div>
-          <button type="submit" class="btn btn-primary mb-2">Create Team</button>
+            <p>Are you sure you want to make this transfer?</p>
+          <button type="submit" class="btn btn-primary mb-2">Make Transfer</button>
       </form>
     </div>
   </div>
@@ -404,17 +482,23 @@ tbody td, thead th {
       function createCORSRequest(method, url) {
           var xhr = new XMLHttpRequest();
           if ("withCredentials" in xhr) {
+
             // Check if the XMLHttpRequest object has a "withCredentials" property.
             // "withCredentials" only exists on XMLHTTPRequest2 objects.
             xhr.open(method, url, true);
+
           } else if (typeof XDomainRequest != "undefined") {
+
             // Otherwise, check if XDomainRequest.
             // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
             xhr = new XDomainRequest();
             xhr.open(method, url);
+
          } else {
+
             // Otherwise, CORS is not supported by the browser.
             xhr = null;
+
            }
            return xhr;
       }
@@ -424,16 +508,17 @@ tbody td, thead th {
     <!-- Here are examples of how to call REST API Methods -->
     <script type="text/javascript">
       var players = [
-        goalkeepers = [],
-        defenders = [],
-      midfielders = [],
-      forwards = [],
+          goalkeepers = [],
+          defenders = [],
+          midfielders = [],
+          forwards = [],
       ];
       var user;
       var clubs = [];
       var position;
-      var clubLimit;
-      var dupPlayer;
+      var clubLimit = false;
+      var dupPlayer = false;
+      var changes = 1;
 
       function isUserSignedIn(){
          // First create a CORS request, this is the message we are going to send (a get request in this case)
@@ -452,6 +537,58 @@ tbody td, thead th {
             window.location.href = '/fantasyscotland';
           }
           else{
+            isRoundRunning().call;
+          }
+          
+        }
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();  
+      }
+
+      function isRoundRunning(){
+         // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/isRoundRunning"); // Request type and URL
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+          if(xhr.response == "true"){
+            alert("Round is currently in progress, you cant make transfers. Redirecting...")
+            window.location.href = '/fantasyscotland/home';
+          }
+          else{
+            isTransferOn().call;
+          }
+          
+        }
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();  
+      }
+
+      function isTransferOn(){
+         // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/isTransferOn"); // Request type and URL
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+          if(xhr.response == "false"){
+            alert("You have no remaining transfers. Redirecting...")
+            window.location.href = '/fantasyscotland/home';
+          }
+          else{
             buildClubs().call;
           }
           
@@ -459,6 +596,11 @@ tbody td, thead th {
         
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();  
+      }
+
+      function swapPlayer(player_id, position){
+        changes--;
+        removePlayer(player_id, position);
       }
 
       function addPlayer(player_id, position) {
@@ -474,7 +616,7 @@ tbody td, thead th {
         xhr.onload = function(e) {
           var responseText = xhr.response.replace(/['"]+/g, '');
           if(responseText.localeCompare("Successfully added player.") === 0){
-            document.getElementById("successText").innerHTML = responseText;
+            document.getElementById("successText").innerHTML = "Successfully swaped player.";
             document.getElementById("successText").style.display = "block";
             document.getElementById("errorText").style.display = "none";
           } else {
@@ -482,17 +624,14 @@ tbody td, thead th {
             document.getElementById("errorText").style.display = "block";
             document.getElementById("successText").style.display = "none";
           }
-    
-          document.getElementById("removeAll").style.display = "block";
           var button = document.getElementById("button"+position);
-          button.dataset.target = "#removeModal";
           clubLimitReached().call;
         };
         
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
-      function removePlayer(position) {
+      function removePlayer(player_id, position) {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
         var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/removePlayer?Pos="+position); // Request type and URL+parameters
         
@@ -503,54 +642,16 @@ tbody td, thead th {
         // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
         // to do when the response arrives 
         xhr.onload = function(e) {
-          var responseText = xhr.response.replace(/['"]+/g, '');
-          if(responseText.localeCompare("Successfully removed player.") === 0){
-            document.getElementById("successText").innerHTML = responseText;
-            document.getElementById("successText").style.display = "block";
-            document.getElementById("errorText").style.display = "none";
-          } else {
-            document.getElementById("errorText").innerHTML = responseText;
-            document.getElementById("errorText").style.display = "block";
-            document.getElementById("successText").style.display = "none";
-          }
-          document.getElementById("removeAll").style.display = "block";
-          var button = document.getElementById("button"+position);
-          button.dataset.target = "#selectModal";
-         
-          clubLimitReached().call;
+          addPlayer(player_id, position).call;
         };
         
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
-      function removeAllPlayers() {
+
+       function updateTeam() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/removeAllPlayers"); // Request type and URL
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          document.getElementById("errorText").style.display = "none";
-          document.getElementById("successText").style.display = "none";
-  
-          for(var x = 1;x<=15;x++){
-            var button = document.getElementById("button"+x);
-            button.dataset.target = "#selectModal";
-          }
-          buildUser().call;
-        };
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();   
-      }
-       function registerTeam() {
-        var teamName = document.getElementById('inputTeamName').value;
-        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/registerTeam?Name="+teamName); // Request type and URL+parameters
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/updateTeam"); // Request type and URL+parameters
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -566,6 +667,7 @@ tbody td, thead th {
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
+
       function loadTable(array) {
           var table = document.getElementById('table-body');
         table.innerHTML = "";
@@ -632,12 +734,32 @@ tbody td, thead th {
               players[3].push(response[i]);
             }
           }
+          loadTeam().call;
+        }
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();   
+      }
+
+      function loadTeam() {
+        // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/loadTeam"); // Request type and URL
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
           buildUser().call;
         }
         
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
+
       function buildUser() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
         var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildUser"); // Request type and URL
@@ -652,7 +774,6 @@ tbody td, thead th {
           user = JSON.parse(xhr.response);
           var fields = user.email.split('@');
           document.getElementById("welcomeHeader").innerHTML = "Welcome " + fields[0] + "!";
-          
           repaint().call;
         }
         
@@ -703,6 +824,7 @@ tbody td, thead th {
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
+
        function clubLimitReached() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
         var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/clubLimitReached"); // Request type and URL+parameters
@@ -725,15 +847,26 @@ tbody td, thead th {
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
-      
+
       function repaint(){
         document.getElementById("budgetBadge").innerHTML = user.team.transferBudget;
+        document.getElementById("transferBadge").innerHTML = changes;
         var length = Object.keys(user.team.squad).length;
-       
-        if(length == "0"){
-          document.getElementById("removeAll").style.display = "none";
+        if(changes == "0"){
+          document.getElementById("removeTransfer").style.display = "block";
+          for(var x = 1;x<=15;x++){
+            var button = document.getElementById("button"+x);
+            button.disabled = true;
+          } 
         }
-        if(length == "15" && user.team.transferBudget >= "0" && dupPlayer === false && clubLimit === false){
+        else{
+          document.getElementById("removeTransfer").style.display = "none";
+           for(var x = 1;x<=15;x++){
+          var button = document.getElementById("button"+x);
+          button.disabled = false;
+          } 
+        }
+        if(length == "15" && user.team.transferBudget >= "0" && dupPlayer === false && clubLimit === false && changes == "0"){
           document.getElementById("continue").style.display = "block";
         }
         else{
@@ -753,8 +886,16 @@ tbody td, thead th {
           document.getElementById("button"+i+"Badge").innerHTML = user.team.squad[i].price;
         }
       }
-      
-      function buttonPainter(club){
+
+      function removeChanges(){
+        changes = 1;
+        document.getElementById("errorText").style.display = "none";
+        document.getElementById("successText").style.display = "none";
+        loadTeam().call;
+      }
+
+
+       function buttonPainter(club){
         if(club === 45){
           return "rgb(226,0,26)";
         }
@@ -792,19 +933,11 @@ tbody td, thead th {
           return "linear-gradient(to right, black 50%, white 50%)";
         }
       }
-      
+
       function setPosition(pos){
         position = pos; 
       }
-      
-      function convertClub(id){
-        for(var i = 0; i < clubs.length; i++){
-          if(clubs[i].club_id === id){
-            return clubs[i].name;
-          }
-        }
-      }
-      
+
       function sortTable(n) {
         var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
         table = document.getElementById("table");
@@ -859,9 +992,18 @@ tbody td, thead th {
           }
         }
       }
+
+       function convertClub(id){
+      for(var i = 0; i < clubs.length; i++){
+        if(clubs[i].club_id === id){
+          return clubs[i].name;
+        }
+      }
+    }
+
       jQuery(document).ready(function($) {
           $('#table').on('click', '.clickable-row', function() {
-              addPlayer($(this).attr('value'), position);
+              swapPlayer($(this).attr('value'), position);
               var $item = $(this).closest("tr") 
                        .find(".price")     // Gets a descendent with class="price"
                        .text();         // Retrieves the text within <td>

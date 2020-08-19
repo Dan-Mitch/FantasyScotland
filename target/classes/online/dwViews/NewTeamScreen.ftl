@@ -632,7 +632,7 @@ tbody td, thead th {
               players[3].push(response[i]);
             }
           }
-          buildUser().call;
+          removeAllPlayers().call;
         }
         
         // We have done everything we need to prepare the CORS request, so send it
@@ -868,6 +868,23 @@ tbody td, thead th {
               $("#selectModal").modal('hide');
           });
       });
+
+      function CallbackFunction(event) {
+    if(window.event) {
+        if (window.event.clientX < 40 && window.event.clientY < 0) {
+            alert("back button is clicked");
+        }else{
+            alert("refresh button is clicked");
+        }
+    }else{
+        if (event.currentTarget.performance.navigation.type == 2) {
+            alert("back button is clicked");
+        }
+        if (event.currentTarget.performance.navigation.type == 1) {
+            alert("refresh button is clicked");
+        }           
+    }
+}
     </script>     
 </body>
 </html>

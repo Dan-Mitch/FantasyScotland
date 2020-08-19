@@ -73,6 +73,12 @@ public class Fixtures {
 	}
 
 	public LocalDateTime endDateOfRound(int round) {
+		if(round == 28) {
+			return LocalDateTime.of(2020, 2, 23, 15, 0);
+		}
+		if(round == 27) {
+			return LocalDateTime.of(2020, 2, 16, 16, 30);
+		}
 		ArrayList<LocalDateTime> dates = new ArrayList<LocalDateTime>();
 		for (GetHistoricMatchesResultDto fixture : this.getAllFixtures()) {
 			if (fixture.getRound() != round) {
@@ -85,6 +91,21 @@ public class Fixtures {
 		}
 		return Collections.max(dates);
 
+	}
+	
+	public LocalDateTime getNextStartDate(LocalDateTime date) {
+		int round = whatsCurrentRound(date);
+		int nextRound = round + 1;
+		
+		LocalDateTime roundDate = startDateOfRound(round);
+		LocalDateTime nextRoundDate = startDateOfRound(nextRound);
+		
+		if(date.isBefore(nextRoundDate) && date.isAfter(roundDate)) {
+			return nextRoundDate;
+		}
+		else {
+			return roundDate;
+		}
 	}
 
 	public List<GetHistoricMatchesResultDto> getAllFixtures() {
