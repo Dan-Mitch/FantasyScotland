@@ -108,6 +108,7 @@ body {
 
 /* Style the button and place it in the middle of the container/image */
 .football .btn {
+  position:fixed;
   background-color: white;
   color: black;
   font-size: 16px;
@@ -130,7 +131,7 @@ body {
 }
 .one{
   position: absolute;
-  top: 38.5%;
+  top: 32.5%;
   left:10%;
   line-height:2;
   max-width:110px;
@@ -146,7 +147,7 @@ body {
 }
 .three{
   position: absolute;
-  top: 10%;
+  top: 5%;
   left:30%;
   line-height:2;
   max-width:110px;
@@ -154,7 +155,7 @@ body {
 }
 .four{
   position: absolute;
-  top: 50%;
+  top: 45%;
   left:30%;
   line-height:2;
   max-width:110px;
@@ -170,7 +171,7 @@ body {
 }
 .six{
   position: absolute;
-  top: 50%;
+  top: 45%;
   left:50%;
   line-height:2;
   max-width:110px;
@@ -178,7 +179,7 @@ body {
 }
 .seven{
   position: absolute;
-  top: 50%;
+  top: 45%;
   right:20%;
   line-height:2;
   max-width:110px;
@@ -194,7 +195,7 @@ body {
 }
 .nine{
   position: absolute;
-  top: 30%;
+  top: 25%;
   right:20%;
   line-height:2;
   max-width:110px;
@@ -210,7 +211,7 @@ body {
 }
 .eleven{
   position: absolute;
-  top: 10%;
+  top: 5%;
   left:50%;
   line-height:2;
   max-width:110px;
@@ -218,7 +219,7 @@ body {
 }
 .twelve{
   position: absolute;
-  top: 92%;
+  top: 57.5%;
   left:10%;
   line-height:2;
   max-width:110px;
@@ -226,7 +227,7 @@ body {
 }
 .thirteen{
   position: absolute;
-  top: 92%;
+  top: 85%;
   left:30%;
   line-height:2;
   max-width:110px;
@@ -234,7 +235,7 @@ body {
 }
 .fourteen{
   position: absolute;
-  top: 92%;
+  top: 85%;
   left:50%;
   line-height:2;
   max-width:110px;
@@ -242,7 +243,7 @@ body {
 }
 .fifteen{
   position: absolute;
-  top: 92%;
+  top: 65%;
   right:20%;
   line-height:2;
   max-width:110px;
@@ -927,7 +928,10 @@ height:90px;
           var button = document.getElementById("button"+i);
           button.style.background = buttonPainter(user.team.squad[i].club_id);
           if(user.team.captain === user.team.squad[i].player_id){
-            button.style.border = "thick solid #FFFF00"
+            button.style.border = "medium solid #FFFF00"
+          }
+          else{
+            button.style.border = "thin solid black"
           }
           var names = (user.team.squad[i].name).split(' ');
           document.getElementById("button"+i+"Text").firstChild.nodeValue = names[names.length-1];

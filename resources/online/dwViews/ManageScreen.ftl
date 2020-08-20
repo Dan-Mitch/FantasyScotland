@@ -871,10 +871,10 @@ height:90px;
           var button = document.getElementById("button"+i);
           button.style.background = buttonPainter(user.team.squad[i].club_id);
           if(user.team.captain === user.team.squad[i].player_id){
-            button.style.border = "thick solid #FFFF00"
+            button.style.border = "medium solid #FFFF00"
           }
           else{
-            button.style.border = "medium solid black"
+            button.style.border = "thin solid black"
           }
           var names = (user.team.squad[i].name).split(' ');
           document.getElementById("button"+i+"Text").firstChild.nodeValue = names[names.length-1];
