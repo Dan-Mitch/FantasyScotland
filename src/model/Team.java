@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Random;
 import java.util.UUID;
 
@@ -39,6 +40,24 @@ public class Team {
 		else {
 			return "Successfully added player.";
 		}
+	}
+	
+	public String swapPlayers(Player player_in, int position_out) {
+		Player player_out = squad.get(position_out);
+		int position_in = 0;
+		for (Entry<Integer, Player> entry : this.squad.entrySet()) {
+	        if (entry.getValue().equals(player_in)) {
+	            position_in = entry.getKey();
+	        }
+	    }
+		this.squad.replace(position_out, player_out, player_in);
+		this.squad.replace(position_in, player_in, player_out);
+		System.err.println("player_in:" + player_in);
+		System.err.println("player_out:" + player_out);
+		System.err.println("pos_in:" + position_in);
+		System.err.println("pos_out:" + position_out);
+		return "Successfully swapped players.";
+		
 	}
 	
 	public String removePlayer(int position) {
@@ -124,6 +143,10 @@ public class Team {
 	
 	public void setCaptain(UUID captain_id) {
 		this.captain_id = captain_id;
+	}
+	
+	public void setCaptain(int position) {
+		this.captain_id = this.squad.get(position).getPlayer_id();
 	}
 
 	public void setRandomCaptain() {

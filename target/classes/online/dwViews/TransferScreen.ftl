@@ -130,78 +130,123 @@ body {
 }
 .one{
   position: absolute;
-  top: 32.5%;
+  top: 38.5%;
   left:10%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .two{
   position: absolute;
   top: 65%;
   left:30%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .three{
   position: absolute;
-  top: 5%;
+  top: 10%;
   left:30%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .four{
   position: absolute;
-  top: 45%;
+  top: 50%;
   left:30%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .five{
   position: absolute;
   top: 25%;
   left:30%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .six{
   position: absolute;
-  top: 45%;
+  top: 50%;
   left:50%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .seven{
   position: absolute;
-  top: 45%;
+  top: 50%;
   right:20%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .eight{
   position: absolute;
   top: 65%;
   left:50%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .nine{
   position: absolute;
-  top: 25%;
+  top: 30%;
   right:20%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .ten{
   position: absolute;
   top: 25%;
   left:50%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .eleven{
   position: absolute;
-  top: 5%;
+  top: 10%;
   left:50%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .twelve{
   position: absolute;
-  top: 57.5%;
+  top: 92%;
   left:10%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .thirteen{
   position: absolute;
-  top: 85%;
+  top: 92%;
   left:30%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .fourteen{
   position: absolute;
-  top: 85%;
+  top: 92%;
   left:50%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .fifteen{
   position: absolute;
-  top: 65%;
+  top: 92%;
   right:20%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .modal{
   position:absolute;
@@ -881,6 +926,9 @@ height:90px;
         for(var i in user.team.squad){
           var button = document.getElementById("button"+i);
           button.style.background = buttonPainter(user.team.squad[i].club_id);
+          if(user.team.captain === user.team.squad[i].player_id){
+            button.style.border = "thick solid #FFFF00"
+          }
           var names = (user.team.squad[i].name).split(' ');
           document.getElementById("button"+i+"Text").firstChild.nodeValue = names[names.length-1];
           document.getElementById("button"+i+"Badge").innerHTML = user.team.squad[i].price;

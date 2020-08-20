@@ -254,6 +254,30 @@ public class FantasyScotlandRESTAPI {
 		this.model.updateTeam((UUID)session.getAttribute("id"));
 	}
 	
+	@GET
+	@Path("/manageTeam")
+	/**
+	 * Here is an example of how to read parameters provided in an HTML Get request.
+	 * @param Word - A word
+	 * @return - A String
+	 * @throws IOException
+	 */
+	public void manageTeam(@Session HttpSession session) throws IOException {
+		this.model.manageTeam((UUID)session.getAttribute("id"));
+	}
+	
+	@GET
+	@Path("/setCaptain")
+	/**
+	 * Here is an example of how to read parameters provided in an HTML Get request.
+	 * @param Word - A word
+	 * @return - A String
+	 * @throws IOException
+	 */
+	public void setCaptain(@QueryParam("Pos") int position, @Session HttpSession session) throws IOException {
+		this.model.setCaptain((UUID)session.getAttribute("id"), position);
+	}
+	
 	
 	@GET
 	@Path("/addPlayer")
@@ -265,6 +289,20 @@ public class FantasyScotlandRESTAPI {
 	 */
 	public String addPlayer(@QueryParam("Id") UUID id, @QueryParam("Pos") int position, @Session HttpSession session) throws IOException {
 		String response = this.model.addPlayerToTeam(id,position, (UUID)session.getAttribute("id"));
+		String responsetAsJSONString = oWriter.writeValueAsString(response);
+		return responsetAsJSONString;
+	}
+	
+	@GET
+	@Path("/swapPlayers")
+	/**
+	 * Here is an example of how to read parameters provided in an HTML Get request.
+	 * @param Word - A word
+	 * @return - A String
+	 * @throws IOException
+	 */
+	public String swapPlayers(@QueryParam("Id") UUID id, @QueryParam("Pos") int position, @Session HttpSession session) throws IOException {
+		String response = this.model.swapPlayersInTeam(id,position, (UUID)session.getAttribute("id"));
 		String responsetAsJSONString = oWriter.writeValueAsString(response);
 		return responsetAsJSONString;
 	}

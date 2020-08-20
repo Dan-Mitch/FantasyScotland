@@ -668,8 +668,24 @@ public class DatabaseLinker {
 		}
 	}
 	
-	public void updateTeamDetails(UUID team_id, double transferBudget) {
-		String query = "UPDATE team_details SET budget = '"  + transferBudget + "' WHERE team_id ='" + team_id + "'";
+	public void updateTeamPositions(UUID team_id, UUID player_id, int round, int position) {
+		String query = "UPDATE team_membership SET position = '"  + position + "' WHERE team_id ='" + team_id + "' AND round ='" + round + "' AND player_id='" + player_id + "'";
+		PreparedStatement statement;
+		openConnection();
+		try {
+			statement = connection.prepareStatement(query);
+			statement.executeUpdate();
+			System.out.println("Update to database successful...");
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+	}
+	
+	public void updateTeamDetails(UUID team_id, double transferBudget, UUID captain_id) {
+		String query = "UPDATE team_details SET budget = '"  + transferBudget + "', captain_id ='" + captain_id + "' WHERE team_id ='" + team_id + "'";
 		PreparedStatement statement;
 		openConnection();
 		try {

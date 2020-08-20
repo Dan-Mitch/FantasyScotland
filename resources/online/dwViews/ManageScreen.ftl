@@ -108,6 +108,7 @@ body {
 
 /* Style the button and place it in the middle of the container/image */
 .football .btn {
+  position:fixed;
   background-color: white;
   color: black;
   font-size: 16px;
@@ -139,76 +140,121 @@ body {
   position: absolute;
   top: 38.5%;
   left:10%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .two{
   position: absolute;
   top: 65%;
   left:30%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .three{
   position: absolute;
   top: 10%;
   left:30%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .four{
   position: absolute;
   top: 50%;
   left:30%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .five{
   position: absolute;
   top: 25%;
   left:30%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .six{
   position: absolute;
   top: 50%;
   left:50%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .seven{
   position: absolute;
-  top: 45%;
+  top: 50%;
   right:20%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .eight{
   position: absolute;
   top: 65%;
   left:50%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .nine{
   position: absolute;
   top: 30%;
   right:20%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .ten{
   position: absolute;
   top: 25%;
   left:50%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .eleven{
   position: absolute;
   top: 10%;
   left:50%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .twelve{
   position: absolute;
-  top: 90%;
+  top: 92%;
   left:10%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .thirteen{
   position: absolute;
-  top: 90%;
+  top: 92%;
   left:30%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .fourteen{
   position: absolute;
-  top: 90%;
+  top: 92%;
   left:50%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .fifteen{
   position: absolute;
-  top: 90%;
+  top: 92%;
   right:20%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .modal{
   position:absolute;
@@ -316,7 +362,7 @@ height:90px;
       </div>
       <div class="col-md-12 text-center">
         <div class = "btn-group" >
-        <button type="button" class="btn btn-danger" id="removeTransfer" onclick="removeChanges()" style="display:none">Remove Transfer</button>
+        <button type="button" class="btn btn-danger" id="removeTransfer" onclick="removeChanges()" style="display:none">Remove Changes</button>
         <button type="button" style="float: right;display:none" data-target="#confirmModal" data-toggle="modal" class="btn btn-success" id="continue">Continue</button>
         </div>
       </div>
@@ -329,79 +375,79 @@ height:90px;
           </div>
 
           <div class="one">
-            <a data-target="#selectModal" role="button" class="btn" data-toggle="modal" id="button1" onclick="setPosition(1); document.getElementById('table').appendChild(loadTable(players[0]));">1</a>
+            <a data-target="#menuModal" role="button" class="btn" data-toggle="modal" id="button1" onclick="setPosition(1); document.getElementById('table').appendChild(loadTable(players[1]));">1</a>
             </br>
-            <h7 id="button1Text">LName<span class="badge badge-dark" id="button1Badge">0</span></h7>
+            <p id="button1Text">LName<span class="badge badge-dark" id="button1Badge">0</span></p>
           </div>
           <div class="two">
-            <a data-target="#selectModal" role="button" class="btn" data-toggle="modal" id="button2" onclick="setPosition(2); document.getElementById('table').appendChild(loadTable(players[1]));">2</a>
+            <a data-target="#menuModal" role="button" class="btn" data-toggle="modal" id="button2" onclick="setPosition(2); document.getElementById('table').appendChild(loadTable(players[3]));">2</a>
             </br>
-            <h7 id="button2Text">LName<span class="badge badge-dark" id="button2Badge">0</span></h7>
+            <p id="button2Text">LName<span class="badge badge-dark" id="button2Badge">0</span></p>
           </div>
           <div class="three">
-            <a data-target="#selectModal" role="button" class="btn" data-toggle="modal" id="button3" onclick="setPosition(3); document.getElementById('table').appendChild(loadTable(players[1]));">3</a>
+            <a data-target="#menuModal" role="button" class="btn" data-toggle="modal" id="button3" onclick="setPosition(3); document.getElementById('table').appendChild(loadTable(players[3]));">3</a>
             </br>
-            <h7 id="button3Text">LName<span class="badge badge-dark" id="button3Badge">0</span></h7>
+            <p id="button3Text">LName<span class="badge badge-dark" id="button3Badge">0</span></p>
           </div>
           <div class="four">
-            <a data-target="#selectModal" role="button" class="btn" data-toggle="modal" id="button4" onclick="setPosition(4); document.getElementById('table').appendChild(loadTable(players[1]));">4</a>
+            <a data-target="#menuModal" role="button" class="btn" data-toggle="modal" id="button4" onclick="setPosition(4); document.getElementById('table').appendChild(loadTable(players[3]));">4</a>
             </br>
-            <h7 id="button4Text">LName<span class="badge badge-dark" id="button4Badge">0</span></h7>
+            <p id="button4Text">LName<span class="badge badge-dark" id="button4Badge">0</span></p>
           </div>
           <div class="five">
-            <a data-target="#selectModal" role="button" class="btn" data-toggle="modal" id="button5" onclick="setPosition(5); document.getElementById('table').appendChild(loadTable(players[1]));">5</a>
+            <a data-target="#menuModal" role="button" class="btn" data-toggle="modal" id="button5" onclick="setPosition(5); document.getElementById('table').appendChild(loadTable(players[3]));">5</a>
             </br>
-            <h7 id="button5Text">LName<span class="badge badge-dark" id="button5Badge">0</span></h7>
+            <p id="button5Text">LName<span class="badge badge-dark" id="button5Badge">0</span></p>
           </div>
           <div class="six">
-            <a data-target="#selectModal" role="button" class="btn" data-toggle="modal" id="button6" onclick="setPosition(6); document.getElementById('table').appendChild(loadTable(players[2]));">6</a>
+            <a data-target="#menuModal" role="button" class="btn" data-toggle="modal" id="button6" onclick="setPosition(6); document.getElementById('table').appendChild(loadTable(players[5]));">6</a>
             </br>
-            <h7 id="button6Text">LName<span class="badge badge-dark" id="button6Badge">0</span></h7>
+            <p id="button6Text">LName<span class="badge badge-dark" id="button6Badge">0</span></p>
           </div>
           <div class="seven">
-            <a data-target="#selectModal" role="button" class="btn" data-toggle="modal" id="button7" onclick="setPosition(7); document.getElementById('table').appendChild(loadTable(players[3]));">7</a>
+            <a data-target="#menuModal" role="button" class="btn" data-toggle="modal" id="button7" onclick="setPosition(7); document.getElementById('table').appendChild(loadTable(players[7]));">7</a>
             </br>
-            <h7 id="button7Text">LName<span class="badge badge-dark" id="button7Badge">0</span></h7>
+            <p id="button7Text">LName<span class="badge badge-dark" id="button7Badge">0</span></p>
           </div>
           <div class="eight">
-            <a data-target="#selectModal" role="button" class="btn" data-toggle="modal" id="button8" onclick="setPosition(8); document.getElementById('table').appendChild(loadTable(players[2]));">8</a>
+            <a data-target="#menuModal" role="button" class="btn" data-toggle="modal" id="button8" onclick="setPosition(8); document.getElementById('table').appendChild(loadTable(players[5]));">8</a>
             </br>
-            <h7 id="button8Text">LName<span class="badge badge-dark" id="button8Badge">0</span></h7>
+            <p id="button8Text">LName<span class="badge badge-dark" id="button8Badge">0</span></p>
           </div>
           <div class="nine">
-            <a data-target="#selectModal" role="button" class="btn" data-toggle="modal" id="button9" onclick="setPosition(9); document.getElementById('table').appendChild(loadTable(players[3]));">9</a>
+            <a data-target="#menuModal" role="button" class="btn" data-toggle="modal" id="button9" onclick="setPosition(9); document.getElementById('table').appendChild(loadTable(players[7]));">9</a>
             </br>
-            <h7 id="button9Text">LName<span class="badge badge-dark" id="button9Badge">0</span></h7>
+            <p id="button9Text">LName<span class="badge badge-dark" id="button9Badge">0</span></p>
           </div>
           <div class="ten">
-            <a data-target="#selectModal" role="button" class="btn" data-toggle="modal" id="button10" onclick="setPosition(10); document.getElementById('table').appendChild(loadTable(players[2]));">10</a>
+            <a data-target="#menuModal" role="button" class="btn" data-toggle="modal" id="button10" onclick="setPosition(10); document.getElementById('table').appendChild(loadTable(players[5]));">10</a>
             </br>
-            <h7 id="button10Text">LName<span class="badge badge-dark" id="button10Badge">0</span></h7>
+            <p id="button10Text">LName<span class="badge badge-dark" id="button10Badge">0</span></p>
           </div>
           <div class="eleven">
-            <a data-target="#selectModal" role="button" class="btn" data-toggle="modal" id="button11" onclick="setPosition(11); document.getElementById('table').appendChild(loadTable(players[2]));">11</a>
+            <a data-target="#menuModal" role="button" class="btn" data-toggle="modal" id="button11" onclick="setPosition(11); document.getElementById('table').appendChild(loadTable(players[5]));">11</a>
             </br>
-            <h7 id="button11Text">LName<span class="badge badge-dark" id="button11Badge">0</span></h7>
+            <p id="button11Text">LName<span class="badge badge-dark" id="button11Badge">0</span></p>
           </div>
           <div class="twelve">
-            <a data-target="#selectModal" role="button" class="btn" data-toggle="modal" id="button12" onclick="setPosition(12); document.getElementById('table').appendChild(loadTable(players[0]));">12</a>
+            <a data-target="#menuModal" role="button" class="btn" data-toggle="modal" id="button12" onclick="setPosition(12); document.getElementById('table').appendChild(loadTable(players[0]));">12</a>
             </br>
-            <h7 id="button12Text">LName<span class="badge badge-dark" id="button12Badge">0</span></h7>
+            <p id="button12Text">LName<span class="badge badge-dark" id="button12Badge">0</span></p>
           </div>
           <div class="thirteen">
-            <a data-target="#selectModal" role="button" class="btn" data-toggle="modal" id="button13" onclick="setPosition(13); document.getElementById('table').appendChild(loadTable(players[1]));">13</a>
+            <a data-target="#menuModal" role="button" class="btn" data-toggle="modal" id="button13" onclick="setPosition(13); document.getElementById('table').appendChild(loadTable(players[2]));">13</a>
             </br>
-            <h7 id="button13Text">LName<span class="badge badge-dark" id="button13Badge">0</span></h7>
+            <p id="button13Text">LName<span class="badge badge-dark" id="button13Badge">0</span></p>
           </div>
           <div class="fourteen">
-            <a data-target="#selectModal" role="button" class="btn" data-toggle="modal" id="button14" onclick="setPosition(14); document.getElementById('table').appendChild(loadTable(players[2]));">14</a>
+            <a data-target="#menuModal" role="button" class="btn" data-toggle="modal" id="button14" onclick="setPosition(14); document.getElementById('table').appendChild(loadTable(players[4]));">14</a>
             </br>
-            <h7 id="button14Text">LName<span class="badge badge-dark" id="button14Badge">0</span></h7>
+            <p id="button14Text">LName<span class="badge badge-dark" id="button14Badge">0</span></p>
           </div>
           <div class="fifteen">
-            <a data-target="#selectModal" role="button" class="btn" data-toggle="modal" id="button15" onclick="setPosition(15); document.getElementById('table').appendChild(loadTable(players[3]));">15</a>
+            <a data-target="#menuModal" role="button" class="btn" data-toggle="modal" id="button15" onclick="setPosition(15); document.getElementById('table').appendChild(loadTable(players[6]));">15</a>
             </br>
-            <h7 id="button15Text">LName<span class="badge badge-dark" id="button15Badge">0</span></h7>
+            <p id="button15Text">LName<span class="badge badge-dark" id="button15Badge">0</span></p>
           </div>
       </div>
         
@@ -415,7 +461,7 @@ height:90px;
     </div>
   </div>
 
-  <div class="modal hide" id="selectModal" tabindex="-1" role="dialog" aria-labelledby="selectModalLabel" aria-hidden="true">
+  <div class="modal hide" id="selectModal" tabindex="2" role="dialog" aria-labelledby="selectModalLabel" aria-hidden="true">
 
       <div class="modal-header">
         <h3 id="selectModalLabel">Select Player</h3>
@@ -450,21 +496,38 @@ height:90px;
     </div>
   </div>
 
-
-  <div class="modal hide" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal hide" id="menuModal" tabindex="1" role="dialog" aria-labelledby="menuModalLabel" aria-hidden="true">
 
       <div class="modal-header">
-        <h3 id="confirmModalLabel">Confirm Transfer.</h3>
+        <h3 id="menuModalLabel">Please select an option.</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
           </button>
       </div>
 
-      <form onsubmit="updateTeam();return false" class="form-inline">
+      <div class="modal-body">
+        <button type="button" class="btn btn-primary mb-2" onclick="setCaptain(position)" data-dismiss="modal">Make Captain</button>
+        <button type="button" style="float: right;" data-target="#selectModal" data-toggle="modal" class="btn btn-success" id="subButton">Sub Player</button>
+      </div>
+
+      
+  </div>
+
+
+  <div class="modal hide" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+
+      <div class="modal-header">
+        <h3 id="confirmModalLabel">Confirm Changes.</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+
+      <form onsubmit="manageTeam();return false" class="form-inline">
         <div class="form-group mb-2">
           <div class="form-group mx-sm-3 mb-2">
-            <p>Are you sure you want to make this transfer?</p>
-          <button type="submit" class="btn btn-primary mb-2">Make Transfer</button>
+            <p>Are you sure you want to make these changes?</p>
+          <button type="submit" class="btn btn-primary mb-2">Make Changes</button>
       </form>
     </div>
   </div>
@@ -518,16 +581,20 @@ height:90px;
     <script type="text/javascript">
       var players = [
           goalkeepers = [],
+          goalkeepersSub = [],
           defenders = [],
+          defendersSub = [],
           midfielders = [],
+          midfieldersSub = [],
           forwards = [],
+          forwardsSub = [],
       ];
       var user;
       var clubs = [];
       var position;
       var clubLimit = false;
       var dupPlayer = false;
-      var changes = 1;
+      var changes = 0;
 
       function isUserSignedIn(){
          // First create a CORS request, this is the message we are going to send (a get request in this case)
@@ -572,7 +639,7 @@ height:90px;
             window.location.href = '/fantasyscotland/home';
           }
           else{
-            isTransferOn().call;
+             buildClubs().call;
           }
           
         }
@@ -581,86 +648,32 @@ height:90px;
         xhr.send();  
       }
 
-      function isTransferOn(){
-         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/isTransferOn"); // Request type and URL
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          if(xhr.response == "false"){
-            alert("You have no remaining transfers. Redirecting...")
-            window.location.href = '/fantasyscotland/home';
-          }
-          else{
-            buildClubs().call;
-          }
-          
-        }
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();  
-      }
-
-      function swapPlayer(player_id, position){
-        changes--;
-        removePlayer(player_id, position);
-      }
-
-      function addPlayer(player_id, position) {
+      function swapPlayers(player_id, position){
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/addPlayer?Id="+player_id+"&Pos="+position); // Request type and URL+parameters
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/swapPlayers?Id="+player_id+"&Pos="+position); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
             alert("CORS not supported");
         }
+
         // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
         // to do when the response arrives 
         xhr.onload = function(e) {
           var responseText = xhr.response.replace(/['"]+/g, '');
-          if(responseText.localeCompare("Successfully added player.") === 0){
-            document.getElementById("successText").innerHTML = "Successfully swaped player.";
-            document.getElementById("successText").style.display = "block";
-            document.getElementById("errorText").style.display = "none";
-          } else {
-            document.getElementById("errorText").innerHTML = responseText;
-            document.getElementById("errorText").style.display = "block";
-            document.getElementById("successText").style.display = "none";
-          }
-          var button = document.getElementById("button"+position);
-          clubLimitReached().call;
-        };
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();   
-      }
-      function removePlayer(player_id, position) {
-        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/removePlayer?Pos="+position); // Request type and URL+parameters
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
+          changes++;
+          document.getElementById("successText").innerHTML = responseText;
+          document.getElementById("successText").style.display = "block";
+          buildUser().call;
         }
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          addPlayer(player_id, position).call;
-        };
         
         // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();   
+        xhr.send();  
       }
 
-       function updateTeam() {
+       function manageTeam() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/updateTeam"); // Request type and URL+parameters
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/manageTeam"); // Request type and URL+parameters
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -708,46 +721,53 @@ height:90px;
           return list;
       }
       
-      function buildPlayers() {
-        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildPlayers"); // Request type and URL
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          var response = JSON.parse(xhr.response); // the text of the response
-          players = [
-              goalkeepers = [],
-              defenders = [],
+      function buildSquad() {
+           players = [
+            goalkeepers = [],
+            goalkeepersSub = [],
+            defenders = [],
+            defendersSub = [],
             midfielders = [],
+            midfieldersSub = [],
             forwards = [],
+            forwardsSub = [],
             ];
-          for(var i = 0; i < response.length; i++){
-            if(response[i].selectable === false){
-              continue;
+          var length = Object.keys(user.team.squad).length;
+          for(var i = 1; i <= length; i++){
+            if(i == 1){
+              var obj = user.team.squad[i]
+              players[0].push(obj);
             }
-            else if(response[i].position === "Goalkeeper"){
-              players[0].push(response[i]);
+            else if(i == 12){
+              var obj = user.team.squad[i]
+              players[1].push(obj);
             }
-            else if(response[i].position === "Defender"){
-              players[1].push(response[i]);
+            else if(i == 2 || i == 3 || i == 4 || i ==5){
+              var obj = user.team.squad[i]
+              players[2].push(obj);
             }
-            else if(response[i].position === "Midfielder"){
-              players[2].push(response[i]);
+            else if(i == 13){
+              var obj = user.team.squad[i]
+              players[3].push(obj);
             }
-            else if(response[i].position === "Forward"){
-              players[3].push(response[i]);
+            else if(i == 11 || i == 10 || i == 6 || i ==8){
+              var obj = user.team.squad[i]
+              players[4].push(obj);
+            }
+            else if(i == 14){
+              var obj = user.team.squad[i]
+              players[5].push(obj);
+            }
+            else if(i == 9 || i == 7){
+              var obj = user.team.squad[i]
+              players[6].push(obj);
+            }
+            else if(i == 15){
+              var obj = user.team.squad[i]
+              players[7].push(obj);
             }
           }
-          loadTeam().call;
-        }
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();   
+          repaint().call;
       }
 
       function loadTeam() {
@@ -769,6 +789,25 @@ height:90px;
         xhr.send();   
       }
 
+      function setCaptain(position){
+       // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/setCaptain?Pos="+position); // Request type and URL+parameters
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+          changes++;
+          buildUser().call;
+        };
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();    
+      }
+
       function buildUser() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
         var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildUser"); // Request type and URL
@@ -783,7 +822,7 @@ height:90px;
           user = JSON.parse(xhr.response);
           var fields = user.email.split('@');
           document.getElementById("welcomeHeader").innerHTML = "Welcome " + fields[0] + "!";
-          repaint().call;
+          buildSquad().call;
         }
         
         // We have done everything we need to prepare the CORS request, so send it
@@ -805,82 +844,23 @@ height:90px;
           for(var i = 0; i < response.length; i++){
             clubs.push(response[i]);
           }
-          buildPlayers().call;
+          loadTeam().call;
         }
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();   
-      }
-      function doesDuplicateExist() {
-        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/duplicateExists"); // Request type and URL+parameters
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          if(xhr.response == "false"){
-            dupPlayer = false;
-          }else{
-            dupPlayer = true;
-          } 
-          buildUser().call;
-        };
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();   
-      }
-
-       function clubLimitReached() {
-        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/clubLimitReached"); // Request type and URL+parameters
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          if(xhr.response == "false"){
-          clubLimit = false;
-          }else{
-            clubLimit = true;
-          } 
-          doesDuplicateExist().call;
-        };
         
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
 
       function repaint(){
-        document.getElementById("budgetBadge").innerHTML = user.team.transferBudget;
-        document.getElementById("transferBadge").innerHTML = changes;
-        var length = Object.keys(user.team.squad).length;
-        if(changes == "0"){
+        if(changes >= "1"){
+          document.getElementById("continue").style.display = "block";
           document.getElementById("removeTransfer").style.display = "block";
-          for(var x = 1;x<=15;x++){
-            var button = document.getElementById("button"+x);
-            button.disabled = true;
-          } 
         }
         else{
           document.getElementById("removeTransfer").style.display = "none";
-           for(var x = 1;x<=15;x++){
-          var button = document.getElementById("button"+x);
-          button.disabled = false;
-          } 
-        }
-        if(length == "15" && user.team.transferBudget >= "0" && dupPlayer === false && clubLimit === false && changes == "0"){
-          document.getElementById("continue").style.display = "block";
-        }
-        else{
           document.getElementById("continue").style.display = "none";
-        }
+        } 
+
         for(var x = 1;x<=15;x++){
           var button = document.getElementById("button"+x);
           button.style.background = "rgb(255,255,255)";
@@ -890,6 +870,12 @@ height:90px;
         for(var i in user.team.squad){
           var button = document.getElementById("button"+i);
           button.style.background = buttonPainter(user.team.squad[i].club_id);
+          if(user.team.captain === user.team.squad[i].player_id){
+            button.style.border = "thick solid #FFFF00"
+          }
+          else{
+            button.style.border = "medium solid black"
+          }
           var names = (user.team.squad[i].name).split(' ');
           document.getElementById("button"+i+"Text").firstChild.nodeValue = names[names.length-1];
           document.getElementById("button"+i+"Badge").innerHTML = user.team.squad[i].price;
@@ -897,7 +883,7 @@ height:90px;
       }
 
       function removeChanges(){
-        changes = 1;
+        changes = 0;
         document.getElementById("errorText").style.display = "none";
         document.getElementById("successText").style.display = "none";
         loadTeam().call;
@@ -1012,13 +998,33 @@ height:90px;
 
       jQuery(document).ready(function($) {
           $('#table').on('click', '.clickable-row', function() {
-              swapPlayer($(this).attr('value'), position);
+              swapPlayers($(this).attr('value'), position);
               var $item = $(this).closest("tr") 
                        .find(".price")     // Gets a descendent with class="price"
                        .text();         // Retrieves the text within <td>
               $("#selectModal").modal('hide');
+               $("#menuModal").modal('hide');
           });
       });
+
+      $(document).ready(function () {
+
+    $('#openBtn').click(function () {
+        $('#myModal').modal({
+            show: true
+        })
+    });
+
+        $(document).on('show.bs.modal', '.modal', function (event) {
+            var zIndex = 1040 + (10 * $('.modal:visible').length);
+            $(this).css('z-index', zIndex);
+            setTimeout(function() {
+                $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+            }, 0);
+        });
+
+
+});
     </script>     
 </body>
 </html>

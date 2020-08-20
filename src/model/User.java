@@ -18,6 +18,10 @@ public class User {
 			return this.team.addPlayer(p, position);
 	}
 	
+	public String swapPlayersInTeam(Player p, int position) {
+		return this.team.swapPlayers(p, position);
+	}
+
 	public String removePlayerFromTeam(int position) {
 		return this.team.removePlayer(position);
 	}

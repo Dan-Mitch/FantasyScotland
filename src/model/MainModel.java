@@ -536,10 +536,21 @@ public class MainModel {
 				0);
 	}
 	
+	public void manageTeam(UUID id) {
+		User user = this.getUser(id);
+		Team team = user.getTeam();
+		this.database.updateTeamDetails(team.getTeam_id(), team.getTransferBudget(), team.getCaptain());
+		
+		for (Entry<Integer, Player> entry : team.getSquad().entrySet()) {
+			this.database.updateTeamPositions(team.getTeam_id(), entry.getValue().getPlayer_id(),
+					MainModel.getFixtures().whatsCurrentRound(getTodayDate())-1, entry.getKey());
+		}
+	}
+	
 	public void updateTeam(UUID id) {
 		User user = this.getUser(id);
 		Team team = user.getTeam();
-		this.database.updateTeamDetails(team.getTeam_id(), team.getTransferBudget());
+		this.database.updateTeamDetails(team.getTeam_id(), team.getTransferBudget(), team.getCaptain());
 		
 		for (Entry<Integer, Player> entry : team.getSquad().entrySet()) {
 			this.database.updateTeamMembership(team.getTeam_id(), entry.getValue().getPlayer_id(),
@@ -568,6 +579,11 @@ public class MainModel {
 		Player player = this.players.getPlayer(id);
 		return this.getUser(user_id).addPlayerToTeam(player, position);
 	}
+	
+	public String swapPlayersInTeam(UUID id, int position, UUID user_id) {
+		Player player = this.players.getPlayer(id);
+		return this.getUser(user_id).swapPlayersInTeam(player, position);
+	}
 
 	public String removePlayerFromTeam(int position, UUID user_id) {
 		return this.getUser(user_id).removePlayerFromTeam(position);
@@ -577,6 +593,10 @@ public class MainModel {
 		Team team = this.database.loadTeam(user_id, MainModel.fixtures.whatsCurrentRound(getTodayDate())-1);
 		User user = this.getUser(user_id);
 		user.setTeam(team);
+	}
+	
+	public void setCaptain(UUID user_id, int position) {
+		this.getUser(user_id).getTeam().setCaptain(position);
 	}
 
 	public ArrayList<GetHistoricMatchesResultDto> getNextFixtures() {
