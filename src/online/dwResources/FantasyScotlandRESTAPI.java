@@ -515,6 +515,21 @@ public class FantasyScotlandRESTAPI {
 	}
 	
 	@GET
+	@Path("/getPublicRankings")
+	/**
+	 * Here is an example of a simple REST get request that returns a String.
+	 * We also illustrate here how we can convert Java objects to JSON strings.
+	 * @return - List of words as JSON
+	 * @throws IOException
+	 */
+	public String getPublicRankings() throws IOException {
+		ArrayList<Ranking> rankings = this.model.getPublicRankings();
+		String rankingsAsJSONString = oWriter.writeValueAsString(rankings);
+		return rankingsAsJSONString;
+	}
+	
+	
+	@GET
 	@Path("/getNameFrom")
 	/**
 	 * Here is an example of a simple REST get request that returns a String.

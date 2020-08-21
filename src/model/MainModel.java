@@ -574,6 +574,10 @@ public class MainModel {
 	public int getTeamTotal(UUID team_id) {
 		return this.database.getTeamTotal(team_id);
 	}
+	
+	public ArrayList<Ranking> getPublicRankings(){
+		return this.database.getPublicRankings();
+	}
 
 	public String addPlayerToTeam(UUID id, int position, UUID user_id) {
 		Player player = this.players.getPlayer(id);

@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import model.Club;
 import model.League;
 import model.Player;
+import model.Ranking;
 import model.Team;
 import model.User;
 
@@ -503,6 +504,8 @@ public class DatabaseLinker {
 		return clubs;
 	}
 	
+	
+	
 	public Team loadTeam(UUID user_id, int round) {
 		String query = "SELECT * FROM teams as t WHERE t.owner_id ='" + user_id + "';";
 		Team team = null;
@@ -765,6 +768,30 @@ public class DatabaseLinker {
 			closeConnection();
 		}
 		return rank;
+	}
+	
+	public ArrayList<Ranking> getPublicRankings() {
+		ArrayList<Ranking> rankings = new ArrayList<Ranking>();
+		String query ="WITH my_ranks AS (SELECT t.name, t.team_id, l.score, row_number() OVER (ORDER BY score DESC) AS rank FROM league_membership as l, team_details as t WHERE l.league_id = '3573e359-7c59-4d43-90c9-52d3ba04a66e' AND t.team_id = l.team_id)SELECT * FROM my_ranks WHERE rank >= 1 AND rank <= 10000000 ORDER BY rank ASC";
+		openConnection();
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(query);
+			while(result.next()) {
+				Ranking ranking = new Ranking();
+				ranking.setRank(result.getInt("rank"));
+				ranking.setScore(result.getInt("score"));
+				ranking.setTeamName(result.getString("name"));
+				ranking.setTeam_id(UUID.fromString(result.getString("team_id")));
+				rankings.add(ranking);
+			}
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+		} finally {
+			closeConnection();
+		}
+		return rankings;
 	}
 	
 	public int getGlobalAverage() {

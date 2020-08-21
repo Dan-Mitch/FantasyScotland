@@ -332,7 +332,7 @@ height:90px;
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <a class="nav-item nav-link text-right" href='/fantasyscotland/manage'>Manage</a>
-            <a class="nav-item nav-link text-right" href='/fantasyscotland/leagues'>Leagues</a>
+            <a class="nav-item nav-link text-right" href='/fantasyscotland/leagues'>Leaderboard</a>
             <a class="nav-item nav-link text-right" href='/fantasyscotland/transfer'>Transfer</a>
             <a class="nav-item nav-link text-right" href='/fantasyscotland/rules'>Rules</a>
           </div>
