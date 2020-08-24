@@ -29,7 +29,7 @@ BlinkMacSystemFont,
 
 font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 ***********************************/
-html{
+html {
     font-size: 16px;
     line-height: 1.7;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial,  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" ;
@@ -58,9 +58,14 @@ body {
 
 .body{
   max-width: 2000px;
-  max-height: 1000px;
+  min-height:200px;
+  max-height: 700px;
+  margin: 0 auto;
   width:100%;
+  height:100%;
+  overflow:scroll;
 }
+
 .form-signin-heading, .form-signin .warning {
   margin-bottom: 16px;
 }
@@ -90,158 +95,8 @@ body {
   left: 0px;
 }
 
-.football {
-  position:relative;
-  width: auto;
-  max-width: 700px;
-  margin-top: 0px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: black;
-
-}
-
-.football .p {
-  width: 100%;
-  height: auto;
-}
-
-/* Style the button and place it in the middle of the container/image */
-.football .btn {
-  background-color: white;
-  color: black;
-  font-size: 16px;
-  font-weight: bold;
-  border: solid;
-  cursor: pointer;
-  border-radius: 50%;
-  border-color: black;
-  margin: 0px 0px;
-  text-align: center;
-}
-
 .btn:hover {
   background-color: black;
-}
-
-.image{
-  width: 100%;
-  text-align: center;
-}
-.one{
-  position: absolute;
-  top: 32.5%;
-  left:10%;
-}
-.two{
-  position: absolute;
-  top: 65%;
-  left:30%;
-}
-.three{
-  position: absolute;
-  top: 5%;
-  left:30%;
-}
-.four{
-  position: absolute;
-  top: 45%;
-  left:30%;
-}
-.five{
-  position: absolute;
-  top: 25%;
-  left:30%;
-}
-.six{
-  position: absolute;
-  top: 45%;
-  left:50%;
-}
-.seven{
-  position: absolute;
-  top: 45%;
-  right:20%;
-}
-.eight{
-  position: absolute;
-  top: 65%;
-  left:50%;
-}
-.nine{
-  position: absolute;
-  top: 25%;
-  right:20%;
-}
-.ten{
-  position: absolute;
-  top: 25%;
-  left:50%;
-}
-.eleven{
-  position: absolute;
-  top: 5%;
-  left:50%;
-}
-.twelve{
-  position: absolute;
-  top: 57.5%;
-  left:10%;
-}
-.thirteen{
-  position: absolute;
-  top: 85%;
-  left:30%;
-}
-.fourteen{
-  position: absolute;
-  top: 85%;
-  left:50%;
-}
-.fifteen{
-  position: absolute;
-  top: 65%;
-  right:20%;
-}
-.modal{
-  position:absolute;
-  top: 24%;
-    left: 31%;
-  background-color: white;
-  width: 500px;
-  height:auto;
-    max-width: 700px;
-    margin-top:100px;
-    margin-left:100px;
-}
-table {
-    width: 100%;
-}
-thead, tbody, tr, td, th { 
-  display: block; 
-}
-tr:after {
-    content: ' ';
-    display: block;
-    visibility: hidden;
-    clear: both;
-}
-thead th {
-    height: 50px;
-    /*text-align: left;*/
-}
-tbody {
-    height: 300px;
-    overflow-y: auto;
-}
-thead {
-  width: 450px;
-    /* fallback */
-}
-tbody td, thead th {
-    width: 33.2%;
-    height: 60px;
-    float: left;
 }
 
 .navbar {
@@ -286,7 +141,7 @@ height:90px;
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <a class="nav-item nav-link text-right" href='/fantasyscotland/manage'>Manage</a>
-            <a class="nav-item nav-link text-right" href='/fantasyscotland/leagues'>Leagues</a>
+            <a class="nav-item nav-link text-right" href='/fantasyscotland/leagues'>Leaderboard</a>
             <a class="nav-item nav-link text-right" href='/fantasyscotland/transfer'>Transfer</a>
             <a class="nav-item nav-link text-right" href='/fantasyscotland/rules'>Rules</a>
           </div>
@@ -298,9 +153,97 @@ height:90px;
       </div>
 
       <div class="body">
-         <h6>General Rules</h6>
-         <h6>Scoring</h6>
-        
+        <h2 title="header"><u>Fantasy Scotland</u></h2>
+        <p title="para">This page will tell you everything you need to know about what this application is and how to use it:   
+        <ol>
+          <li><h4 title="header"><u>What is this?</u></h4>
+            <ul>
+             <li>Fantasy Scotland is a fantasy football application for the Scottish Premiership, designed to be played online.</li>
+            <li>The application uses match data and results from the <span><b>2019/2020</b></span> season to simulate gameplay.</li>
+          </ul>
+          </li>
+          <li><h4 title="header"><u>Why was it made?</u></h4>
+            <ul>
+              <li>The application was designed and implemented by Glasgow University student Daniel Mitchell, as part of their MSc Software Development summer project.</li>
+              <li>The application was developed during the height of the COVID-19 epidemic. It was very clear that the season following the outbreak would be very disrupted and so Fantasy Scotland was developed to offer additional value to every fan's season and allow them to engage with the game from a new perspective.</li>
+              <li>It also aims to support Scottish football in general, by providing a space for football fans and newcomers to congregate and learn more about Scottish Football!</li>
+          </ul>
+          </li>
+          <li><h4 title="header"><u>How to Play</u></h4>
+            <ul>
+              <li>The first step you've probably already done, which is picking a team of <span><b>15 players!</b></span></li>
+              <li>You are then free to leave the game from there, the application will calculate your score automatically each week.</li>
+              <li>If you wish to be more involved, you can choose to manage your team for the upcoming rounds or make a transfer and bring in new players.</li>
+              <li>Once the last game has been played, the application will stop calculating scores and the application will finish.</li>
+          </ul>
+          </li>
+          <li><h4 title="header"><u>Picking your Team</u></h4>
+            <ul>
+              <li>You select a team of 15 Scottish Premiership players from the 2019/20 season, with over 400 players to choose from!.</li>
+              <li>There is a fixed formation of <span><b>4-4-2</b></span>, that's 1 goalkeeper, 4 defenders, 4 midfielders, 2 forwards and a substitute for each position.</li>
+              <li>Each player has a predetermined cost based on their previous performances and real-world value. You must select a squad with a <span><b>&#163 60 million</b></span> transfer budget.</li>
+              <li>You may only choose <span><b>3 players</b></span> from each of the 12 premiership clubs.</li>
+          </ul>
+          </li>
+          <li><h4 title="header"><u>Managing your Team</u></h4>
+             <ul>
+              <li>You can manage your team before a round commences by visiting the <a href='fantasyscotland/manage'>Manage</a> page. <span><b>You can not make changes to your squad while the round is in progress.</b></span> Click on a player icon and select an option.</li>
+              <li>You can make unlimited changes to your team by making substitutions, which will be applied instantly for that upcoming round.</li>
+              <li>You may also select a captain, but features relating to this option will be included in a future update.</li>
+          </ul>
+          </li>
+          <li><h4 title="header"><u>Making Transfers</u></h4>
+            <ul>
+              <li>Each week you may make <span><b>1 transfer</b></span> while there are no rounds currently in progress from the <a href='fantasyscotland/transfer'>Transfer</a> page.</li>
+              <li>Once the round has finished, the transfers will refresh but be careful as they do not stack! <span><b> You will only ever be able to make one transfer per week!</b></span></li>
+              <li>Remember, you can't have 3 players from the same club, duplicate players or exceed the transfer budget!</li>
+              <li>This game encourages and rewards attention, if a player is injured or not playing, it is expected that you will make the necessary changes.</li>
+          </ul>
+          </li>
+          <li><h4 title="header"><u>Scoring</u></h4>
+            <h5 title="header"><u>General</u></h5>
+              <ul>
+              <li>Appearance <span><b>+1</b></span></li>
+              <li>Yellow Card <span><b>-1</b></span></li>
+              <li>Red Card <span><b>-3</b></span></li>
+          </ul>
+            <h5 title="header"><u>Attacking</u></h5>
+             <ul>
+              <li>Goal (FOR) <span><b>+2</b></span></li>
+              <li>Goal (MID) <span><b>+3</b></span></li>
+              <li>Goal (DEF) <span><b>+4</b></span></li>
+              <li>Goal (GK) <span><b>+8</b></span></li>
+              <li>Assist <span><b>+1</b></span></li>
+          </ul>
+            <h5 title="header"><u>Defensive</u></h5>
+             <ul>
+              <li>Clean Sheet (GK) <span><b>+5</b></span></li>
+              <li>Clean Sheet (DEF) <span><b>+3</b></span></li>
+              <li>Clean Sheet (MID) <span><b>+1</b></span></li>
+              <li>Concede 2+ Goals (GK) <span><b>-3</b></span></li>
+              <li>Concede 2+ Goals (DEF) <span><b>-2</b></span></li>
+              <li>Concede 2+ Goals (MID) <span><b>-1</b></span></li>
+              <li>Own Goal <span><b>-2</b></span></li>
+          </ul>
+          </li>
+          <li><h4 title="header"><u>Rounds</u></h4>
+            <ul>
+              <li>Rounds are essentially clusters of fixtures that are played closely together. This usually comprises of up to 6 fixtures per week but sometimes there can be more.</li>
+              <li>There are a total of 30 rounds in the 2019/20 season.</li>
+              <li>A round starts when the first fixture of the round begins and ends when the last fixture starts.</li>
+              <li>The round times will be advertised each week on the home page.</li>
+              <li>Fixture and match event data is supplied by <a href="https://www.xmlsoccer.com/">XML Soccer</a>, a free to use API for football data.</li>
+          </ul>
+          </li>
+          <li><h4 title="header"><u>League</u></h4>
+            <ul>
+              <li>When you create a team you automatically join<span><b> the Global league</b></span>, which comprises of all other registered Fantasy Scotland users.</li>
+              <li>You can compare your progress by visiting the <a href='fantasyscotland/league'>Leaderboard</a> page. You will find your team highlighted in <span style="color:blue"><b>blue.</b></span></li>
+              <li>Other details relating to your previous scores over the weeks can be found on the <a href='fantasyscotland/home'>Home</a> page.</li>
+          </ul>
+          </li>
+        </ol> 
+        </p>
       </div>
 
       <footer class="footer mt-auto py-2 fixed-bottom">
@@ -308,60 +251,6 @@ height:90px;
             <span class="text-muted">Made by Daniel Mitchell</span>
           </div>
       </footer>
-    </div>
-  </div>
-
-  <div class="modal hide" id="selectModal" tabindex="-1" role="dialog" aria-labelledby="selectModalLabel" aria-hidden="true">
-
-      <div class="modal-header">
-        <h3 id="selectModalLabel">Select Player</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-          </button>
-      </div>
-
-      <div class="modal-body">
-        <table id="table" class="table table-bordered table-hover table-sm " cellspacing="0" width="100%">
-          <thead>
-            <tr>
-                <th class="th-sm" style="cursor:s-resize" onclick="sortTable(0)">Name
-                </th>
-                <th class="th-sm" style="cursor:s-resize" onclick="sortTable(1)">Club
-                </th>
-                <th class="th-sm" style="cursor:s-resize" onclick="sortTable(2)">Cost(&pound mill)
-                </th>
-      
-            </tr>
-          </thead>
-          <tbody id="table-body">
-            <tr class='clickable-row' style="cursor:pointer" value="111111111">
-                <td class="name">Default Default</td> <td class="club">Default</td> <td class="price">0.0</td>
-            </tr>
-          </tbody>
-      </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn-primary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="modal hide" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
-
-      <div class="modal-header">
-        <h3 id="confirmModalLabel">Confirm Transfer.</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-          </button>
-      </div>
-
-      <form onsubmit="updateTeam();return false" class="form-inline">
-        <div class="form-group mb-2">
-          <div class="form-group mx-sm-3 mb-2">
-            <p>Are you sure you want to make this transfer?</p>
-          <button type="submit" class="btn btn-primary mb-2">Make Transfer</button>
-      </form>
     </div>
   </div>
 
@@ -412,18 +301,7 @@ height:90px;
     
     <!-- Here are examples of how to call REST API Methods -->
     <script type="text/javascript">
-      var players = [
-          goalkeepers = [],
-          defenders = [],
-          midfielders = [],
-          forwards = [],
-      ];
       var user;
-      var clubs = [];
-      var position;
-      var clubLimit = false;
-      var dupPlayer = false;
-      var changes = 1;
 
       function isUserSignedIn(){
          // First create a CORS request, this is the message we are going to send (a get request in this case)
@@ -442,210 +320,15 @@ height:90px;
             window.location.href = '/fantasyscotland';
           }
           else{
-            isRoundRunning().call;
+            loadTeam().call;
           }
           
         }
         
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();  
-      }
-
-      function isRoundRunning(){
-         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/isRoundRunning"); // Request type and URL
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          if(xhr.response == "true"){
-            alert("Round is currently in progress, you cant make transfers. Redirecting...")
-            window.location.href = '/fantasyscotland/home';
-          }
-          else{
-            isTransferOn().call;
-          }
-          
-        }
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();  
-      }
-
-      function isTransferOn(){
-         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/isTransferOn"); // Request type and URL
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          if(xhr.response == "false"){
-            alert("You have no remaining transfers. Redirecting...")
-            window.location.href = '/fantasyscotland/home';
-          }
-          else{
-            buildClubs().call;
-          }
-          
-        }
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();  
-      }
-
-      function swapPlayer(player_id, position){
-        changes--;
-        removePlayer(player_id, position);
-      }
-
-      function addPlayer(player_id, position) {
-        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/addPlayer?Id="+player_id+"&Pos="+position); // Request type and URL+parameters
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          var responseText = xhr.response.replace(/['"]+/g, '');
-          if(responseText.localeCompare("Successfully added player.") === 0){
-            document.getElementById("successText").innerHTML = "Successfully swaped player.";
-            document.getElementById("successText").style.display = "block";
-            document.getElementById("errorText").style.display = "none";
-          } else {
-            document.getElementById("errorText").innerHTML = responseText;
-            document.getElementById("errorText").style.display = "block";
-            document.getElementById("successText").style.display = "none";
-          }
-          var button = document.getElementById("button"+position);
-          clubLimitReached().call;
-        };
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();   
-      }
-      function removePlayer(player_id, position) {
-        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/removePlayer?Pos="+position); // Request type and URL+parameters
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          addPlayer(player_id, position).call;
-        };
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();   
-      }
-
-       function updateTeam() {
-        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/updateTeam"); // Request type and URL+parameters
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          window.location.href = '/fantasyscotland/home';
-         // return false;
-        };
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();   
-      }
-
-      function loadTable(array) {
-          var table = document.getElementById('table-body');
-        table.innerHTML = "";
-          for(var i = 0; i < array.length; i++) {
-              // Create the list item:
-              var tr = document.createElement('tr');
-              tr.setAttribute('value', array[i].player_id);
-              tr.setAttribute('class', "clickable-row");
-              tr.setAttribute('style', "cursor:pointer");
-              var name = document.createElement('td');
-              name.setAttribute('class', "name");
-              var nText = document.createTextNode(array[i].name);
-              name.appendChild(nText);
-              var club = document.createElement('td');
-              club.setAttribute('class', "club");
-              var cText = document.createTextNode(convertClub(array[i].club_id));
-              club.appendChild(cText);
-              var price = document.createElement('td');
-              price.setAttribute('class', "price");
-              var pText = document.createTextNode(array[i].price);
-              price.appendChild(pText);
-              tr.appendChild(name);
-              tr.appendChild(club);
-              tr.appendChild(price);
-              // Add it to the list:
-              table.appendChild(tr);
-          }
-           // Finally, return the constructed list:
-          return list;
       }
       
-      function buildPlayers() {
-        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildPlayers"); // Request type and URL
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          var response = JSON.parse(xhr.response); // the text of the response
-          players = [
-              goalkeepers = [],
-              defenders = [],
-            midfielders = [],
-            forwards = [],
-            ];
-          for(var i = 0; i < response.length; i++){
-            if(response[i].selectable === false){
-              continue;
-            }
-            else if(response[i].position === "Goalkeeper"){
-              players[0].push(response[i]);
-            }
-            else if(response[i].position === "Defender"){
-              players[1].push(response[i]);
-            }
-            else if(response[i].position === "Midfielder"){
-              players[2].push(response[i]);
-            }
-            else if(response[i].position === "Forward"){
-              players[3].push(response[i]);
-            }
-          }
-          loadTeam().call;
-        }
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();   
-      }
-
       function loadTeam() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
         var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/loadTeam"); // Request type and URL
@@ -679,242 +362,11 @@ height:90px;
           user = JSON.parse(xhr.response);
           var fields = user.email.split('@');
           document.getElementById("welcomeHeader").innerHTML = "Welcome " + fields[0] + "!";
-          repaint().call;
         }
         
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
-      
-      function buildClubs() {
-        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildClubs"); // Request type and URL
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          var response = JSON.parse(xhr.response); // the text of the response
-          for(var i = 0; i < response.length; i++){
-            clubs.push(response[i]);
-          }
-          buildPlayers().call;
-        }
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();   
-      }
-      function doesDuplicateExist() {
-        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/duplicateExists"); // Request type and URL+parameters
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          if(xhr.response == "false"){
-            dupPlayer = false;
-          }else{
-            dupPlayer = true;
-          } 
-          buildUser().call;
-        };
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();   
-      }
-
-       function clubLimitReached() {
-        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/clubLimitReached"); // Request type and URL+parameters
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          if(xhr.response == "false"){
-          clubLimit = false;
-          }else{
-            clubLimit = true;
-          } 
-          doesDuplicateExist().call;
-        };
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();   
-      }
-
-      function repaint(){
-        document.getElementById("budgetBadge").innerHTML = user.team.transferBudget;
-        document.getElementById("transferBadge").innerHTML = changes;
-        var length = Object.keys(user.team.squad).length;
-        if(changes == "0"){
-          document.getElementById("removeTransfer").style.display = "block";
-          for(var x = 1;x<=15;x++){
-            var button = document.getElementById("button"+x);
-            button.disabled = true;
-          } 
-        }
-        else{
-          document.getElementById("removeTransfer").style.display = "none";
-           for(var x = 1;x<=15;x++){
-          var button = document.getElementById("button"+x);
-          button.disabled = false;
-          } 
-        }
-        if(length == "15" && user.team.transferBudget >= "0" && dupPlayer === false && clubLimit === false && changes == "0"){
-          document.getElementById("continue").style.display = "block";
-        }
-        else{
-          document.getElementById("continue").style.display = "none";
-        }
-        for(var x = 1;x<=15;x++){
-          var button = document.getElementById("button"+x);
-          button.style.background = "rgb(255,255,255)";
-          document.getElementById("button"+x+"Text").firstChild.nodeValue = "";
-          document.getElementById("button"+x+"Badge").innerHTML = 0;
-        }  
-        for(var i in user.team.squad){
-          var button = document.getElementById("button"+i);
-          button.style.background = buttonPainter(user.team.squad[i].club_id);
-          var names = (user.team.squad[i].name).split(' ');
-          document.getElementById("button"+i+"Text").firstChild.nodeValue = names[names.length-1];
-          document.getElementById("button"+i+"Badge").innerHTML = user.team.squad[i].price;
-        }
-      }
-
-      function removeChanges(){
-        changes = 1;
-        document.getElementById("errorText").style.display = "none";
-        document.getElementById("successText").style.display = "none";
-        loadTeam().call;
-      }
-
-
-       function buttonPainter(club){
-        if(club === 45){
-          return "rgb(226,0,26)";
-        }
-        else if(club === 54){
-          return "linear-gradient(to bottom, rgb(1,135,73) 50%, white 50%)";
-        }
-        else if(club === 228){
-          return "linear-gradient(to bottom, rgb(204,56,63) 50%, white 50%)";
-        }
-        else if(club === 50){
-          return "rgb(159,25,49)";
-        }
-        else if(club === 53){
-          return "rgb(0,117,59)";
-        }
-        else if(club === 52){
-          return "linear-gradient(to right, rgb(47,54,143) 50%, white 50%)";
-        }
-        else if(club === 560){
-          return "rgb(255,204,0)";
-        }
-        else if(club === 47){
-          return "linear-gradient(to bottom, rgb(251,186,45) 50%, rgb(122,20,63)  50%)";
-        }
-        else if(club === 49){
-          return "rgb(27,69,143)";
-        }
-        else if(club === 360){
-          return "linear-gradient(to bottom, rgb(4,9,87) 50%, rgb(244,19,43)  50%)";
-        }
-        else if(club === 46){
-          return "linear-gradient(to bottom, rgb(36,63,144) 50%, white  50%)";
-        }
-        else if(club === 56){
-          return "linear-gradient(to right, black 50%, white 50%)";
-        }
-      }
-
-      function setPosition(pos){
-        position = pos; 
-      }
-
-      function sortTable(n) {
-        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-        table = document.getElementById("table");
-        switching = true;
-        // Set the sorting direction to ascending:
-        dir = "asc";
-        /* Make a loop that will continue until
-        no switching has been done: */
-        while (switching) {
-          // Start by saying: no switching is done:
-          switching = false;
-          rows = table.rows;
-          /* Loop through all table rows (except the
-          first, which contains table headers): */
-          for (i = 1; i < (rows.length - 1); i++) {
-            // Start by saying there should be no switching:
-            shouldSwitch = false;
-            /* Get the two elements you want to compare,
-            one from current row and one from the next: */
-            x = rows[i].getElementsByTagName("TD")[n];
-            y = rows[i + 1].getElementsByTagName("TD")[n];
-            /* Check if the two rows should switch place,
-            based on the direction, asc or desc: */
-            if (dir == "asc") {
-              if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                // If so, mark as a switch and break the loop:
-                shouldSwitch = true;
-                break;
-              }
-            } else if (dir == "desc") {
-              if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                // If so, mark as a switch and break the loop:
-                shouldSwitch = true;
-                break;
-              }
-            }
-          }
-          if (shouldSwitch) {
-            /* If a switch has been marked, make the switch
-            and mark that a switch has been done: */
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switching = true;
-            // Each time a switch is done, increase this count by 1:
-            switchcount ++;
-          } else {
-            /* If no switching has been done AND the direction is "asc",
-            set the direction to "desc" and run the while loop again. */
-            if (switchcount == 0 && dir == "asc") {
-              dir = "desc";
-              switching = true;
-            }
-          }
-        }
-      }
-
-       function convertClub(id){
-      for(var i = 0; i < clubs.length; i++){
-        if(clubs[i].club_id === id){
-          return clubs[i].name;
-        }
-      }
-    }
-
-      jQuery(document).ready(function($) {
-          $('#table').on('click', '.clickable-row', function() {
-              swapPlayer($(this).attr('value'), position);
-              var $item = $(this).closest("tr") 
-                       .find(".price")     // Gets a descendent with class="price"
-                       .text();         // Retrieves the text within <td>
-              $("#selectModal").modal('hide');
-          });
-      });
     </script>     
 </body>
 </html>
