@@ -230,7 +230,7 @@ height:90px;
             <ul>
               <li>Rounds are essentially clusters of fixtures that are played closely together. This usually comprises of up to 6 fixtures per week but sometimes there can be more.</li>
               <li>There are a total of 30 rounds in the 2019/20 season.</li>
-              <li>A round starts when the first fixture of the round begins and ends when the last fixture starts.</li>
+              <li>A round starts when the first fixture of the round begins and ends when the last fixture ends.</li>
               <li>The round times will be advertised each week on the home page.</li>
               <li>Fixture and match event data is supplied by <a href="https://www.xmlsoccer.com/">XML Soccer</a>, a free to use API for football data.</li>
           </ul>

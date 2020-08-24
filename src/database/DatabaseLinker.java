@@ -295,6 +295,7 @@ public class DatabaseLinker {
 		} catch (SQLException ex) {
 			Logger lgr = Logger.getLogger(DatabaseLinker.class.getName());
 			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+			b = false;
 		} finally {
 			closeConnection();
 		}

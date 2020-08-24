@@ -56,7 +56,7 @@ public class MainModel {
 	}
 
 	public void initialise() {
-		this.nextUpdate = OffsetDateTime.of(MainModel.getRoundEndDate(), ZoneOffset.UTC).plusMinutes(1);
+		this.nextUpdate = OffsetDateTime.of(MainModel.getRoundEndDate(), ZoneOffset.UTC);
 		this.nextBlock = OffsetDateTime.of(MainModel.getFixtures().getNextStartDate(MainModel.getTodayDate()), ZoneOffset.UTC).plusMinutes(1);   
 		this.leagues = new ArrayList<League>(database.loadLeagues());
 		this.users = new ArrayList<User>(database.loadUsers());	//Loads users and their teams.
@@ -93,6 +93,7 @@ public class MainModel {
                 } catch ( Exception e ) {
                     // TODO: Handle unexpected exeption.
                     System.err.println( "ERROR - unexpected exception caught on its way to reaching a scheduled executor service. Message # 55cbae82-8492-4638-9630-60c5b28ad876." );
+                    e.printStackTrace();
                 }
             }
         };
@@ -132,6 +133,7 @@ public class MainModel {
                 } catch ( Exception e ) {
                     // TODO: Handle unexpected exeption.
                     System.err.println( "ERROR - unexpected exception caught on its way to reaching a scheduled executor service. Message # 55cbae82-8492-4638-9630-60c5b28ad876." );
+                    e.printStackTrace();
                 }
             }
         };
@@ -151,7 +153,7 @@ public class MainModel {
 	public void writePreviousFixtures() {
 		for (GetHistoricMatchesResultDto fixture : fixtures.getAllFixtures()) {
 			Date date = fixture.getDate();
-			LocalDateTime fixtureDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+			LocalDateTime fixtureDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().minusHours(2);
 			if (fixtureDate.isBefore(MainModel.getTodayDate())) {
 				if (!this.database.doesFixtureExist(fixture.getFixtureMatchId())) {
 					this.database.writeFixture(fixture.getFixtureMatchId(), fixture.getRound(), fixture.getHomeTeamId(),
@@ -431,38 +433,43 @@ public class MainModel {
 	public HashMap<Integer,HashMap<Integer, Integer>> getPointHistory(UUID team_id){
 		HashMap<Integer,HashMap<Integer, Integer>> history = new HashMap<Integer,HashMap<Integer, Integer>>();
 		int lastRound = MainModel.getFixtures().whatsLastRound();
-		int nullCount = 0;
-		for(int i = 0; i<lastRound;i++) {
+		
+		for(int i = 0; i<=lastRound;i++) {
+			int nullCount = 0;
 			HashMap<Integer, Integer> playersScores = new HashMap<Integer, Integer>();
 			
 			if(this.database.doesTeamExist(team_id, i)) {
 				HashMap<Integer, Player> squad = this.database.loadSquad(team_id, i);
 				
 				for(Map.Entry<Integer, Player> entry : squad.entrySet()) {
+					
 					int position = entry.getKey();
 					Player player = entry.getValue();
 					if(this.database.doesPlayerPointsExist(player.getPlayer_id(), i+1)) {
 						playersScores.put(position, this.database.getPlayerScoreIn(player.getPlayer_id(), i+1));
-
 					}
 					else {
 						playersScores.put(entry.getKey(), null);
 						nullCount++;
 					}
 				}
-				history.put(i+1, playersScores);
+				if(nullCount >= 15) {
+					continue;
+				}
+				else {
+					history.put(i+1, playersScores);
+				}
 			}
 			else {
 				continue;
 			}
 		}
-		if(nullCount >= 11 && history.size() == 1) {
+		if(history.size() <= 0) {
 			return null;
 		}
-		else if(nullCount >= 11 && history.size() > 1) {
-			history.remove(history.size());
+		else {
+			return history;
 		}
-		return history;
 	}
 
 	public UUID authenticateUser(String email, String pass) {
@@ -642,7 +649,7 @@ public class MainModel {
 	}
 
 	public static LocalDateTime getTodayDate() {
-		LocalDateTime realDate = LocalDateTime.now().minusYears(1).withNano(0).withSecond(0).minusWeeks(2).minusDays(1).minusHours(2).minusMinutes(40);
+		LocalDateTime realDate = LocalDateTime.now().minusYears(1).withNano(0);
 		return realDate;
 	}
 	

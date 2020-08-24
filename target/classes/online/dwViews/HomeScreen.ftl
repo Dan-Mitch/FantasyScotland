@@ -762,7 +762,7 @@ height:90px;
         document.getElementById("total-points").innerHTML = teamTotal;
         document.getElementById("team-budget").innerHTML = "&#163 " + user.team.transferBudget + "million";
         document.getElementById("global-rank").innerHTML = globalRank;
-        document.getElementById("roundHeader").innerHTML = "Round " + currentRound + " Starts: " + startDate.dayOfMonth + "th " + startDate.month + " " + startDate.hour + ":" + startDate.minute + " Ends: " + endDate.dayOfMonth + "th " + endDate.month + " " + endDate.hour + ":" + endDate.minute;
+        document.getElementById("roundHeader").innerHTML = "Round " + currentRound + " Starts: " + startDate.dayOfMonth + "th " + startDate.month + " " + startDate.hour + ":" + startDate.minute + " Ends: " + endDate.dayOfMonth + "th " + endDate.month + " " + (endDate.hour+2) + ":" + endDate.minute;
         buildPointHistory().call;
       }
 
@@ -786,7 +786,7 @@ height:90px;
             }
           var response = JSON.parse(xhr.response); // the text of the response
           var keys = Object.keys(response);
-    
+    		
           for(var i = 0; i < keys.length; i++) {
               var tr = document.createElement('tr');
 
@@ -795,50 +795,50 @@ height:90px;
               round.appendChild(rText);
 
               var gk = document.createElement('td');
-              var gText = document.createTextNode(response [i+1] [1]);
+              var gText = document.createTextNode(response [keys[i]] [1]);
               gk.appendChild(gText);
 
               var df1 = document.createElement('td');
-              var df1Text = document.createTextNode(response [i+1] [2]);
+              var df1Text = document.createTextNode(response [keys[i]] [2]);
               df1.appendChild(df1Text);
 
               var df2 = document.createElement('td');
-              var df2Text = document.createTextNode(response [i+1] [3]);
+              var df2Text = document.createTextNode(response [keys[i]] [3]);
               df2.appendChild(df2Text);
 
               var df3 = document.createElement('td');
-              var df3Text = document.createTextNode(response [i+1] [4]);
+              var df3Text = document.createTextNode(response [keys[i]] [4]);
               df3.appendChild(df3Text);
 
               var df4 = document.createElement('td');
-              var df4Text = document.createTextNode(response [i+1] [5]);
+              var df4Text = document.createTextNode(response [keys[i]] [5]);
               df4.appendChild(df4Text);
 
               var mf1 = document.createElement('td');
-              var mf1Text = document.createTextNode(response [i+1] [6]);
+              var mf1Text = document.createTextNode(response [keys[i]] [6]);
               mf1.appendChild(mf1Text);
 
               var mf2 = document.createElement('td');
-              var mf2Text = document.createTextNode(response [i+1] [7]);
+              var mf2Text = document.createTextNode(response [keys[i]] [7]);
               mf2.appendChild(mf2Text);
 
               var mf3 = document.createElement('td');
-              var mf3Text = document.createTextNode(response [i+1] [8]);
+              var mf3Text = document.createTextNode(response [keys[i]] [8]);
               mf3.appendChild(mf3Text);
 
               var mf4 = document.createElement('td');
-              var mf4Text = document.createTextNode(response [i+1] [9]);
+              var mf4Text = document.createTextNode(response [keys[i]] [9]);
               mf4.appendChild(mf4Text);
 
               var fw1 = document.createElement('td');
-              var fw1Text = document.createTextNode(response [i+1] [10]);
+              var fw1Text = document.createTextNode(response [keys[i]] [10]);
               fw1.appendChild(fw1Text);
 
               var fw2 = document.createElement('td');
-              var fw2Text = document.createTextNode(response [i+1] [11]);
+              var fw2Text = document.createTextNode(response [keys[i]] [11]);
               fw2.appendChild(fw2Text);
 
-              var tot = ((response [i+1] [1]) + (response [i+1] [2]) + (response [i+1] [3]) + (response [i+1] [4]) + (response [i+1] [5]) + (response [i+1] [6]) + (response [i+1] [7]) + (response [i+1] [8]) + (response [i+1] [9]) + (response [i+1] [10]) + (response [i+1] [11]))
+              var tot = ((response [keys[i]] [1]) + (response [keys[i]] [2]) + (response [keys[i]] [3]) + (response [keys[i]] [4]) + (response [keys[i]] [5]) + (response [keys[i]] [6]) + (response [keys[i]] [7]) + (response [keys[i]] [8]) + (response [keys[i]] [9]) + (response [keys[i]] [10]) + (response [keys[i]] [11]))
               var total = document.createElement('td');
               var totalText = document.createTextNode(tot);
               total.appendChild(totalText);

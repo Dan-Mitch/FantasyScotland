@@ -212,7 +212,7 @@ height:90px;
       </nav>
     <div class="main">
       <div class = "header">
-        <button type="button" class="btn btn-danger" style="float:right" onclick="signOut();">Sign Out</button><h6 class="form-signin-heading text-right" id="welcomeHeader"></h6>
+        <h6 class="form-signin-heading text-right" id="welcomeHeader"></h6>
       </div>
 
       <div class="body">
@@ -221,13 +221,23 @@ height:90px;
                 <tr>
                   <th class="th-sm" style="cursor:s-resize" onclick="sortTable(0)" scope="col">Rank</th>
                   <th class="th-sm" style="cursor:s-resize" onclick="sortTable(1)" scope="col">Team Name</th>
-                  <th class="th-sm" style="cursor:s-resize" onclick="sortTable(0)" scope="col">Total</th>
+                  <th class="th-sm" style="cursor:s-resize" onclick="sortTable(2)" scope="col">Total</th>
                   </tr>
                 </thead>
                 <tbody id="leaderboard-body">
                     <tr  style="cursor:pointer">
                 <td class="rank">4</td> <td class="name">Ant</td> <td class="score">10</td>
                   </tr>
+                  <tr  style="cursor:pointer">
+                <td class="rank">3</td> <td class="name">Yellow</td> <td class="score">20</td>
+                  </tr>
+                  <tr  style="cursor:pointer">
+                <td class="rank">2</td> <td class="name">mAN</td> <td class="score">30</td>
+                  </tr>
+                  <tr  style="cursor:pointer">
+                <td class="rank">1</td> <td class="name">Zebra</td> <td class="score">120</td>
+                  </tr>
+                  
                 </tbody>
               </table> 
       </div>
@@ -408,25 +418,6 @@ height:90px;
       function repaint(){
         document.getElementById(user.team.team_id).style.border = "thick solid #33C4FF";
       }
-      
-      function signOut(){
-         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/signOut"); // Request type and URL
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-            window.location.href = '/fantasyscotland';
-        }
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();  
-      }
 
       function sortTable(n) {
         var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
@@ -451,20 +442,35 @@ height:90px;
             y = rows[i + 1].getElementsByTagName("TD")[n];
             /* Check if the two rows should switch place,
             based on the direction, asc or desc: */
-            if (dir == "asc") {
-              if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                // If so, mark as a switch and break the loop:
-                shouldSwitch = true;
-                break;
-              }
+            if(n === 1){
+              if (dir == "asc") {
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                  // If so, mark as a switch and break the loop:
+                  shouldSwitch = true;
+                  break;
+                }
             } else if (dir == "desc") {
-              if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                // If so, mark as a switch and break the loop:
-                shouldSwitch = true;
-                break;
+                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                  // If so, mark as a switch and break the loop:
+                  shouldSwitch = true;
+                  break;
+                }
+            }
+          } else{
+              if (dir == "asc") {
+                if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                  shouldSwitch = true;
+                  break;
+                }
+            } else if (dir == "desc") {
+                if (Number(x.innerHTML) < Number(y.innerHTML)) {
+                  shouldSwitch = true;
+                  break;
+                }
               }
             }
-          }
+            }
+        
           if (shouldSwitch) {
             /* If a switch has been marked, make the switch
             and mark that a switch has been done: */
