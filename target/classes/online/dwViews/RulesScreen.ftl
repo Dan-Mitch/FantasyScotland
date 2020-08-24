@@ -187,14 +187,14 @@ height:90px;
           </li>
           <li><h4 title="header"><u>Managing your Team</u></h4>
              <ul>
-              <li>You can manage your team before a round commences by visiting the <a href='fantasyscotland/manage'>Manage</a> page. <span><b>You can not make changes to your squad while the round is in progress.</b></span> Click on a player icon and select an option.</li>
+              <li>You can manage your team before a round commences by visiting the <a href='manage'>Manage</a> page. <span><b>You can not make changes to your squad while the round is in progress.</b></span> Click on a player icon and select an option.</li>
               <li>You can make unlimited changes to your team by making substitutions, which will be applied instantly for that upcoming round.</li>
               <li>You may also select a captain, but features relating to this option will be included in a future update.</li>
           </ul>
           </li>
           <li><h4 title="header"><u>Making Transfers</u></h4>
             <ul>
-              <li>Each week you may make <span><b>1 transfer</b></span> while there are no rounds currently in progress from the <a href='fantasyscotland/transfer'>Transfer</a> page.</li>
+              <li>Each week you may make <span><b>1 transfer</b></span> while there are no rounds currently in progress from the <a href='transfer'>Transfer</a> page.</li>
               <li>Once the round has finished, the transfers will refresh but be careful as they do not stack! <span><b> You will only ever be able to make one transfer per week!</b></span></li>
               <li>Remember, you can't have 3 players from the same club, duplicate players or exceed the transfer budget!</li>
               <li>This game encourages and rewards attention, if a player is injured or not playing, it is expected that you will make the necessary changes.</li>
@@ -238,8 +238,8 @@ height:90px;
           <li><h4 title="header"><u>League</u></h4>
             <ul>
               <li>When you create a team you automatically join<span><b> the Global league</b></span>, which comprises of all other registered Fantasy Scotland users.</li>
-              <li>You can compare your progress by visiting the <a href='fantasyscotland/league'>Leaderboard</a> page. You will find your team highlighted in <span style="color:blue"><b>blue.</b></span></li>
-              <li>Other details relating to your previous scores over the weeks can be found on the <a href='fantasyscotland/home'>Home</a> page.</li>
+              <li>You can compare your progress by visiting the <a href='leagues'>Leaderboard</a> page. You will find your team highlighted in <span style="color:blue"><b>blue.</b></span></li>
+              <li>Other details relating to your previous scores over the weeks can be found on the <a href='home'>Home</a> page.</li>
           </ul>
           </li>
         </ol> 

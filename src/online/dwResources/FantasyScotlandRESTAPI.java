@@ -56,48 +56,15 @@ public class FantasyScotlandRESTAPI {
 	
 	public FantasyScotlandRESTAPI(FantasyScotlandJSONConfiguration conf) {
 		// ----------------------------------------------------
-		// Add relevant initalization here
+		// Initalization here
 		// ----------------------------------------------------
 		
 		this.model = new MainModel();
 	}
 	
 	// ----------------------------------------------------
-	// Add relevant API methods here
+	// API methods here
 	// ----------------------------------------------------
-	
-	@GET
-	@Path("/helloJSONList")
-	/**
-	 * Here is an example of a simple REST get request that returns a String.
-	 * We also illustrate here how we can convert Java objects to JSON strings.
-	 * @return - List of words as JSON
-	 * @throws IOException
-	 */
-	public String helloJSONList() throws IOException {
-		
-		List<String> listOfWords = new ArrayList<String>();
-		listOfWords.add("Hello");
-		listOfWords.add("World!");
-		
-		// We can turn arbatory Java objects directly into JSON strings using
-		// Jackson seralization, assuming that the Java objects are not too complex.
-		String listAsJSONString = oWriter.writeValueAsString(listOfWords);
-		
-		return listAsJSONString;
-	}
-	
-	@GET
-	@Path("/helloWord")
-	/**
-	 * Here is an example of how to read parameters provided in an HTML Get request.
-	 * @param Word - A word
-	 * @return - A String
-	 * @throws IOException
-	 */
-	public String helloWord(@QueryParam("Word") String Word) throws IOException {
-		return "Hello "+Word;
-	}
 	
 	@GET
 	@Path("/isRoundRunning")
@@ -139,6 +106,19 @@ public class FantasyScotlandRESTAPI {
 		else {
 			return true;
 		}
+	}
+	
+	@GET
+	@Path("/signOut")
+	/**
+	 * Here is an example of how to read parameters provided in an HTML Get request.
+	 * @param Word - A word
+	 * @return - A String
+	 * @throws IOException
+	 */
+	public void signOut(@Session HttpSession session) throws IOException {
+		session.setAttribute("email", null);
+		session.setAttribute("id", null);
 	}
 	
 	@POST

@@ -64,10 +64,12 @@ body {
 /* Style the button and place it in the middle of the container/image */
 .football .btn {
   background-color: white;
+  position:fixed;
   color: black;
   font-size: 16px;
   font-weight: bold;
   border: solid;
+  border-width: thin;
   cursor: pointer;
   border-radius: 50%;
   border-color: black;
@@ -85,76 +87,121 @@ body {
   position: absolute;
   top: 32.5%;
   left:10%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .two{
   position: absolute;
   top: 65%;
   left:30%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .three{
   position: absolute;
   top: 5%;
   left:30%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .four{
   position: absolute;
   top: 45%;
   left:30%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .five{
   position: absolute;
   top: 25%;
   left:30%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .six{
   position: absolute;
   top: 45%;
   left:50%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .seven{
   position: absolute;
   top: 45%;
   right:20%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .eight{
   position: absolute;
   top: 65%;
   left:50%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .nine{
   position: absolute;
   top: 25%;
   right:20%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .ten{
   position: absolute;
   top: 25%;
   left:50%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .eleven{
   position: absolute;
   top: 5%;
   left:50%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .twelve{
   position: absolute;
   top: 57.5%;
   left:10%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .thirteen{
   position: absolute;
   top: 85%;
   left:30%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .fourteen{
   position: absolute;
   top: 85%;
   left:50%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .fifteen{
   position: absolute;
   top: 65%;
   right:20%;
+  line-height:2;
+  max-width:110px;
+  text-align: center;
 }
 .modal{
   position:absolute;
@@ -185,7 +232,7 @@ thead th {
 }
 tbody {
     height: 300px;
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 thead {
   width: 450px;
@@ -652,7 +699,6 @@ tbody td, thead th {
           user = JSON.parse(xhr.response);
           var fields = user.email.split('@');
           document.getElementById("welcomeHeader").innerHTML = "Welcome " + fields[0] + "!";
-          
           repaint().call;
         }
         
@@ -869,22 +915,9 @@ tbody td, thead th {
           });
       });
 
-      function CallbackFunction(event) {
-    if(window.event) {
-        if (window.event.clientX < 40 && window.event.clientY < 0) {
-            alert("back button is clicked");
-        }else{
-            alert("refresh button is clicked");
-        }
-    }else{
-        if (event.currentTarget.performance.navigation.type == 2) {
-            alert("back button is clicked");
-        }
-        if (event.currentTarget.performance.navigation.type == 1) {
-            alert("refresh button is clicked");
-        }           
-    }
-}
+       $('#selectModal').on('shown.bs.modal', function (e) {
+        $('#table-body').scrollTop(0);
+    });
     </script>     
 </body>
 </html>

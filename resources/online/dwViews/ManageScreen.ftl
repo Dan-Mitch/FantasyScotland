@@ -339,7 +339,7 @@ height:90px;
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <a class="nav-item nav-link text-right" href='/fantasyscotland/manage'>Manage</a>
-            <a class="nav-item nav-link text-right" href='/fantasyscotland/leagues'>Leaderboard</a>
+            <a class="nav-item nav-link text-right" href='/fantasyscotland/leagues'>Leagues</a>
             <a class="nav-item nav-link text-right" href='/fantasyscotland/transfer'>Transfer</a>
             <a class="nav-item nav-link text-right" href='/fantasyscotland/rules'>Rules</a>
           </div>
@@ -347,7 +347,7 @@ height:90px;
       </nav>
     <div class="main">
       <div class = "header">
-        <h6 class="form-signin-heading text-right" id="welcomeHeader"></h6>
+        <button type="button" class="btn btn-danger" style="float:right" onclick="signOut();">Sign Out</button><h6 class="form-signin-heading text-right" id="welcomeHeader"></h6>
       </div>
 
       <div class="body">
@@ -881,6 +881,25 @@ height:90px;
           document.getElementById("button"+i+"Badge").innerHTML = user.team.squad[i].price;
         }
       }
+      
+      function signOut(){
+         // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/signOut"); // Request type and URL
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+
+        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
+        // to do when the response arrives 
+        xhr.onload = function(e) {
+            window.location.href = '/fantasyscotland';
+        }
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();  
+      }
 
       function removeChanges(){
         changes = 0;
@@ -1015,16 +1034,18 @@ height:90px;
         })
     });
 
-        $(document).on('show.bs.modal', '.modal', function (event) {
-            var zIndex = 1040 + (10 * $('.modal:visible').length);
-            $(this).css('z-index', zIndex);
-            setTimeout(function() {
-                $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
-            }, 0);
-        });
+    $(document).on('show.bs.modal', '.modal', function (event) {
+        var zIndex = 1040 + (10 * $('.modal:visible').length);
+        $(this).css('z-index', zIndex);
+        setTimeout(function() {
+            $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+        }, 0);
+    });
 
-
-});
+    $('#selectModal').on('shown.bs.modal', function (e) {
+    $('#table-body').scrollTop(0);
+      });
+    });
     </script>     
 </body>
 </html>
