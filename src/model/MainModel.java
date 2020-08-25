@@ -430,7 +430,7 @@ public class MainModel {
 		}
 	}
 	
-	public HashMap<Integer,HashMap<Integer, Integer>> getPointHistory(UUID team_id){
+	public HashMap<Integer,HashMap<Integer, Integer>> getPointHistory(UUID team_id) {
 		HashMap<Integer,HashMap<Integer, Integer>> history = new HashMap<Integer,HashMap<Integer, Integer>>();
 		int lastRound = MainModel.getFixtures().whatsLastRound();
 		
