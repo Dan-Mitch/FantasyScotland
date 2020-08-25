@@ -1,1 +1,1 @@
-web: java -jar target/java-getting-started-1.0.jar
+web: java -Ddw.server.applicationConnectors[0].port=$PORT -jar target/MScIT2020Project-1.0.jar server
