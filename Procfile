@@ -1,1 +1,1 @@
-web: java -Ddw.server.applicationConnectors[0].port=$PORT -jar target/MScIT2020Project-1.0.jar server
+web: java -Ddw.server.applicationConnectors[0].port=$PORT -jar target/FantasyScotland-1.0.jar server
