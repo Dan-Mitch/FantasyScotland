@@ -28,7 +28,6 @@ public class HistoryThread implements Runnable {
 			
 			if(this.database.doesTeamExist(team_id, i)) {
 				HashMap<Integer, Player> squad = this.database.loadSquad(team_id, i);
-				System.err.println(squad.toString());
 				for(Map.Entry<Integer, Player> entry : squad.entrySet()) {
 					
 					int position = entry.getKey();

@@ -224,20 +224,8 @@ height:90px;
                   <th class="th-sm" style="cursor:s-resize" onclick="sortTable(2)" scope="col">Total</th>
                   </tr>
                 </thead>
-                <tbody id="leaderboard-body">
-                    <tr  style="cursor:pointer">
-                <td class="rank">4</td> <td class="name">Ant</td> <td class="score">10</td>
-                  </tr>
-                  <tr  style="cursor:pointer">
-                <td class="rank">3</td> <td class="name">Yellow</td> <td class="score">20</td>
-                  </tr>
-                  <tr  style="cursor:pointer">
-                <td class="rank">2</td> <td class="name">mAN</td> <td class="score">30</td>
-                  </tr>
-                  <tr  style="cursor:pointer">
-                <td class="rank">1</td> <td class="name">Zebra</td> <td class="score">120</td>
-                  </tr>
-                  
+                <tbody id="leaderboard-body"> 
+                           
                 </tbody>
               </table> 
       </div>

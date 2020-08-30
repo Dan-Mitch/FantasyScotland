@@ -155,7 +155,7 @@ body {
 			function helloJSONList() {
 			
 				// First create a CORS request, this is the message we are going to send (a get request in this case)
-				var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/helloJSONList"); // Request type and URL
+				var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/helloJSONList"); // Request type and URL
 				
 				// Message is not sent yet, but we can check that the browser supports CORS
 				if (!xhr) {

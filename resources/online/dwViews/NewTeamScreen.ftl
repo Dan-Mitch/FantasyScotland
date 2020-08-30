@@ -424,7 +424,7 @@ tbody td, thead th {
             <label for="inputTeamName" class="sr-only">Enter Team Name</label>
             <input type="text" class="form-control" id="inputTeamName" placeholder="Enter Team Name" required>
           </div>
-          <button type="submit" class="btn btn-primary mb-2">Create Team</button>
+          <button type="submit" class="btn btn-primary mb-2" id="submit">Create Team</button>
       </form>
     </div>
   </div>
@@ -433,6 +433,7 @@ tbody td, thead th {
   <script type="text/javascript">
       // Method that is called on page load
       function initalize() {
+      	alert("make sure your browser is not zoomed past 100%");
         isUserSignedIn();
         // --------------------------------------------------------------------------
         // You can call other methods you want to run when the page first loads here
