@@ -1,7 +1,6 @@
 model\League.class
 online\FantasyScotlandOnlineApplication.class
 online\dwViews\HomeScreenView.class
-online\HttpSessionProvider.class
 model\Club.class
 online\dwViews\LoginScreenView.class
 online\dwViews\RegisterScreenView.class
@@ -13,6 +12,7 @@ model\MainModel$1.class
 model\User.class
 online\dwViews\ManageScreenView.class
 Constants\Scores.class
+model\HistoryThread.class
 model\Fixtures.class
 online\dwResources\GameWebPagesResource.class
 online\dwViews\NewTeamScreenView.class

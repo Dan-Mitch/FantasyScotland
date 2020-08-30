@@ -70,7 +70,6 @@ public class FantasyScotlandOnlineApplication extends Application<FantasyScotlan
 		environment.jersey().register(restAPI);
 		environment.jersey().register(gameScreen);
 		environment.servlets().setSessionHandler(new SessionHandler());
-		environment.jersey().register(HttpSessionProvider.class);
 	}
 
 	/**

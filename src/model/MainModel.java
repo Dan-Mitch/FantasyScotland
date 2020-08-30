@@ -56,7 +56,7 @@ public class MainModel {
 	}
 
 	public void initialise() {
-		this.nextUpdate = OffsetDateTime.of(MainModel.getRoundEndDate(), ZoneOffset.UTC);
+		this.nextUpdate = OffsetDateTime.of(MainModel.getRoundEndDate(), ZoneOffset.UTC).plusHours(5);
 		this.nextBlock = OffsetDateTime.of(MainModel.getFixtures().getNextStartDate(MainModel.getTodayDate()), ZoneOffset.UTC).plusMinutes(1);   
 		this.leagues = new ArrayList<League>(database.loadLeagues());
 		this.users = new ArrayList<User>(database.loadUsers());	//Loads users and their teams.
@@ -431,46 +431,19 @@ public class MainModel {
 	}
 	
 	public HashMap<Integer,HashMap<Integer, Integer>> getPointHistory(UUID team_id) {
-		HashMap<Integer,HashMap<Integer, Integer>> history = new HashMap<Integer,HashMap<Integer, Integer>>();
-		int lastRound = MainModel.getFixtures().whatsLastRound();
-		
-		for(int i = 0; i<=lastRound;i++) {
-			int nullCount = 0;
-			HashMap<Integer, Integer> playersScores = new HashMap<Integer, Integer>();
-			
-			if(this.database.doesTeamExist(team_id, i)) {
-				HashMap<Integer, Player> squad = this.database.loadSquad(team_id, i);
-				
-				for(Map.Entry<Integer, Player> entry : squad.entrySet()) {
-					
-					int position = entry.getKey();
-					Player player = entry.getValue();
-					if(this.database.doesPlayerPointsExist(player.getPlayer_id(), i+1)) {
-						playersScores.put(position, this.database.getPlayerScoreIn(player.getPlayer_id(), i+1));
-					}
-					else {
-						playersScores.put(entry.getKey(), null);
-						nullCount++;
-					}
-				}
-				if(nullCount >= 15) {
-					continue;
-				}
-				else {
-					history.put(i+1, playersScores);
-				}
-			}
-			else {
-				continue;
-			}
+		HistoryThread historyThread = new HistoryThread(team_id);
+		Thread thread = new Thread(historyThread);
+		thread.start();
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		if(history.size() <= 0) {
-			return null;
-		}
-		else {
-			return history;
-		}
+		return historyThread.getHistory();
 	}
+	
+	//REST API RESOURCE METHODS
 
 	public UUID authenticateUser(String email, String pass) {
 		String response = this.database.authenticateUser(email, pass);
