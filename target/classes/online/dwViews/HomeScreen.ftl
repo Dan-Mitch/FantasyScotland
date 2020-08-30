@@ -762,7 +762,7 @@ height:90px;
         document.getElementById("total-points").innerHTML = teamTotal;
         document.getElementById("team-budget").innerHTML = "&#163 " + user.team.transferBudget + "million";
         document.getElementById("global-rank").innerHTML = globalRank;
-        document.getElementById("roundHeader").innerHTML = "Round " + currentRound + " Starts: " + startDate.dayOfMonth + "/" + startDate.monthValue + " " + startDate.hour + ":" + startDate.minute + " Ends: " + endDate.dayOfMonth + "/" + endDate.monthValue + " " + (endDate.hour+5) + ":" + endDate.minute;
+        document.getElementById("roundHeader").innerHTML = "Round " + currentRound + " Starts: " + startDate.dayOfMonth + "/" + startDate.monthValue + " " + (startDate.hour+1) + ":" + startDate.minute + " Ends: " + endDate.dayOfMonth + "/" + endDate.monthValue + " " + (endDate.hour+6) + ":" + endDate.minute;
         buildPointHistory().call;
       }
 
