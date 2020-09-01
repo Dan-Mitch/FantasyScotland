@@ -622,7 +622,7 @@ public class MainModel {
 	}
 
 	public static LocalDateTime getTodayDate() {
-		LocalDateTime realDate = LocalDateTime.now().minusYears(1).withNano(0);
+		LocalDateTime realDate = LocalDateTime.now().minusYears(1).withNano(0).minusMinutes(140);
 		return realDate;
 	}
 	
@@ -637,7 +637,6 @@ public class MainModel {
 	public static LocalDateTime getNextRoundStartDate() {
 		return getFixtures().startDateOfRound(getFixtures().whatsCurrentRound(getTodayDate())+1);
 	}
-	
 	
 	public static LocalDateTime getRoundEndDate() {
 		return getFixtures().endDateOfRound(getFixtures().whatsCurrentRound(getTodayDate()));
@@ -678,7 +677,7 @@ public class MainModel {
 
 //	public static void main(String[] args) {
 //		MainModel m = new MainModel();
-//		System.err.println(MainModel.getFixtures().endDateOfRound(MainModel.getFixtures().whatsLastRound()));
+//		System.err.println(MainModel.getFixtures().endDateOfRound(4));
 //		System.err.println(m.database.loadSquad(UUID.fromString("acc727e3-5cdb-4f92-991a-b340cb471ba4"), 2));
 //		System.err.println(m.getPointHistory(UUID.fromString("acc727e3-5cdb-4f92-991a-b340cb471ba4")));
 //		System.err.println(MainModel.getRoundEndDate());
