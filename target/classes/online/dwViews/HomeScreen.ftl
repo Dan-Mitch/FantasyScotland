@@ -409,7 +409,7 @@ height:90px;
 
       function isUserSignedIn(){
          // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/userSignedIn"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/userSignedIn"); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -435,7 +435,7 @@ height:90px;
       //This function loads all of the players from the database, and splits them into serperate arrays depending on their playing position. This is done in the home screen for the points history.
       function buildPlayers() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/buildPlayers"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildPlayers"); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -478,7 +478,7 @@ height:90px;
       //This method is called before loading the user profile in order to search the database for the user's team and attach it to the user profile in the model before being loaded into the view.
       function loadTeam() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/loadTeam"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/loadTeam"); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -497,7 +497,7 @@ height:90px;
 
       function buildUser() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/buildUser"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildUser"); // Request type and URL
 
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -519,7 +519,7 @@ height:90px;
       //This functrion is called to return the list of upcoming fixtures to display on the home screen
       function buildNextFixtures() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/buildNextFixtures"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildNextFixtures"); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -572,7 +572,7 @@ height:90px;
       //This function returns the highest score of all teams in the public league
        function buildGlobalMax() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/getGlobalMax"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getGlobalMax"); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -594,7 +594,7 @@ height:90px;
       //This function returns the average score of all teams in the public league
        function buildGlobalAvg() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/getGlobalAvg"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getGlobalAvg"); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -616,7 +616,7 @@ height:90px;
       //This function returns the all time score of a user's team in the public global league.
        function buildTeamTotal() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/getTeamTotal"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getTeamTotal"); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -638,7 +638,7 @@ height:90px;
       //This function is called to return the name of a teams captain to display in the team overview table. It send the uuid of the player and the string name is returned.
       function getNameFrom(id){
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/getNameFrom?Id="+id); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getNameFrom?Id="+id); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -660,7 +660,7 @@ height:90px;
        function getGlobalRank(){
         var id = '3573e359-7c59-4d43-90c9-52d3ba04a66e';
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/getRankIn?Id="+id); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getRankIn?Id="+id); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -681,7 +681,7 @@ height:90px;
       //This function is called to return the start date of the upcoming round.
       function getStartDate(){
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/getStartDate"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getStartDate"); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -705,7 +705,7 @@ height:90px;
       //This function is called to return the end date of the upcoming round.
       function getEndDate(){
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/getEndDate"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getEndDate"); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -729,7 +729,7 @@ height:90px;
       //This function is called to return the number of the round
       function getCurrentRound(){
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/getCurrentRound"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/getCurrentRound"); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -765,7 +765,7 @@ height:90px;
       //This function is called to load the point history hashmap from the database/model and append it to the empty points history table to be displayed.
       function buildPointHistory() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/buildPointHistory"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildPointHistory"); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -865,7 +865,7 @@ height:90px;
       //Called when the user presses the sign out button, removes all id and email attributes from the session and redirects user to login page.
       function signOut(){
          // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/signOut"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/signOut"); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {

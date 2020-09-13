@@ -602,7 +602,7 @@ height:90px;
 
       function isUserSignedIn(){
          // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/userSignedIn"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/userSignedIn"); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -626,7 +626,7 @@ height:90px;
       //If fixtures are being played and the current date is during the simualted period of the round, team manage activity is not permitted and the user should be directed away from the manage screen.
       function isRoundRunning(){
          // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/isRoundRunning"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/isRoundRunning"); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -651,7 +651,7 @@ height:90px;
 
       function buildClubs() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/buildClubs"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildClubs"); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -674,7 +674,7 @@ height:90px;
       //This method is called before loading the user profile in order to search the database for the user's team and attach it to the user profile in the model before being loaded into the view.
       function loadTeam() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/loadTeam"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/loadTeam"); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -692,7 +692,7 @@ height:90px;
 
       function buildUser() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/buildUser"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/buildUser"); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -765,7 +765,7 @@ height:90px;
       //This function is called to swap the two players positions in the team when it is in the model.
       function swapPlayers(player_id, position){
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/swapPlayers?Id="+player_id+"&Pos="+position); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/swapPlayers?Id="+player_id+"&Pos="+position); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -789,7 +789,7 @@ height:90px;
       //This function is called if the user assigns a new captain of the team when the team is in the model.
       function setCaptain(position){
        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/setCaptain?Pos="+position); // Request type and URL+parameters
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/setCaptain?Pos="+position); // Request type and URL+parameters
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -808,7 +808,7 @@ height:90px;
       //This function is called when the user has finished managing their team and wishes to confirm their changes. It makes calls to the database to update the existing data with new values. 
        function manageTeam() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/manageTeam"); // Request type and URL+parameters
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/manageTeam"); // Request type and URL+parameters
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
@@ -828,7 +828,7 @@ height:90px;
       //Called when the user presses the sign out button, removes all id and email attributes from the session and redirects user to login page.
        function signOut(){
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/signOut"); // Request type and URL
+        var xhr = createCORSRequest('GET', "http://localhost:7777/fantasyscotland/signOut"); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
