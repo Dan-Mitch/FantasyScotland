@@ -29,8 +29,8 @@ public class GameWebPagesResource {
 	@GET
 	@Path("/")
 	/**
-	 * The selection screen for choosing whether to see past game statistics or
-	 * play a game. Hosted at 'http://localhost:7777/fantasyscotland/'
+	 * The Web page within which the user can login to FantasyScotland.
+	 * Hosted at 'http://localhost:7777/fantasyscotland/'
 	 * @return
 	 */
     public LoginScreenView getLoginScreen() {
@@ -40,7 +40,7 @@ public class GameWebPagesResource {
 	@GET
 	@Path("/register")
 	/**
-	 * The Web page within which the user can play a game of FantasyScotland.
+	 * The Web page within which the user can register to play FantasyScotland.
 	 * Hosted at 'http://localhost:7777/fantasyscotland/register'
 	 * @return
 	 */
@@ -51,7 +51,7 @@ public class GameWebPagesResource {
 	@GET
 	@Path("/newteam")
 	/**
-	 * The Web page within which the user can play a game of FantasyScotland.
+	 * The Web page within which the user can create a team for FantasyScotland.
 	 * Hosted at 'http://localhost:7777/fantasyscotland/newteam'
 	 * @return
 	 */
@@ -62,8 +62,8 @@ public class GameWebPagesResource {
 	@GET
 	@Path("/home")
 	/**
-	 * The Web page within which the user can play a game of FantasyScotland.
-	 * Hosted at 'http://localhost:7777/fantasyscotland/newteam'
+	 * The Web page within which the user can view point history, team information and upcoming fixtures.
+	 * Hosted at 'http://localhost:7777/fantasyscotland/home'
 	 * @return
 	 */
     public HomeScreenView getHomeScreen() {
@@ -73,8 +73,8 @@ public class GameWebPagesResource {
 	@GET
 	@Path("/manage")
 	/**
-	 * The Web page within which the user can play a game of FantasyScotland.
-	 * Hosted at 'http://localhost:7777/fantasyscotland/newteam'
+	 * The Web page within which the user can manage their team, including changing captain and making substitutuions.
+	 * Hosted at 'http://localhost:7777/fantasyscotland/manage'
 	 * @return
 	 */
     public ManageScreenView getManageScreen() {
@@ -84,8 +84,10 @@ public class GameWebPagesResource {
 	@GET
 	@Path("/leagues")
 	/**
-	 * The Web page within which the user can play a game of FantasyScotland.
-	 * Hosted at 'http://localhost:7777/fantasyscotland/newteam'
+	 * The Web page within which the user can view the leaderboard for the public league.
+	 * <p>
+	 * Will be developed further in the future to include Private leagues.
+	 * Hosted at 'http://localhost:7777/fantasyscotland/leagues'
 	 * @return
 	 */
     public LeagueScreenView getLeagueScreen() {
@@ -95,8 +97,8 @@ public class GameWebPagesResource {
 	@GET
 	@Path("/transfer")
 	/**
-	 * The Web page within which the user can play a game of FantasyScotland.
-	 * Hosted at 'http://localhost:7777/fantasyscotland/newteam'
+	 * The Web page within which the user can make transfers for their team and bring in new players.
+	 * Hosted at 'http://localhost:7777/fantasyscotland/transfer'
 	 * @return
 	 */
     public TransferScreenView getTransferScreen() {
@@ -106,8 +108,8 @@ public class GameWebPagesResource {
 	@GET
 	@Path("/rules")
 	/**
-	 * The Web page within which the user can play a game of FantasyScotland.
-	 * Hosted at 'http://localhost:7777/fantasyscotland/newteam'
+	 * The Web page within which the user can view the rules of FantasyScotland.
+	 * Hosted at 'http://localhost:7777/fantasyscotland/rules'
 	 * @return
 	 */
     public RulesScreenView getRulesScreen() {

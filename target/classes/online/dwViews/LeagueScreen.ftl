@@ -1,34 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- This is the view the users have when they wish to view the leaderboard of the public league. In the future functionality for creating and joining private leagues will be added.-->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Fantasy Scotland</title>
+  <title>Leagues</title>
+  <link rel="shortcut icon" href="http://www.iconj.com/ico/d/i/dibsn5mujm.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="http://www.iconj.com/ico/h/h/hh8qspkn7b.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://www.iconj.com/ico/8/g/8g9cie3f5e.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://www.iconj.com/ico/s/c/scddysfzv3.ico">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sticky-footer/">
   <link href="../assets/dist/css/bootstrap.css" rel="stylesheet">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 <style type="text/css">
-/*******************************
-font-family: 
-// Safari for OS X and iOS (San Francisco)
--apple-system,
-// Chrome < 56 for OS X (San Francisco)
-BlinkMacSystemFont,
-// Windows
-"Segoe UI",
-// Android
-"Roboto",
-// Basic web fallback
-"Helvetica Neue", Arial, sans-serif,
-// Emoji fonts
-"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" 
-
-font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-***********************************/
 html{
     font-size: 16px;
     line-height: 1.7;
@@ -37,9 +26,17 @@ html{
 pre, code{
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
+
+/*This ensures that the users browser is at the right scale to display the application */
+#my{
+zoom: 100%;
+}
+
+/* baby blue*/
 body {
   background: #8eb7de;
 }
+
 .wrapper {
   margin: 90px;
 }
@@ -64,6 +61,7 @@ body {
   overflow:scroll;
 }
 
+/* The form css is adapted from boostrap 4 and this video: https://youtu.be/Q16slwMglFI*/
 .form-signin-heading, .form-signin .warning {
   margin-bottom: 16px;
 }
@@ -79,7 +77,7 @@ body {
 .form-signin-heading{
   padding-right: 9%;
 }
-
+/*-----------------------------------------------------------------------------------------*/
 .footer{
   margin: 600 auto;
   text-align: center;
@@ -97,6 +95,7 @@ body {
   background-color: black;
 }
 
+/*CSS for modal adpated from bootstrap 4 https://getbootstrap.com/docs/4.0/components/modal/*/
 .modal{
   position:absolute;
   top: 24%;
@@ -109,6 +108,7 @@ body {
   margin-left:100px;
 }
 
+/*Leaderboard table CSS*/
 table {
     max-width: 2000px;
     max-height: 700px;
@@ -162,6 +162,9 @@ thead th{
     float: left;
 }
 
+/*--------------------------------------------------------*/
+/*Navbar CSS adapted from boostrap 4 https://getbootstrap.com/docs/4.0/components/navbar/*/
+/*Height modfication CSS apadted and modified from https://bootstrapious.com/p/how-to-change-bootstrap-navbar-height*/
 .navbar {
 min-height: 50px;
 height:90px;
@@ -187,17 +190,17 @@ height:90px;
     line-height: 100px;
   }
 }
-
-
+/*--------------------------------------------------------*/
 </style>
 </head>
 
 <body onload="initalize()">
-  
   <div class="wrapper">
+    <!--Nav bar with nested logo hosted remotely.-->
     <nav class="navbar fixed-top navbar-light" style="background-color: #8eb7de;">
         <a class="navbar-brand" id="logo" href='/fantasyscotland/home'><img src="https://i.ibb.co/yVc3vPy/Fantasy-Scotland.png" alt="Fantasy-Scotland" width="200" ></a>
         <h1 class="form-signin-heading text-center ">Leaderboard</h1>
+        <!--Button for opening menu to other views-->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -212,9 +215,9 @@ height:90px;
       </nav>
     <div class="main">
       <div class = "header">
-        <h6 class="form-signin-heading text-right" id="welcomeHeader"></h6>
+        <button type="button" class="btn btn-danger" style="float:right" onclick="signOut();">Sign Out</button><h6 class="form-signin-heading text-right" id="welcomeHeader"></h6>
       </div>
-
+      <!--Leaderboard table-->
       <div class="body">
                <table class="table-responsive-sm table table-striped table-bordered" id="leaderboard-table">
                   <thead>
@@ -224,8 +227,7 @@ height:90px;
                   <th class="th-sm" style="cursor:s-resize" onclick="sortTable(2)" scope="col">Total</th>
                   </tr>
                 </thead>
-                <tbody id="leaderboard-body"> 
-                           
+                <tbody id="leaderboard-body">       
                 </tbody>
               </table> 
       </div>
@@ -242,21 +244,11 @@ height:90px;
   <script type="text/javascript">
       // Method that is called on page load
       function initalize() {
-        isUserSignedIn();
-        // --------------------------------------------------------------------------
-        // You can call other methods you want to run when the page first loads here
-        // --------------------------------------------------------------------------
-        
-        // For example, lets call our sample methods
-        
-        
+        isUserSignedIn();//first check to see user has been authenticated and hasnt randomly landed on the page.
       }
-      
-      // -----------------------------------------
-      // Add your other Javascript methods Here
-      // -----------------------------------------
-    
-      // This is a reusable method for creating a CORS request. Do not edit this.
+       // --------------------------------------------------------------------------
+      // This is a reusable method for creating a CORS request. 
+      //This method was adapted from https://www.tutorialspoint.com/html5/html5_cors.htm 
       function createCORSRequest(method, url) {
           var xhr = new XMLHttpRequest();
           if ("withCredentials" in xhr) {
@@ -282,11 +274,10 @@ height:90px;
       }
     
     </script>
-    
-    <!-- Here are examples of how to call REST API Methods -->
+
     <script type="text/javascript">
       var user;
-      var rankings = [];
+      var rankings = []; //table rows 
 
       function isUserSignedIn(){
          // First create a CORS request, this is the message we are going to send (a get request in this case)
@@ -297,15 +288,14 @@ height:90px;
             alert("CORS not supported");
         }
 
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
+        //When the response arrives...  
         xhr.onload = function(e) {
-          if(xhr.response == "false"){
+          if(xhr.response == "false"){ //If no user is signed in and session has no id attribute
             alert("You are not logged in. Redirecting...")
-            window.location.href = '/fantasyscotland';
+            window.location.href = '/fantasyscotland'; //redirect to login page
           }
           else{
-            loadTeam().call;
+            loadTeam().call; //load team into user object
           }
           
         }
@@ -314,6 +304,7 @@ height:90px;
         xhr.send();  
       }
       
+      //This method is called before loading the user profile in order to search the database for the user's team and attach it to the user profile in the model before being loaded into the view.
       function loadTeam() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
         var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/loadTeam"); // Request type and URL
@@ -323,15 +314,15 @@ height:90px;
             alert("CORS not supported");
         }
 
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
+        //When the response arrives...  
         xhr.onload = function(e) {
-          buildUser().call;
+          buildUser().call; //Load user and team 
         }
         
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
+
 
       function buildUser() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
@@ -341,19 +332,19 @@ height:90px;
         if (!xhr) {
             alert("CORS not supported");
         }
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
+        //When the response arrives...  
         xhr.onload = function(e) {
           user = JSON.parse(xhr.response);
           var fields = user.email.split('@');
           document.getElementById("welcomeHeader").innerHTML = "Welcome " + fields[0] + "!";
-          buildRankings().call;
+          buildRankings().call; //load in rankings to append to empty table
         }
         
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
       
+      //This function is called to load in all the pre sorted leaderboard rankings of the different teams in the public league.
       function buildRankings() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
         var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/getPublicRankings"); // Request type and URL
@@ -363,8 +354,7 @@ height:90px;
             alert("CORS not supported");
         }
 
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
+        //When the response arrives...  
         xhr.onload = function(e) {
           var leaderboardtable = document.getElementById('leaderboard-table');
           var leaderboardbody = document.getElementById('leaderboard-body');
@@ -396,17 +386,39 @@ height:90px;
               leaderboardbody.appendChild(tr);
               leaderboardtable.appendChild(leaderboardbody);
           }
-          repaint().call;
+          repaint().call; //paint border round users team
         }
         
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
+      
+      //Called when the user presses the sign out button, removes all id and email attributes from the session and redirects user to login page.
+      function signOut(){
+        // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/signOut"); // Request type and URL
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
 
+        //When the response arrives...  
+        xhr.onload = function(e) {
+            window.location.href = '/fantasyscotland'; //redirect to login page
+        }
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();  
+      }
+
+      //This function highlights the user's team's ranking in the leaderboard with a thick blue border
       function repaint(){
         document.getElementById(user.team.team_id).style.border = "thick solid #33C4FF";
       }
 
+      //This function is taken from https://www.w3schools.com/howto/howto_js_sort_table.asp.
+      //It is used for sorting the modal nested table when clciking each of the column headers. It is adapted slightly to accomadate both numerical and lexicographic sorting.
       function sortTable(n) {
         var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
         table = document.getElementById("leaderboard-table");
@@ -476,16 +488,6 @@ height:90px;
           }
         }
       }
-
-      // jQuery(document).ready(function($) {
-      //     $('#table').on('click', '.clickable-row', function() {
-      //         swapPlayer($(this).attr('value'), position);
-      //         var $item = $(this).closest("tr") 
-      //                  .find(".price")     // Gets a descendent with class="price"
-      //                  .text();         // Retrieves the text within <td>
-      //         $("#selectModal").modal('hide');
-      //     });
-      // });
     </script>     
 </body>
 </html>

@@ -1,0 +1,99 @@
+CREATE TABLE CLUBS(
+	club_id		INT				NOT NULL,
+	name		VARCHAR(64)		NOT	NULL,
+	PRIMARY KEY(club_id));
+	
+CREATE TABLE FIXTURES(
+  	fixture_id 	int 			NOT NULL,
+	round		int				NOT NULL,	
+	home_club	int				NOT NULL,	
+	away_club	int				NOT NULL,
+	PRIMARY KEY(fixture_id),
+	FOREIGN KEY(home_club) REFERENCES CLUBS(club_id),
+	FOREIGN KEY(away_club) REFERENCES CLUBS(club_id));
+
+CREATE TABLE LEAGUE_MEMBERSHIP (
+  	league_id 	uuid 			NOT NULL,
+  	team_id 	uuid 			NOT NULL,
+	score		int,				
+	PRIMARY KEY(league_id, team_id),
+	FOREIGN KEY(team_id) REFERENCES TEAM_DETAILS(team_id),
+	FOREIGN KEY(league_id) REFERENCES LEAGUES(league_id));
+
+CREATE TABLE LEAGUES(
+  	league_id 	uuid 			NOT NULL,
+	name		varchar(64)		NOT NULL,	
+	owner_id	uuid, 			
+	PRIMARY KEY(league_id),
+	FOREIGN KEY(owner_id) REFERENCES users(user_id));
+
+CREATE TABLE PLAYERS(
+  	player_id 	uuid 			NOT NULL,
+	name		VARCHAR(64)		NOT NULL,
+	position	VARCHAR(64)		NOT NULL,
+	price		DECIMAL(18,4)	NOT NULL,
+	club_id		INT				NOT NULL,
+	PRIMARY KEY(player_id),
+	FOREIGN KEY(club_id) REFERENCES CLUBS(club_id));
+
+CREATE TABLE PLAYERS_WEEKLY_SCORES(
+  	player_id 	uuid 			NOT NULL,
+	round		int				NOT NULL,
+	score		int				NOT NULL,
+	PRIMARY KEY(player_id,round),
+	FOREIGN KEY(player_id) REFERENCES PLAYERS(player_id));
+
+CREATE TABLE SCORES(
+	round			int				NOT NULL,	
+	player_id		UUID			NOT	NULL,
+	goals			int,				
+	assists			int,
+	red_cards		int,
+	yellow_cards	int,
+	appearances		int,
+	clean_sheets	int,
+	concede_two		int,
+	own_goals		int,
+	fixture_id 		int 			NOT NULL,
+	PRIMARY KEY(round, player_id),
+	FOREIGN KEY(player_id) REFERENCES PLAYERS(player_id),
+	FOREIGN KEY(fixture_id) REFERENCES FIXTURES(fixture_id));
+	
+CREATE TABLE TEAM_DETAILS (
+  	team_id 	uuid 			NOT NULL,
+  	name 		VARCHAR(20) 	NOT NULL,
+  	budget		DECIMAL(18,4)	NOT	NULL,
+	captain_id	uuid			NOT NULL,
+	transfer	BOOLEAN			DEFAULT 'TRUE'	NOT NULL,		
+	PRIMARY KEY(team_id),
+	FOREIGN KEY(captain_id) REFERENCES players(player_id));
+
+CREATE TABLE TEAM_MEMBERSHIP(
+  	team_id 	uuid 			NOT NULL,
+  	player_id 	uuid 			NOT NULL,
+	round		INT				NOT NULL,
+	position	INT				NOT NULL,
+	PRIMARY KEY(team_id,player_id,round),
+	FOREIGN KEY(team_id) REFERENCES TEAM_DETAILS(team_id),
+	FOREIGN KEY(player_id) REFERENCES PLAYERS(player_id));
+	
+CREATE TABLE TEAMS (
+  	team_id 	uuid 			NOT NULL,
+  	owner_id 	uuid 			NOT NULL,
+	PRIMARY KEY(owner_id),
+	FOREIGN KEY(team_id) REFERENCES TEAM_DETAILS(team_id));
+
+CREATE TABLE TEAMS_WEEKLY_SCORES(
+  	team_id 	uuid 			NOT NULL,
+	round		int				NOT NULL,
+	score		int				NOT NULL,
+	PRIMARY KEY(team_id,round),
+	FOREIGN KEY(team_id) REFERENCES TEAM_DETAILS(team_id));
+	
+CREATE TABLE USERS (
+  	user_id 	uuid 			NOT NULL DEFAULT gen_random_uuid(),
+  	email 		VARCHAR(64) 	NOT NULL,
+  	password 	VARCHAR(64) 	NOT NULL,
+	PRIMARY KEY(user_id),
+	UNIQUE(email));
+

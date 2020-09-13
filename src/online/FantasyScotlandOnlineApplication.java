@@ -18,15 +18,14 @@ import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
 
 /**
- * Top Trumps Web Application. This class is complete, you do not need to edit
- * it, you instead need to complete FantasyScotlandRESTAPI and the HTML/Javascript
- * views.
+ * Fantasy Scotland Web Application. This class is adapted from an old Top Trumps team development project. Only the configuration files and 
+ * service setup was utilised for this project. No other code that was developed was used.
  */
 public class FantasyScotlandOnlineApplication extends Application<FantasyScotlandJSONConfiguration> {
 
 	/**
-	 * This is the main class for the Top Trumps Web application. It is called by
-	 * FantasyScotland.java when the user specifies that they want to run in online mode.
+	 * This is the main class for the Fantasy Scotland Web application. It is called by
+	 * FantasyScotland.java.
 	 * 
 	 * @param args
 	 */
@@ -44,8 +43,7 @@ public class FantasyScotlandOnlineApplication extends Application<FantasyScotlan
 	 */
 	public void run(FantasyScotlandJSONConfiguration conf, Environment environment) throws Exception {
 
-		// Enable CORS headers (see
-		// https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
+		// Enable CORS headers 
 		final FilterRegistration.Dynamic cors = environment.servlets().addFilter("CORS", CrossOriginFilter.class);
 
 		// Configure CORS parameters
@@ -61,7 +59,7 @@ public class FantasyScotlandOnlineApplication extends Application<FantasyScotlan
 		// these, the REST api and the HTML/Javascript Webpages
 
 		// REST API
-		FantasyScotlandRESTAPI restAPI = new FantasyScotlandRESTAPI(conf);
+		FantasyScotlandRESTAPI restAPI = new FantasyScotlandRESTAPI();
 
 		// HTML/Javascript Webpages
 		GameWebPagesResource gameScreen = new GameWebPagesResource();

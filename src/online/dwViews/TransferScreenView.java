@@ -7,12 +7,7 @@ import io.dropwizard.views.View;
  * View, which is Dropwizard's internal representation of the page. This then points to a
  * separate file found in the resource directory that contains the actual HTML/Javascript.
  * 
- * The HTML/Javascript page for this View can be found in resources/dwViews/GameScreen.ftl
- * 
- * You do not need to edit this class. You will need to complete GameScreen.ftl.
- * 
- * Note: The HTML/Javascript file is actially a freemarker file (https://freemarker.apache.org/),
- * however we do not expect you to use the additional functionality that freemarker provides.
+ * Note: The HTML/Javascript file is actually a freemarker file.
  */
 public class TransferScreenView extends View {
 

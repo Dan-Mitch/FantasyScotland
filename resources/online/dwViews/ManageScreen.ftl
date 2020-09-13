@@ -1,45 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- This is the view the users have when they wish to manage their existing team by making substitutions or reassigning the captain of the team.-->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Fantasy Scotland</title>
+  <title>Manage</title>
+  <link rel="shortcut icon" href="http://www.iconj.com/ico/d/i/dibsn5mujm.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="http://www.iconj.com/ico/h/h/hh8qspkn7b.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://www.iconj.com/ico/8/g/8g9cie3f5e.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://www.iconj.com/ico/s/c/scddysfzv3.ico">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sticky-footer/">
   <link href="../assets/dist/css/bootstrap.css" rel="stylesheet">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 <style type="text/css">
-/*******************************
-font-family: 
-// Safari for OS X and iOS (San Francisco)
--apple-system,
-// Chrome < 56 for OS X (San Francisco)
-BlinkMacSystemFont,
-// Windows
-"Segoe UI",
-// Android
-"Roboto",
-// Basic web fallback
-"Helvetica Neue", Arial, sans-serif,
-// Emoji fonts
-"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" 
-
-font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-***********************************/
 html{
     font-size: 16px;
     line-height: 1.7;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial,  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" ;
 }
+
 pre, code{
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
+
+/*This ensures that the users browser is at the right scale to display the application */
+#my{
+zoom: 100%;
+}
+
+/* baby blue*/
 body {
   background: #8eb7de;
 }
+
 .wrapper {
   margin: 90px;
 }
@@ -61,6 +59,8 @@ body {
   max-height: 1000px;
   width:100%;
 }
+
+/* The form css is adapted from boostrap 4 and this video: https://youtu.be/Q16slwMglFI*/
 .form-signin-heading, .form-signin .warning {
   margin-bottom: 16px;
 }
@@ -76,7 +76,7 @@ body {
 .form-signin-heading{
   padding-right: 9%;
 }
-
+/*-----------------------------------------------------------------------------------------*/
 .footer{
   margin: 600 auto;
   text-align: center;
@@ -90,6 +90,7 @@ body {
   left: 0px;
 }
 
+/*The football pitch graphic with the button and text overlays*/
 .football {
   position:relative;
   width: auto;
@@ -106,7 +107,7 @@ body {
   height: auto;
 }
 
-/* Style the button and place it in the middle of the container/image */
+/* Buttons representing players positions in a 4-4-2 formation with 4 subs */
 .football .btn {
   position:fixed;
   background-color: white;
@@ -125,6 +126,7 @@ body {
   background-color: black;
 }
 
+/*Football image from https://www.vecteezy.com/vector-art/234128-soccer-field-background*/
 .image{
   width: 100%;
   text-align: center;
@@ -136,6 +138,7 @@ body {
   background-color: #6b9c58;
 }
 
+/* Positional CSS for the 15 player buttons, price badges and name text. All positioned absolutely on the football pitch graphic */
 .one{
   position: absolute;
   top: 38.5%;
@@ -256,6 +259,9 @@ body {
   max-width:110px;
   text-align: center;
 }
+/*---------------------------------------------------------------------------------------------*/
+
+/*CSS for modal adpated from bootstrap 4 https://getbootstrap.com/docs/4.0/components/modal/*/
 .modal{
   position:absolute;
   top: 24%;
@@ -267,6 +273,8 @@ body {
     margin-top:100px;
     margin-left:100px;
 }
+
+/*Nested table for selecting players, nested inside modal*/
 table {
     width: 100%;
 }
@@ -291,12 +299,20 @@ thead {
   width: 450px;
     /* fallback */
 }
-tbody td, thead th {
+
+thead th {
+    width: 32.0%;
+    height: 60px;
+    float: left;
+}
+tbody td {
     width: 33.2%;
     height: 60px;
     float: left;
 }
-
+/*--------------------------------------------------------*/
+/*Navbar CSS adapted from boostrap 4 https://getbootstrap.com/docs/4.0/components/navbar/*/
+/*Height modfication CSS apadted and modified from https://bootstrapious.com/p/how-to-change-bootstrap-navbar-height*/
 .navbar {
 min-height: 50px;
 height:90px;
@@ -322,17 +338,18 @@ height:90px;
     line-height: 100px;
   }
 }
-
-
+/*--------------------------------------------------------*/
 </style>
 </head>
 
 <body onload="initalize()">
   
   <div class="wrapper">
+    <!--Nav bar with nested logo hosted remotely.-->
     <nav class="navbar fixed-top navbar-light" style="background-color: #8eb7de;">
         <a class="navbar-brand" id="logo" href='/fantasyscotland/home'><img src="https://i.ibb.co/yVc3vPy/Fantasy-Scotland.png" alt="Fantasy-Scotland" width="200" ></a>
         <h1 class="form-signin-heading text-center ">Manage Team</h1>
+        <!--Button for opening menu to other views-->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -354,12 +371,15 @@ height:90px;
          <div class = "header">
         <h4 class="text-center">Please manage your team before the next round.</h4>
       </div>
+       <!--Success text indicates that there was no problem with adding or removing a player to the team-->
       <div class="alert alert-success text-center" id="successText" style="display:none;vertical-align: top">
          Sucess text
       </div>
+      <!--Error text indicates that there was a problem with adding or removing a player to the team, stuff like duplicate player, more than 3 players from same club...-->
       <div class="alert alert-danger text-center" id="errorText" style="display:none;vertical-align: top">
          Danger text
       </div>
+      <!--Buttons for removing changes and continuing once the team has been modified-->
       <div class="col-md-12 text-center">
         <div class = "btn-group" >
         <button type="button" class="btn btn-danger" id="removeTransfer" onclick="removeChanges()" style="display:none">Remove Changes</button>
@@ -367,8 +387,8 @@ height:90px;
         </div>
       </div>
       
+      <!--This div holds the football image and all the overlayed player buttons. When each player button is pressed, depending on the button that is pressed, a different array for each of the player categories is appended to the modal table.-->
       <div class="football">
-        
           <p class="image"><img src="https://i.ibb.co/s9ddGFt/Background-illustration-of-a-soccer-field.jpg" alt="Fantasy-Scotland" class="image" ></p>
           <div class="side-line text-center">
             <h1 class = "text-center">SIDE LINE SIDE LINE SIDE LINE SIDE</h1>
@@ -461,8 +481,8 @@ height:90px;
     </div>
   </div>
 
+  <!--Primary Modal with nested table for selecting players.-->
   <div class="modal hide" id="selectModal" tabindex="2" role="dialog" aria-labelledby="selectModalLabel" aria-hidden="true">
-
       <div class="modal-header">
         <h3 id="selectModalLabel">Select Player</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -471,6 +491,7 @@ height:90px;
       </div>
 
       <div class="modal-body">
+        <!--Nested table.-->
         <table id="table" class="table table-bordered table-hover table-sm " cellspacing="0" width="100%">
           <thead>
             <tr>
@@ -480,13 +501,10 @@ height:90px;
                 </th>
                 <th class="th-sm" style="cursor:s-resize" onclick="sortTable(2)">Cost(&pound mill)
                 </th>
-      
             </tr>
           </thead>
+          <!--Table body is empty and is appended with an array when the users clicks on of the 15 buttons.-->
           <tbody id="table-body">
-            <tr class='clickable-row' style="cursor:pointer" value="111111111">
-                <td class="name">Default Default</td> <td class="club">Default</td> <td class="price">0.0</td>
-            </tr>
           </tbody>
       </table>
       </div>
@@ -496,8 +514,8 @@ height:90px;
     </div>
   </div>
 
+  <!--A secondary modal that displays two buttons for either subbing a player or assigning them as captain.-->
   <div class="modal hide" id="menuModal" tabindex="1" role="dialog" aria-labelledby="menuModalLabel" aria-hidden="true">
-
       <div class="modal-header">
         <h3 id="menuModalLabel">Please select an option.</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -509,13 +527,10 @@ height:90px;
         <button type="button" class="btn btn-primary mb-2" onclick="setCaptain(position)" data-dismiss="modal">Make Captain</button>
         <button type="button" style="float: right;" data-target="#selectModal" data-toggle="modal" class="btn btn-success" id="subButton">Sub Player</button>
       </div>
-
-      
   </div>
 
-
+  <!--A secondary modal for confirming all changes to the team.-->
   <div class="modal hide" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
-
       <div class="modal-header">
         <h3 id="confirmModalLabel">Confirm Changes.</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -536,21 +551,11 @@ height:90px;
   <script type="text/javascript">
       // Method that is called on page load
       function initalize() {
-        isUserSignedIn();
-        // --------------------------------------------------------------------------
-        // You can call other methods you want to run when the page first loads here
-        // --------------------------------------------------------------------------
-        
-        // For example, lets call our sample methods
-        
-        
+        isUserSignedIn();//first check to see user has been authenticated and hasnt randomly landed on the page.
       }
-      
-      // -----------------------------------------
-      // Add your other Javascript methods Here
-      // -----------------------------------------
-    
-      // This is a reusable method for creating a CORS request. Do not edit this.
+      // --------------------------------------------------------------------------
+      // This is a reusable method for creating a CORS request. 
+      //This method was adapted from https://www.tutorialspoint.com/html5/html5_cors.htm
       function createCORSRequest(method, url) {
           var xhr = new XMLHttpRequest();
           if ("withCredentials" in xhr) {
@@ -576,10 +581,9 @@ height:90px;
       }
     
     </script>
-    
-    <!-- Here are examples of how to call REST API Methods -->
+
     <script type="text/javascript">
-      var players = [
+      var players = [ //differnt nested arrays for each of the player categories 
           goalkeepers = [],
           goalkeepersSub = [],
           defenders = [],
@@ -590,11 +594,11 @@ height:90px;
           forwardsSub = [],
       ];
       var user;
-      var clubs = [];
-      var position;
-      var clubLimit = false;
+      var clubs = []; //array to hold all the clubs
+      var position; //position variable holds the value of the position the player has just pressed the button for
+      var clubLimit = false; //default false as team already validated
       var dupPlayer = false;
-      var changes = 0;
+      var changes = 0; //varaible to hold the number of changes made by the user
 
       function isUserSignedIn(){
          // First create a CORS request, this is the message we are going to send (a get request in this case)
@@ -605,23 +609,21 @@ height:90px;
             alert("CORS not supported");
         }
 
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
+        //When the response arrives... 
         xhr.onload = function(e) {
-          if(xhr.response == "false"){
+          if(xhr.response == "false"){ //If no user is signed in and session has no id attribute
             alert("You are not logged in. Redirecting...")
-            window.location.href = '/fantasyscotland';
+            window.location.href = '/fantasyscotland'; //redirect to login page
           }
           else{
-            isRoundRunning().call;
+            isRoundRunning().call; //if user is logged in, check if round is currently in play
           }
-          
         }
-        
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();  
       }
 
+      //If fixtures are being played and the current date is during the simualted period of the round, team manage activity is not permitted and the user should be directed away from the manage screen.
       function isRoundRunning(){
          // First create a CORS request, this is the message we are going to send (a get request in this case)
         var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/isRoundRunning"); // Request type and URL
@@ -631,15 +633,14 @@ height:90px;
             alert("CORS not supported");
         }
 
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
+        //When the response arrives...   
         xhr.onload = function(e) {
-          if(xhr.response == "true"){
+          if(xhr.response == "true"){ //If round is running
             alert("Round is currently in progress, you cant make transfers. Redirecting...")
-            window.location.href = '/fantasyscotland/home';
+            window.location.href = '/fantasyscotland/home';  //redirect user to home page
           }
           else{
-             buildClubs().call;
+             buildClubs().call; //load the clubs
           }
           
         }
@@ -648,81 +649,71 @@ height:90px;
         xhr.send();  
       }
 
-      function swapPlayers(player_id, position){
+      function buildClubs() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/swapPlayers?Id="+player_id+"&Pos="+position); // Request type and URL
+        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/buildClubs"); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
             alert("CORS not supported");
         }
-
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          var responseText = xhr.response.replace(/['"]+/g, '');
-          changes++;
-          document.getElementById("successText").innerHTML = responseText;
-          document.getElementById("successText").style.display = "block";
-          buildUser().call;
-        }
         
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();  
-      }
-
-       function manageTeam() {
-        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/manageTeam"); // Request type and URL+parameters
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
+        //When the response arrives... 
         xhr.onload = function(e) {
-          window.location.href = '/fantasyscotland/home';
-         // return false;
-        };
+          var response = JSON.parse(xhr.response); // the text of the response
+          for(var i = 0; i < response.length; i++){
+            clubs.push(response[i]);
+          }
+          loadTeam().call;
+        }
         
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
 
-      function loadTable(array) {
-          var table = document.getElementById('table-body');
-        table.innerHTML = "";
-          for(var i = 0; i < array.length; i++) {
-              // Create the list item:
-              var tr = document.createElement('tr');
-              tr.setAttribute('value', array[i].player_id);
-              tr.setAttribute('class', "clickable-row");
-              tr.setAttribute('style', "cursor:pointer");
-              var name = document.createElement('td');
-              name.setAttribute('class', "name");
-              var nText = document.createTextNode(array[i].name);
-              name.appendChild(nText);
-              var club = document.createElement('td');
-              club.setAttribute('class', "club");
-              var cText = document.createTextNode(convertClub(array[i].club_id));
-              club.appendChild(cText);
-              var price = document.createElement('td');
-              price.setAttribute('class', "price");
-              var pText = document.createTextNode(array[i].price);
-              price.appendChild(pText);
-              tr.appendChild(name);
-              tr.appendChild(club);
-              tr.appendChild(price);
-              // Add it to the list:
-              table.appendChild(tr);
-          }
-           // Finally, return the constructed list:
-          return list;
+      //This method is called before loading the user profile in order to search the database for the user's team and attach it to the user profile in the model before being loaded into the view.
+      function loadTeam() {
+        // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/loadTeam"); // Request type and URL
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+
+        //When the response arrives... 
+        xhr.onload = function(e) {
+          buildUser().call; //load in user profile and team
+        }
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();   
       }
-      
+
+      function buildUser() {
+        // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/buildUser"); // Request type and URL
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+        
+        //When the response arrives... 
+        xhr.onload = function(e) {
+          user = JSON.parse(xhr.response);
+          var fields = user.email.split('@');
+          document.getElementById("welcomeHeader").innerHTML = "Welcome " + fields[0] + "!";
+          buildSquad().call; //load existing players in squad into nested arrays
+        }
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();   
+      }
+
+      //This function loads the existing 15 players into 8 nested arrays. When the substitutes buttons are clicked, the table is appended with the players on the field that they can swap with, if a player on the field is selected it will only show the one player on the bench that can be swapped with, hence the additional arrays.
       function buildSquad() {
-           players = [
+           players = [ //Empty the arrays
             goalkeepers = [],
             goalkeepersSub = [],
             defenders = [],
@@ -732,7 +723,8 @@ height:90px;
             forwards = [],
             forwardsSub = [],
             ];
-          var length = Object.keys(user.team.squad).length;
+
+          var length = Object.keys(user.team.squad).length; //for each player in the squad
           for(var i = 1; i <= length; i++){
             if(i == 1){
               var obj = user.team.squad[i]
@@ -767,28 +759,34 @@ height:90px;
               players[7].push(obj);
             }
           }
-          repaint().call;
+          repaint().call; //refresh view
       }
 
-      function loadTeam() {
+      //This function is called to swap the two players positions in the team when it is in the model.
+      function swapPlayers(player_id, position){
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/loadTeam"); // Request type and URL
+        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/swapPlayers?Id="+player_id+"&Pos="+position); // Request type and URL
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
             alert("CORS not supported");
         }
 
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
+        
+        //When the response arrives... 
         xhr.onload = function(e) {
-          buildUser().call;
+          var responseText = xhr.response.replace(/['"]+/g, '');
+          changes++; //increment changes for buttons to display
+          document.getElementById("successText").innerHTML = responseText; //show returned message
+          document.getElementById("successText").style.display = "block";
+          buildUser().call; //load user and new team
         }
         
         // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();   
+        xhr.send();  
       }
 
+      //This function is called if the user assigns a new captain of the team when the team is in the model.
       function setCaptain(position){
        // First create a CORS request, this is the message we are going to send (a get request in this case)
         var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/setCaptain?Pos="+position); // Request type and URL+parameters
@@ -797,63 +795,69 @@ height:90px;
         if (!xhr) {
             alert("CORS not supported");
         }
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
+        
+        //When the response arrives... 
         xhr.onload = function(e) {
           changes++;
-          buildUser().call;
+          buildUser().call; //load user and team again
         };
-        
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();    
       }
 
-      function buildUser() {
+      //This function is called when the user has finished managing their team and wishes to confirm their changes. It makes calls to the database to update the existing data with new values. 
+       function manageTeam() {
         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/buildUser"); // Request type and URL
+        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/manageTeam"); // Request type and URL+parameters
         
         // Message is not sent yet, but we can check that the browser supports CORS
         if (!xhr) {
             alert("CORS not supported");
         }
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
+
+        //When the response arrives... 
         xhr.onload = function(e) {
-          user = JSON.parse(xhr.response);
-          var fields = user.email.split('@');
-          document.getElementById("welcomeHeader").innerHTML = "Welcome " + fields[0] + "!";
-          buildSquad().call;
-        }
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();   
-      }
-      
-      function buildClubs() {
-        // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/buildClubs"); // Request type and URL
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-          var response = JSON.parse(xhr.response); // the text of the response
-          for(var i = 0; i < response.length; i++){
-            clubs.push(response[i]);
-          }
-          loadTeam().call;
-        }
+          window.location.href = '/fantasyscotland/home'; //redirect user to home page
+         // return false;
+        };
         
         // We have done everything we need to prepare the CORS request, so send it
         xhr.send();   
       }
 
+      //Called when the user presses the sign out button, removes all id and email attributes from the session and redirects user to login page.
+       function signOut(){
+        // First create a CORS request, this is the message we are going to send (a get request in this case)
+        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/signOut"); // Request type and URL
+        
+        // Message is not sent yet, but we can check that the browser supports CORS
+        if (!xhr) {
+            alert("CORS not supported");
+        }
+
+        //When the response arrives... 
+        xhr.onload = function(e) {
+            window.location.href = '/fantasyscotland'; //redirect to login page
+        }
+        
+        // We have done everything we need to prepare the CORS request, so send it
+        xhr.send();  
+      }
+
+      //-------------------Local functions---------------------------------
+
+      //Resets all the changes made by the user and reloads unmodified team object from database.
+      function removeChanges(){
+        changes = 0;
+        document.getElementById("errorText").style.display = "none";
+        document.getElementById("successText").style.display = "none";
+        loadTeam().call;
+      }
+
+      //This function is called after new team data is loaded from the model. It refreshes the transfer budget, displays and blocks buttons, paints buttons and applies name and cost to positions that have been filled.
       function repaint(){
-        if(changes >= "1"){
-          document.getElementById("continue").style.display = "block";
+        if(changes >= "1"){ //if user has made a changes 
+          document.getElementById("continue").style.display = "block"; //show buttons to continue and remove changes
           document.getElementById("removeTransfer").style.display = "block";
         }
         else{
@@ -861,12 +865,15 @@ height:90px;
           document.getElementById("continue").style.display = "none";
         } 
 
+        //set all buttons to default state
         for(var x = 1;x<=15;x++){
           var button = document.getElementById("button"+x);
           button.style.background = "rgb(255,255,255)";
           document.getElementById("button"+x+"Text").firstChild.nodeValue = "";
           document.getElementById("button"+x+"Badge").innerHTML = 0;
         }  
+
+        //paint buttons the colour of the players club using helper method, add players names and cost.
         for(var i in user.team.squad){
           var button = document.getElementById("button"+i);
           button.style.background = buttonPainter(user.team.squad[i].club_id);
@@ -881,77 +888,95 @@ height:90px;
           document.getElementById("button"+i+"Badge").innerHTML = user.team.squad[i].price;
         }
       }
-      
-      function signOut(){
-         // First create a CORS request, this is the message we are going to send (a get request in this case)
-        var xhr = createCORSRequest('GET', "https://stark-wave-35947.herokuapp.com/fantasyscotland/signOut"); // Request type and URL
-        
-        // Message is not sent yet, but we can check that the browser supports CORS
-        if (!xhr) {
-            alert("CORS not supported");
-        }
 
-        // CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-        // to do when the response arrives 
-        xhr.onload = function(e) {
-            window.location.href = '/fantasyscotland';
-        }
-        
-        // We have done everything we need to prepare the CORS request, so send it
-        xhr.send();  
+      //This function is called to appdend the nested table in the modal with a given array. It is adapted from https://stackoverflow.com/q/51421470
+      function loadTable(array) {
+          var table = document.getElementById('table-body');
+        table.innerHTML = "";
+          for(var i = 0; i < array.length; i++) {
+              // Create the list item:
+              var tr = document.createElement('tr');
+              tr.setAttribute('value', array[i].player_id);
+              tr.setAttribute('class', "clickable-row");
+              tr.setAttribute('style', "cursor:pointer");
+              var name = document.createElement('td');
+              name.setAttribute('class', "name");
+              var nText = document.createTextNode(array[i].name);
+              name.appendChild(nText);
+              var club = document.createElement('td');
+              club.setAttribute('class', "club");
+              var cText = document.createTextNode(convertClub(array[i].club_id));
+              club.appendChild(cText);
+              var price = document.createElement('td');
+              price.setAttribute('class', "price");
+              var pText = document.createTextNode(array[i].price);
+              price.appendChild(pText);
+              tr.appendChild(name);
+              tr.appendChild(club);
+              tr.appendChild(price);
+              // Add it to the list:
+              table.appendChild(tr);
+          }
+           // Finally, return the constructed list:
+          return list;
       }
 
-      function removeChanges(){
-        changes = 0;
-        document.getElementById("errorText").style.display = "none";
-        document.getElementById("successText").style.display = "none";
-        loadTeam().call;
-      }
-
-
-       function buttonPainter(club){
-        if(club === 45){
+      //This function uses the real patterns and hex colours of each of the clubs to return to the repaint method when refreshing the view.
+      function buttonPainter(club){
+        if(club === 45){ //Aberdeen
           return "rgb(226,0,26)";
         }
-        else if(club === 54){
+        else if(club === 54){ //Celtic
           return "linear-gradient(to bottom, rgb(1,135,73) 50%, white 50%)";
         }
-        else if(club === 228){
+        else if(club === 228){ //Hamilton Accies
           return "linear-gradient(to bottom, rgb(204,56,63) 50%, white 50%)";
         }
-        else if(club === 50){
+        else if(club === 50){ //Hearts 
           return "rgb(159,25,49)";
         }
-        else if(club === 53){
+        else if(club === 53){ //Hibs
           return "rgb(0,117,59)";
         }
-        else if(club === 52){
+        else if(club === 52){ //Kilmarnock
           return "linear-gradient(to right, rgb(47,54,143) 50%, white 50%)";
         }
-        else if(club === 560){
+        else if(club === 560){ //Livingston
           return "rgb(255,204,0)";
         }
-        else if(club === 47){
+        else if(club === 47){ //Motherwell
           return "linear-gradient(to bottom, rgb(251,186,45) 50%, rgb(122,20,63)  50%)";
         }
-        else if(club === 49){
+        else if(club === 49){ //Rangers
           return "rgb(27,69,143)";
         }
-        else if(club === 360){
+        else if(club === 360){ //Ross County
           return "linear-gradient(to bottom, rgb(4,9,87) 50%, rgb(244,19,43)  50%)";
         }
-        else if(club === 46){
+        else if(club === 46){ //St Johnstone
           return "linear-gradient(to bottom, rgb(36,63,144) 50%, white  50%)";
         }
-        else if(club === 56){
+        else if(club === 56){ //St Mirren
           return "linear-gradient(to right, black 50%, white 50%)";
         }
       }
 
+      //Sets the position the user has just selected
       function setPosition(pos){
         position = pos; 
       }
 
+      //Converts the club id of a player into the club name, this is why the clubs are loaded in at the beginning. The club name is displayed in the nested table.
+       function convertClub(id){
+      for(var i = 0; i < clubs.length; i++){
+        if(clubs[i].club_id === id){
+          return clubs[i].name;
+        }
+      }
+    }
+
+    //This function is taken from https://www.w3schools.com/howto/howto_js_sort_table.asp.
+      //It is used for sorting the modal nested table when clciking each of the column headers. It is adapted slightly to accomadate both numerical and lexicographic sorting.
       function sortTable(n) {
         var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
         table = document.getElementById("table");
@@ -1006,15 +1031,9 @@ height:90px;
           }
         }
       }
+       //---------------------------------------------------------------------------------
 
-       function convertClub(id){
-      for(var i = 0; i < clubs.length; i++){
-        if(clubs[i].club_id === id){
-          return clubs[i].name;
-        }
-      }
-    }
-
+     //jQuery for clicakble table rows that can run functions was adapted and modified from https://stackoverflow.com/a/17147973
       jQuery(document).ready(function($) {
           $('#table').on('click', '.clickable-row', function() {
               swapPlayers($(this).attr('value'), position);
@@ -1026,14 +1045,13 @@ height:90px;
           });
       });
 
+      //jQuery for stacking modals correctly ontop of each other adapted from https://stackoverflow.com/a/37759328
       $(document).ready(function () {
-
     $('#openBtn').click(function () {
         $('#myModal').modal({
             show: true
         })
     });
-
     $(document).on('show.bs.modal', '.modal', function (event) {
         var zIndex = 1040 + (10 * $('.modal:visible').length);
         $(this).css('z-index', zIndex);
@@ -1042,6 +1060,7 @@ height:90px;
         }, 0);
     });
 
+    //jQuery for reseting the scroll position to the top every time the modal is opened
     $('#selectModal').on('shown.bs.modal', function (e) {
     $('#table-body').scrollTop(0);
       });
