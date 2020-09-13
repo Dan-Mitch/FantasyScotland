@@ -7,3 +7,13 @@ HEROKU DEPLOYED APPLICATION FOUND HERE
 ------------------------------------------------------
 https://stark-wave-35947.herokuapp.com/fantasyscotland
 ------------------------------------------------------
+
+RUN INSTRUCTIONS
+------------------------------------------------------
+1.Run from Command prompt using java -jar FantasyScotland-1.0.jar
+2.Open eclipse IDE and run the FantasyScotland.java file.
+------------------------------------------------------
+
+PLEASE BE WARY OF ERRORS RELATED TO THE XML SOCCER SERVICE.
+IT IS CURRENTLY BEING UPGRADED AFTER BEING TAKEN OVER BY A NEW TEAM.
+SMALL REQUEST (FORBIDDEN 403) BUGS MAY BE EXPERIENCED AS SERVICE TRANSITIONS.
